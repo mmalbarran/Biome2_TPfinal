@@ -1,6 +1,4 @@
 # LIBRARIES ####################################################################
-#celina escribio una linea de prueba
-#OTRA PRUEBA
 library(dplyr)
 library(psych)
 library(ggplot2)
@@ -15,7 +13,6 @@ library(emmeans)
 
 # IMPORTO DATOS ################################################################
 
-datos <- read.csv("EPM Tam +Mili.csv", header = T, sep=",", dec=",", stringsAsFactors = T)
 datos <- read.csv("EPM Tam +Mili.csv", header = T, sep=";", dec=",", stringsAsFactors = T)
 
 datos
