@@ -11,6 +11,8 @@ library(betareg)
 library(DHARMa)
 library(emmeans)
 
+#Holaaaa
+
 # IMPORTO DATOS ################################################################
 
 datos <- read.csv("EPM Tam +Mili.csv", header = T, sep=";", dec=",", stringsAsFactors = T)
