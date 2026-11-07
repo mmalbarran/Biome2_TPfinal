@@ -12,7 +12,7 @@ library(betareg)
 library(DHARMa)
 library(emmeans)
 
-#Holaaaa
+#Holaaaa, Naza 
 
 # IMPORTO DATOS ################################################################
 
