@@ -6,18 +6,12 @@ library(psych)
 library(ggplot2)
 library(glmmTMB)
 library(lme4)
-library(ggplot2)
-library(lme4)
 library(lmerTest)
 library(car)
-library(dplyr)
-library(psych)
 library(patchwork)
 library(betareg)
 library(DHARMa)
 library(emmeans)
-library(glmmTMB)
-library(DHARMa)
 
 # IMPORTO DATOS ################################################################
 
