@@ -1,4 +1,5 @@
 # LIBRARIES ####################################################################
+
 library(dplyr)
 library(psych)
 library(ggplot2)
@@ -13,27 +14,29 @@ library(emmeans)
 
 # IMPORTO DATOS ################################################################
 
-datos <- read.csv("EPM Tam +Mili.csv", header = T, sep=";", dec=",", stringsAsFactors = T)
+datos <- read.csv("EPM Tam +Mili - Hoja 1.csv", header = T, sep=",", dec=",", stringsAsFactors = T)
+
+## Exploración de la base de datos =============================================
 
 datos
 str(datos)
 summary(datos)
 head(datos)
 
+## Limpieza de la base de datos ================================================
 
-datos <- read.csv("Biome 2 - NSF - Datos - Hoja 1.csv", header = TRUE, dec = ",", stringsAsFactors = TRUE) # Importo la base de datos
+
+
 datos$Brazos_abiertos_entradas <- as.integer(datos$Brazos_abiertos_entradas)
 datos$camada <- as.factor(datos$camada)
-
-summary(datos)
 
 datos.v2 <- datos %>% select(-c(marca, ID, Brazos_cerrados_entradas, Brazos_cerrados_tiempo, Brazos_abiertos_tiempo))
 summary(datos.v2)
 str(datos.v2)
 
-# ESTADÍSTICA DESCRIPTIVA ######################################################################
+# ESTADÍSTICA DESCRIPTIVA ######################################################
 
-# Tablas descriptivas ==========================================================================
+# Tablas descriptivas ==========================================================
 
 describeBy(
   Brazos_abiertos_entradas ~ FLX_SUC + SAL_CNO, 
