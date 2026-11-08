@@ -192,63 +192,6 @@ p5 <- ggplot(Datos, aes(x = FLX_SUC,
 p5
 
 
-
-summary(modelo1)
-Anova(modelo1, type = "III")
-
-sum(residuals(modelo1, type="pearson")^2)/df.residual(modelo1)
-
-sim_entradas <- simulateResiduals(fittedModel = modelo1, plot = T)
-
-plot(sim_entradas)
-testDispersion(sim_entradas)
-testZeroInflation(sim_entradas)
-
-
-modelo1 <- glmmTMB(
-  Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
-  data = datos,
-  family = poisson(link = "log")
-)
-
-summary(modelo1)
-Anova(modelo1, type = "III")
-
-sum(residuals(modelo1, type="pearson")^2)/df.residual(modelo1)
-
-sim_entradas <- simulateResiduals(fittedModel = modelo1, plot = T)
-
-plot(sim_entradas)
-testDispersion(sim_entradas)
-testZeroInflation(sim_entradas)
-plotResiduals(sim_entradas, form = )
-
-efectos_camadas <- ranef(modelo1)$camada[, "(Intercept)"]
-
-qqPlot(
-  efectos_camadas,
-  main = "QQ Plot de efectos aleatorios de las camadas",
-  ylab = "Efectos aleatorios estimados"
-)
-
-
-# Supuestos efectos aleatorios
-
-efectos_camadas <- ranef(modelo1)$cond$camada[, "(Intercept)"]
-str(ranef(modelo1))
-efectos_camadas <- ranef(modelo1)$cond$camada[, "(Intercept)"]
-
-qqnorm(efectos_camadas, main = "QQ plot de efectos aleatorios de camada",
-       ylab = "Efectos aleatorios estimados")
-qqline(efectos_camadas)
-qqPlot(
-  efectos_camadas,
-  main = "QQ Plot de efectos aleatorios de las camadas",
-  ylab = "Efectos aleatorios estimados"
-)
-shapiro.test(efectos_camadas)
-
-
 # AJUSTE DEL MODELO ############################################################
 
 ## Modelo 1: Poisson ===========================================================
