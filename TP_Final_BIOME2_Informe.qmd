@@ -43,15 +43,15 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
 #### Diccionario de variables
 
-- **sexo:** sexo del ratón (hembra; macho); factor.
+- **sexo:** sexo del ratón (hembra; macho); *factor*.
 
-- **camada:** n° que identifica la camada de origen de cada ratón; factor.
+- **camada:** n° que identifica la camada de origen de cada ratón; *factor*.
 
-- **tratamiento:** tratamiento recibido por toda la camada (SUC SAL; SUC CNO; FLX SAL; FLX CNO); factor.
+- **tratamiento:** tratamiento recibido por toda la camada (SUC SAL; SUC CNO; FLX SAL; FLX CNO); *factor*.
 
-- **ID:** código que identifica a cada ratón individual; factor.
+- **ID:** código que identifica a cada ratón individual; *factor*.
 
-- **Brazos_abiertos_entradas:** n° de entradas a brazos abiertos en 10 minutos; integer.
+- **Brazos_abiertos_entradas:** n° de entradas a brazos abiertos en 10 minutos; *integer*.
 
 #### Base de datos original
 
