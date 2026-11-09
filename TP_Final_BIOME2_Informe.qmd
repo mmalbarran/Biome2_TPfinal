@@ -1,26 +1,91 @@
 ---
-title: "G9_Biome2_2026"
+title: "Rol de la corteza prefrontal en el fenotipo tipo ansioso inducido por exposición neonatal a fluoxetina en ratones"
+subtitle: "Trabajo práctico final — Biometría II"
 format: html
 editor: visual
 ---
 
-## Quarto
+###### INTEGRANTES
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Milagros Albarrán, Carolina Banchón, Nicole Gothop, Celina Liu, Nazarena Nieva
 
-## Running Code
+## Introducción
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+En los modelos animales de neurodesarrollo, la serotonina actúa como un modulador trófico fundamental en la estructuración de los circuitos límbicos y corticales durante las etapas postnatales tempranas \[cita\]. En ratones, la ventana crítica comprendida entre los días postnatales 2 y 14 (P2–P14) se caracteriza por una elevada sensibilidad del circuito bidireccional entre la corteza prefrontal (CPF) y el núcleo dorsal del rafe (NDR) a los niveles de serotonina en la hendidura sináptica \[cita\]. Diversos estudios han demostrado que la elevación transitoria de serotonina durante este período sensible - por ejemplo, mediante la administración neonatal del inhibidor selectivo de la recaptación de serotonina fluoxetina (FLX) - altera el refinamiento de estas conexiones, traduciéndose en la adultez en una hiperactividad del NDR frente a eventos estresantes y en la consolidación de un fenotipo comportamental de tipo ansioso \[cita\].
+
+A pesar del conocimiento sobre este efecto persistente, el rol modulador específico que ejerce la actividad de la CPF durante esa ventana crítica en la impronta del circuito aún no está completamente dilucidado. Para abordar esta interrogante, este trabajo evalúa el efecto de la inhibición quimiogenética (tecnología DREADDs/CNO) de las neuronas de la CPF durante el desarrollo neonatal. Específicamente, se analiza si atenuar la actividad prefrontal durante el tratamiento con fluoxetina previene el desarrollo del fenotipo ansioso en la etapa adulta. Dicho fenotipo se evaluó mediante la prueba del Laberinto Elevado en Cruz (EPM), un modelo validar para medir ansiedad en roedores donde el número de entradas a los brazos abiertos funciona como indicador directo del nivel de ansiedad.
+
+### Objetivos
+
+Los objetivos planteados para este estudio son los siguientes:
+
+1.  Determinar el efecto de la inhibición de la Corteza Prefrontal sobre el fenotipo tipo ansioso causado por la administración de Fluoxetina.
+
+2.  Evaluar la existencia de respuestas diferenciales al tratamiento con Fluoxetina según el sexo de los individuos.
+
+### Hipótesis y predicciones
+
+Como punto de partida, sabiendo que el aumento de serotonina durante el desarrollo induce un fenotipo tipo ansioso, se hipotetiza que *el grupo tratado con Fluoxetina presenta comportamientos de tipo ansioso*, por lo que se espera que *el grupo FLX SAL presente una disminución en el número de entradas a brazos abiertos en el EPM respecto al grupo SUC SAL*.
+
+Una vez establecido el fenotipo de interés, con el objetivo de estudiar el efecto de la inhibicion de la CPF, la hipotesis principal de este estudio es que s*u inhibición previene el desarrollo de los comportamientos de tipo ansioso en los ratones adultos que fueron tratados con Fluoxetina durante su desarrollo*, por lo que se espera que *el grupo FLX CNO presenta un mayor número de entradas a brazos abiertos en el EPM respecto al grupo FLX SAL*.
+
+Por último, se contempla que hay evidencia bilbiográfica (cita) a favor de que las hembras suelen presentar mayor resiliencia ante trastornos psiquiátricos, por lo que tambien se hipotetiza que *la Fluoxetina tiene un efecto menos marcado sobre las hembras*, por lo que se espera que *las hembras del grupo FLX SAL presentarán un número significativamente mayor de entradas a brazos abiertos en el EPM que los machos del grupo FLX SAL*.
+
+## Metodología
+
+$$\begin{aligned}
+Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
+& + \beta_4 (\text{FLX} \times \text{CNO})_{ij} + \beta_5 (\text{FLX} \times \text{Macho})_{ik} + \beta_6 (\text{CNO} \times \text{Macho})_{jk} \\
+& + \beta_7 (\text{FLX} \times \text{CNO} \times \text{Macho})_{ijk} + C_l
+\end{aligned}$$
+
+Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
+
+#### Diccionario de variables
+
+- **sexo:** sexo del ratón (hembra; macho); factor.
+
+- **camada:** n° que identifica la camada de origen de cada ratón; factor.
+
+- **tratamiento:** tratamiento recibido por toda la camada (SUC SAL; SUC CNO; FLX SAL; FLX CNO); factor.
+
+- **ID:** código que identifica a cada ratón individual; factor.
+
+- **Brazos_abiertos_entradas:** n° de entradas a brazos abiertos en 10 minutos; integer.
+
+#### Base de datos original
+
+Además de las variables de interés para este análisis, la base de datos original contiene otras variables que fueron registradas durante el experimento.
 
 ```{r}
-1 + 1
+#| warning: false
+library(dplyr)
+library(psych)
+library(ggplot2)
+library(glmmTMB)
+library(lme4)
+library(lmerTest)
+library(car)
+library(patchwork)
+library(betareg)
+library(DHARMa)
+library(emmeans)
+
+datos <- read.csv("EPM Tam +Mili - Hoja 1.csv", header = T, sep=",", dec=",", stringsAsFactors = T)
+str(datos)
 ```
 
-You can add options to executable code like this
+#### Base de datos para el análisis
+
+\
+A partir de la base de datos original, se seleccionaron las variables de interés para este estudio, renombrando la base de datos utilizada para el analisis como **datos.v2**. Además, la variable **camada** se transformó de numérica a categorica (*factor*), a su vez que la variable **Brazos_abiertos_entradas** se transformó de numerica a discreta (*integer*) ya que así lo requiere el análisis.
 
 ```{r}
-#| echo: false
-2 * 2
-```
+#| warning: false
+datos$Brazos_abiertos_entradas <- as.integer(datos$Brazos_abiertos_entradas)
+datos$camada <- as.factor(datos$camada)
 
-The `echo: false` option disables the printing of code (only output is displayed).
+datos.v2 <- datos %>% select(-c(marca, ID, Brazos_cerrados_entradas, Brazos_cerrados_tiempo))
+str(datos.v2)
+
+```
