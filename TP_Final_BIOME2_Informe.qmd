@@ -15,7 +15,7 @@ En los modelos animales de neurodesarrollo, la serotonina actúa como un modulad
 
 A pesar del conocimiento sobre este efecto persistente, el rol modulador específico que ejerce la actividad de la CPF durante esa ventana crítica en la impronta del circuito aún no está completamente dilucidado. Para abordar esta interrogante, este trabajo evalúa el efecto de la inhibición quimiogenética (tecnología DREADDs/CNO) de las neuronas de la CPF durante el desarrollo neonatal. Específicamente, se analiza si atenuar la actividad prefrontal durante el tratamiento con fluoxetina previene el desarrollo del fenotipo ansioso en la etapa adulta. Dicho fenotipo se evaluó mediante la prueba del Laberinto Elevado en Cruz (EPM), un modelo validar para medir ansiedad en roedores donde el número de entradas a los brazos abiertos funciona como indicador directo del nivel de ansiedad.
 
-### Objetivos
+## Objetivos
 
 Los objetivos planteados para este estudio son los siguientes:
 
@@ -32,6 +32,8 @@ Una vez establecido el fenotipo de interés, con el objetivo de estudiar el efec
 Por último, se contempla que hay evidencia bilbiográfica (cita) a favor de que las hembras suelen presentar mayor resiliencia ante trastornos psiquiátricos, por lo que tambien se hipotetiza que *la Fluoxetina tiene un efecto menos marcado sobre las hembras*, por lo que se espera que *las hembras del grupo FLX SAL presentarán un número significativamente mayor de entradas a brazos abiertos en el EPM que los machos del grupo FLX SAL*.
 
 ## Metodología
+
+### Descripción del ensayo / muestreo
 
 $$\begin{aligned}
 Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
@@ -89,3 +91,56 @@ datos.v2 <- datos %>% select(-c(marca, ID, Brazos_cerrados_entradas, Brazos_cerr
 str(datos.v2)
 
 ```
+
+### Análisis estadístico
+
+$$\begin{aligned}
+Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
+& + \beta_4 (\text{FLX} \times \text{CNO})_{ij} + \beta_5 (\text{FLX} \times \text{Macho})_{ik} + \beta_6 (\text{CNO} \times \text{Macho})_{jk} \\
+& + \beta_7 (\text{FLX} \times \text{CNO} \times \text{Macho})_{ijk} + C_l
+\end{aligned}$$
+
+#### Planteo inicial: Modelo de Poisson
+
+Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson.
+
+$$Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \mu_{ijkl}$$
+
+```{r}
+modelo1 <- glmmTMB(
+  Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
+  data = Datos,
+  family = poisson(link = "log"))
+
+summary(modelo1)
+Anova(modelo1, type = "III")
+```
+
+Se utilizó el test de ANOVA tipo III debido a que los grupos de combinación de los factores se encuentran desbalanceados.
+
+##### Diagnóstico: sobredispersión
+
+```{r}
+residuos_m1 <- simulateResiduals(modelo1)          # Simulamos residuos con DHARMa
+
+plot(residuos_m1)
+testUniformity(residuos_m1)                        # Test uniformidad
+testDispersion(residuos_m1)                        # Test dispersión
+testZeroInflation(residuos_m1)                     # Test inflación en ceros
+plotResiduals(residuos_m1, form = fitted(modelo1)) # Residuos frente a valores ajustados
+testOutliers(residuos_m1)                          # Test Outliers
+
+sum(residuals(modelo1, type="pearson")^2)/df.residual(modelo1)
+```
+
+Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional de dispersión.
+
+#### Binomial negativa (NB2)
+
+#### Conway-Maxwell-Poisson (CMP)
+
+## Resultados
+
+## Discusión
+
+## Bibliografía
