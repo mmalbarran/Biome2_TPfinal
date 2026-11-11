@@ -109,7 +109,7 @@ $$Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{V
 ```{r}
 modelo1 <- glmmTMB(
   Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
-  data = Datos,
+  data = datos.v2,
   family = poisson(link = "log"))
 
 summary(modelo1)
