@@ -78,7 +78,7 @@ str(datos)
 #### Base de datos para el análisis
 
 \
-A partir de la base de datos original, se seleccionaron las variables de interés para este estudio, renombrando la base de datos utilizada para el analisis como **datos.v2**. Además, la variable **camada** se transformó de numérica a categorica (*factor*), a su vez que la variable **Brazos_abiertos_entradas** se transformó de numerica a discreta (*integer*) ya que así lo requiere el análisis.
+A partir de la base de datos original se seleccionaron las variables de interés para este estudio, renombrando la base de datos utilizada para el análisis como **datos.v2**. Además, la variable **camada** se transformó de numérica a categórica (*factor*), a su vez que la variable **Brazos_abiertos_entradas** se transformó de numérica a discreta (*integer*), ya que así lo requiere el análisis.
 
 ```{r}
 #| warning: false
