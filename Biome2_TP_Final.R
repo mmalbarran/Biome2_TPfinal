@@ -401,3 +401,82 @@ shapiro.test(ef_camadas_m5)       # Shapiro-Wilks test
 AIC(modelo2, modelo3, modelo4, modelo5)
 
 # Peleado entre el modelo2 y el modelo5. Preferimos el modelo2
+
+
+# RESULTADOS ###################################################################
+
+summary(modelo2)
+Anova(modelo2, type = "III")
+
+emm_options(emmeans = list(infer = c(TRUE, FALSE)),
+            contrast = list(infer = c(TRUE, TRUE)))
+
+efsimpleZona<- emmeans(m2_cmp, pairwise ~ Uso | Zona) #Tukey por default
+plot(efsimpleZona$emmeans, comparisons = TRUE)
+efsimpleZona
+
+# Escala de la variable respuesta
+efsimpleZona<- emmeans(m2_cmp, pairwise ~ Uso | Zona, type="response") #Tukey por default
+plot(efsimpleZona$emmeans, comparisons = TRUE)
+efsimpleZona
+
+
+# Medias ajustadas por combinación
+mediasxsexo <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO | sexo, type = "response")
+mediasxsexo
+
+medias <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO, type = "response")
+medias
+
+# --- CONTRASTE 1: Fenotipo Ansioso (FLX SAL vs SUC SAL) ---
+# Evaluamos si FLX_SAL disminuye las entradas respecto a SUC_SAL dentro de cada sexo o general
+c_fenotipo <- contrast(medias, method = "pairwise", combine = TRUE)
+c_fenotipo
+
+# --- CONTRASTE 2: Rescate por CNO en FLX (FLX CNO vs FLX SAL) ---
+# Evaluamos si FLX_CNO aumenta las entradas respecto a FLX_SAL
+# Se extrae directamente de las comparaciones dentro de FLX_SUC = SUC / FLX:
+emm_rescate <- emmeans(modelo2, ~ SAL_CNO | FLX_SUC * sexo, type = "response")
+contrast(emm_rescate, method = "revpairwise") # Muestra CNO / SAL
+
+# --- CONTRASTE 3: Diferencia de Sexo en FLX SAL (Hembra FLX SAL vs Macho FLX SAL) ---
+emm_sexo <- emmeans(modelo2, ~ sexo | FLX_SUC * SAL_CNO, type = "response")
+contrast(emm_sexo, method = "pairwise") # Muestra hembra / macho o viceversa
+
+
+
+
+library(emmeans)
+
+
+# 1. Obtener las medias estimadas del modelo
+emm <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo)
+emm
+# El orden interno de las 8 celdas en la grilla 'emm' (por orden alfabético de R) es:
+# 1: FLX, CNO, hembra
+# 2: SUC     CNO     hembra
+# 3: FLX     SAL     hembra 
+# 4: SUC     SAL     hembra 
+# 5: FLX     CNO     macho
+# 6: SUC     CNO     macho
+# 7: FLX     SAL     macho 
+# 8: SUC     SAL     macho
+
+hipotesis <- list(
+  # H1: FLX_SAL vs SUC_SAL (Promediando ambos sexos)
+  # Compara el promedio de [3: FLX_SAL_H, 7: FLX_SAL_M] vs [4: SUC_SAL_H, 8: SUC_SAL_M]
+  "H1: FLX_SAL vs SUC_SAL (General)"       = c(0, 0,  0.5, -0.5, 0, 0,  0.5, -0.5),
+  
+  # H2: FLX_CNO vs FLX_SAL (Promediando ambos sexos)
+  # Compara el promedio de [1: FLX_CNO_H, 5: FLX_CNO_M] vs [3: FLX_SAL_H, 7: FLX_SAL_M]
+  "H2: FLX_CNO vs FLX_SAL (General)"       = c(0.5, 0, -0.5,  0, 0.5, 0, -0.5,  0),
+  
+  # H3: Hembra FLX_SAL vs Macho FLX_SAL (Específica por sexo)
+  # Compara directamente el nivel 3 (FLX_SAL_Hembra) vs el nivel 7 (FLX_SAL_Macho)
+  "H3: Hembra vs Macho (en FLX_SAL)"       = c(0, 0,  1,    0,   0, 0, -1,    0)
+)
+
+# Ejecutar y mostrar ÚNICAMENTE estas 3 comparaciones en la escala real (Ratio de entradas)
+res_final <- contrast(emm, hipotesis, type = "response", adjust = "none")
+summary(res_final, infer = c(TRUE, TRUE))
+
