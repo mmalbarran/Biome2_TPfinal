@@ -54,6 +54,16 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
 #### Diccionario de variables
 
+| Variable         | Tipo     | Descripción                                     |
+|------------------|----------|-------------------------------------------------|
+| `exacerbaciones` | Conteo   | Número de exacerbaciones durante el seguimiento |
+| `seguimiento`    | Continua | Tiempo de observación (meses)                   |
+| `PM25`           | Continua | Concentración media de PM₂.₅ (µg/m³)            |
+| `CI`             | Binaria  | Uso de corticosteroides inhalados (Sí/No)       |
+| `severidad`      | Binaria  | Severidad del asma al inicio (Moderada/Severa)  |
+| `edad`           | Continua | Edad del participante (años)                    |
+| `tabaquismo`     | Binaria  | Tabaquismo actual (Sí/No)                       |
+
 - **sexo:** sexo del ratón (hembra; macho); *factor*.
 
 - **camada:** n° que identifica la camada de origen de cada ratón; *factor*.
