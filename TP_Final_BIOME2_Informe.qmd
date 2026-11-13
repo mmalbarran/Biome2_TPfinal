@@ -32,15 +32,17 @@ Por último, considerando la evidencia bibliográfica a favor de una mayor toler
 
 ## **Metodología**
 
+### Descripción del ensayo / muestreo
+
 Se trabajó con 111 ratones de cepa C57 provenientes de 20 camadas, a los cuales se les administró diariamente entre P1 y P14: Fluoxetina o sacarosa (vehículo) por vía oral, y CNO o solución salina vía inyección en la corteza prefrontal. Si bien la administración de los tratamientos es a nivel individual, la asignación de la combinación de tratamientos fue realizada aleatoriamente a nivel de la camada; por ende, la camada es la unidad experimental. 
 
 A cada ratón se le aplicó en edad adulta (PX) una batería de tests, entre los cuales se encuentra el Elevated Plus Maze (EPM, Laberinto elevado en cruz). La prueba del EPM evalúa el comportamiento de tipo ansioso en roedores basándose en el conflicto innato entre la motivación exploratoria y la aversión a los espacios abiertos y elevados. Un menor número de entradas a los brazos abiertos refleja la evitación del riesgo y se interpreta como un fenotipo de tipo ansioso, mientras que un incremento en las entradas indica un efecto protector o ansiolítico.
 
 Es así como el número de entradas a brazos abiertos en 10 minutos (duración del test) se definió como la variable de respuesta, donde cada ratón es la unidad observacional. Como variables explicativas fijas se incluyeron el tratamiento con Fluoxetina, el tratamiento con CNO y el sexo, las cuales están cruzadas entre sí por lo que se analizó la interacción entre ellas. Además, se incluyó a la camada como variable explicativa de efecto aleatorio porque se encuentran anidadas en la interacción de los tratamientos de Fluoxetina y CNO, y los ratones están anidados en camada.
 
-El número de entradas a los brazos abiertos en 10 minutos se analizó utilizando un Modelo Lineal Generalizado Mixto, utilizando inicialmente una distribución Poisson con función de enlace log. Debido a la presencia de sobredispersión en el modelo Poisson, se analizaron los modelos **Binomial Negativa** , **Conway-Maxwell-Poisson**, **Tweedie** y **Efectos Aleatorios a Nivel Individual (OLRE) y finalmente se utilizó una distribución Binomial Negativa.**  El análisis de los residuales se efectuó utilizando el paquete 'DHARMa' (Hartig, 2020). Se efectuó selección de modelos mediante AIC. Todos los análisis se efectuaron con R (R Development Core Team).
+### Desarrollo del análisis
 
-### Descripción del ensayo / muestreo
+El número de entradas a los brazos abiertos en 10 minutos se analizó utilizando un Modelo Lineal Generalizado Mixto, utilizando inicialmente una distribución Poisson con función de enlace log. Debido a la presencia de sobredispersión en el modelo Poisson, se analizaron los modelos **Binomial Negativa** , **Conway-Maxwell-Poisson**, **Tweedie** y **Efectos Aleatorios a Nivel Individual (OLRE) y finalmente se utilizó una distribución Binomial Negativa.**  El análisis de los residuales se efectuó utilizando el paquete 'DHARMa' (Hartig, 2020). Se efectuó selección de modelos mediante AIC. Todos los análisis se efectuaron con R (R Development Core Team).
 
 $$\begin{aligned}
 Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
@@ -50,12 +52,10 @@ Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 
 
 Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
-## **Desarrollo del análisis**
-
 #### Diccionario de variables
 
 | Variable         | Tipo     | Descripción                                     |
-|------------------|----------|-------------------------------------------------|
+|---------------|---------------|------------------------------------------|
 | `exacerbaciones` | Conteo   | Número de exacerbaciones durante el seguimiento |
 | `seguimiento`    | Continua | Tiempo de observación (meses)                   |
 | `PM25`           | Continua | Concentración media de PM₂.₅ (µg/m³)            |
