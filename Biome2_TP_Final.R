@@ -408,10 +408,37 @@ AIC(modelo2, modelo3, modelo4, modelo5)
 summary(modelo2)
 Anova(modelo2, type = "III")
 
+# ------------------------------------------------------------------------------
+# A. COMPARACIONES A PRIORI (Contrastes planificados para H1, H2 y H3)
+# ------------------------------------------------------------------------------
+# Grilla de medias marginales para las 8 celdas experimentales (escala log)
+emm_grid <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo)
+
+# Definición de contrastes basados estrictamente en las predicciones teóricas
+hipotesis <- list(
+  "H1: FLX_SAL vs SUC_SAL (Efecto Fluoxetina)"      = c(0, 0,  0.5, -0.5, 0, 0,  0.5, -0.5),
+  "H2: FLX_CNO vs FLX_SAL (Efecto Rescate CNO)"      = c(0.5, 0, -0.5,  0, 0.5, 0, -0.5,  0),
+  "H3: Hembras vs Machos en FLX_SAL (Resiliencia)"  = c(0, 0,  1,    0,   0, 0, -1,    0)
+)
+
+# Ejecución de comparaciones a priori en escala real de la VR (Ratio de conteos)
+comp_apriori <- contrast(emm_grid, hipotesis, type = "response", adjust = "none")
+summary(comp_apriori, infer = c(TRUE, TRUE))
+
+
+
+
+
+ef_todas <- emmeans(modelo2, pairwise ~ FLX_SUC * SAL_CNO | sexo,
+                    type = "response", adjust = "tukey")
+plot(ef_todas$emmeans, comparisons = TRUE)
+ef_todas
+
 emm_options(emmeans = list(infer = c(TRUE, FALSE)),
             contrast = list(infer = c(TRUE, TRUE)))
 
-efsimpleZona<- emmeans(m2_cmp, pairwise ~ Uso | Zona) #Tukey por default
+
+efsimpleZona<- emmeans(modelo2, pairwise ~  | Zona) #Tukey por default
 plot(efsimpleZona$emmeans, comparisons = TRUE)
 efsimpleZona
 
