@@ -19,17 +19,16 @@ A pesar del conocimiento sobre este efecto persistente, el rol modulador especí
 
 Los objetivos planteados para este estudio son los siguientes:
 
-1.  Determinar el efecto de la inhibición de la Corteza Prefrontal sobre el fenotipo tipo ansioso causado por la administración de Fluoxetina.
-
-2.  Evaluar la existencia de respuestas diferenciales al tratamiento con Fluoxetina según el sexo de los individuos.
+1. Determinar el efecto de la inhibición de la corteza prefrontal sobre el fenotipo tipo ansioso causado por la administración de Fluoxetina.
+2. Evaluar la existencia de respuestas diferenciales al tratamiento con Fluoxetina según el sexo de los individuos.
 
 ### **Hipótesis y predicciones**
 
-Como punto de partida, sabiendo que el aumento de serotonina durante el desarrollo induce un fenotipo tipo ansioso, se hipotetiza que *el grupo tratado con Fluoxetina presenta comportamientos de tipo ansioso*, por lo que se espera que *el grupo FLX SAL presente una disminución en el número de entradas a brazos abiertos en el EPM respecto al grupo SUC SAL*.
+Como punto de partida, sabiendo que el aumento de serotonina durante el desarrollo altera la maduración de los circuitos límbicos, se hipotetiza que **el exceso neonatal de serotonina induce la consolidación de un fenotipo de tipo ansioso en la adultez**; por lo que se espera que *el grupo FLX SAL presente una disminución en el número de entradas a brazos abiertos en el EPM respecto al grupo SUC SAL*.
 
-Una vez establecido el fenotipo de interés, con el objetivo de estudiar el efecto de la inhibicion de la CPF, la hipotesis principal de este estudio es que s*u inhibición previene el desarrollo de los comportamientos de tipo ansioso en los ratones adultos que fueron tratados con Fluoxetina durante su desarrollo*, por lo que se espera que *el grupo FLX CNO presenta un mayor número de entradas a brazos abiertos en el EPM respecto al grupo FLX SAL*.
+Una vez establecido el fenotipo de interés, y con el objetivo de estudiar el rol modulador de la CPF, la hipótesis principal de este estudio es que **la inhibición de la corteza prefrontal durante la ventana perinatal previene el desarrollo de comportamientos de tipo ansioso en la etapa adulta**; por lo que se espera que *el grupo FLX CNO presente un mayor número de entradas a brazos abiertos en el EPM respecto al grupo FLX SAL*.
 
-Por último, se contempla que hay evidencia bilbiográfica (cita) a favor de que las hembras suelen presentar mayor resiliencia ante trastornos psiquiátricos, por lo que tambien se hipotetiza que *la Fluoxetina tiene un efecto menos marcado sobre las hembras*, por lo que se espera que *las hembras del grupo FLX SAL presentarán un número significativamente mayor de entradas a brazos abiertos en el EPM que los machos del grupo FLX SAL*.
+Por último, considerando la evidencia bibliográfica a favor de una mayor tolerancia femenina ante perturbaciones neurodesarrollamentales, se hipotetiza que **las hembras presentan una mayor resiliencia neurobiológica frente a los efectos ansiógenos de la fluoxetina temprana**; por lo que se espera que *las hembras del grupo FLX SAL presenten un número significativamente mayor de entradas a brazos abiertos en el EPM que los machos del grupo FLX SAL*.
 
 ## **Metodología**
 
