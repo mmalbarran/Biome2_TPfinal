@@ -64,59 +64,40 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
 - **Brazos_abiertos_entradas:** n° de entradas a brazos abiertos en 10 minutos; *integer*.
 
-#### Base de datos original
+#### Preparación de la base de datos y fijación de referencias
 
-Además de las variables de interés para este análisis, la base de datos original contiene otras variables que fueron registradas durante el experimento.
+A partir de la base de datos original (`EPM Tam +Mili - Hoja 1.csv`), se seleccionaron las variables de interés, se filtró un registro inconsistente (`R35`) y se definieron explícitamente los niveles de referencia (*baseline*) para que el intercepto del modelo represente al grupo control triple (`SUC`, `SAL`, `hembra`).
 
 ```{r}
+#| label: preparacion-datos
 #| warning: false
+
 library(dplyr)
-library(psych)
 library(ggplot2)
 library(glmmTMB)
-library(lme4)
-library(lmerTest)
 library(car)
-library(patchwork)
-library(betareg)
 library(DHARMa)
 library(emmeans)
 
-datos <- read.csv("EPM Tam +Mili - Hoja 1.csv", header = T, sep=",", dec=",", stringsAsFactors = T)
-str(datos)
-```
+# Carga de la base de datos original
+datos_raw <- read.csv("EPM Tam +Mili - Hoja 1.csv", header = TRUE, sep = ",", dec = ",", stringsAsFactors = TRUE)
 
-#### Base de datos para el análisis
-
-\
-A partir de la base de datos original se seleccionaron las variables de interés para este estudio, renombrando la base de datos utilizada para el análisis como **Datos**. La variable **camada** se transformó de numérica a categórica (*factor*), a su vez que la variable **Brazos_abiertos_entradas** se transformó de numérica a discreta (*integer*), ya que así lo requiere el análisis. Además, se descartó un dato porque el número de entradas registrado en la base datos es erróneo para ese ratón y no se cuenta con el dato real.
-
-```{r}
-#| warning: false
-
-Datos <- datos %>%
+# Procesamiento de variables y fijación de baselines
+Datos <- datos_raw %>%
+  filter(ID != "R35") %>%
   mutate(
-    # Pasamos las entradas a brazos abiertos a integer
+    # Conversión de tipos
     Brazos_abiertos_entradas = as.integer(Brazos_abiertos_entradas),
-    # Pasamos el número de camada a factor
-    camada = factor(camada)
-  )%>%
-  # Filtramos al dato mal copiado
-  filter(
-    ID != "R35"
-  )%>%
-  # Nos quedamos con las columnas que nos sirven
-  select(
-    ID,                          # Identificador del raton
-    camada,                      # VE efectos aleatorios
-    sexo,                        # VE efectos fijos
-    FLX_SUC,                     # VE efectos fijos
-    SAL_CNO,                     # VE efectos fijos
-    tratamiento,                 # Combinacion de FLX_SUC y SAL_CNO
-    Brazos_abiertos_entradas     # VR discreta: conteo en continuo
-  )
+    camada = factor(camada),
+    
+    # Fijación explícita de niveles de referencia (baselines)
+    sexo = relevel(factor(sexo), ref = "hembra"),
+    FLX_SUC = relevel(factor(FLX_SUC), ref = "SUC"),
+    SAL_CNO = relevel(factor(SAL_CNO), ref = "SAL")
+  ) %>%
+  select(ID, camada, sexo, FLX_SUC, SAL_CNO, tratamiento, Brazos_abiertos_entradas)
 
-# Verficamos que se hayan realizado bien los cambios
+# Inspección de la estructura final
 str(Datos)
 ```
 
