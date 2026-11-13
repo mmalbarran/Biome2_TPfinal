@@ -48,15 +48,13 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
 #### Diccionario de variables
 
-
 | Variable | Tipo | Descripción |
-|----------------------|-------------|-----------------------------------|
+|---------------------|-----------------|----------------------------------|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (1 a 20) |
 | `tratamiento` | Factor | tratamiento recibido por toda la camada (SUC SAL; SUC CNO; FLX SAL; FLX CNO) |
 | ID | Factor | código que identifica a cada ratón individual (1 a 111) |
 | `Brazos_abiertos_entradas` | Conteo (integer) | n° de entradas a brazos abiertos en 10 minutos |
->>>>>>> e24ad1adbe3eb3017cf307d726dd1b0014b447aa
 
 #### Preparación de la base de datos y fijación de referencias
 
