@@ -44,11 +44,6 @@ Es así como el número de entradas a brazos abiertos en 10 minutos (duración d
 
 El número de entradas a los brazos abiertos en 10 minutos se analizó utilizando un Modelo Lineal Generalizado Mixto, utilizando inicialmente una distribución Poisson con función de enlace log. Debido a la presencia de sobredispersión en el modelo Poisson, se analizaron los modelos **Binomial Negativa** , **Conway-Maxwell-Poisson**, **Tweedie** y **Efectos Aleatorios a Nivel Individual (OLRE) y finalmente se utilizó una distribución Binomial Negativa.**  El análisis de los residuales se efectuó utilizando el paquete 'DHARMa' (Hartig, 2020). Se efectuó selección de modelos mediante AIC. Todos los análisis se efectuaron con R (R Development Core Team).
 
-$$\begin{aligned}
-Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
-& + \beta_4 (\text{FLX} \times \text{CNO})_{ij} + \beta_5 (\text{FLX} \times \text{Macho})_{ik} + \beta_6 (\text{CNO} \times \text{Macho})_{jk} \\
-& + \beta_7 (\text{FLX} \times \text{CNO} \times \text{Macho})_{ijk} + C_l
-\end{aligned}$$
 
 Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
