@@ -34,7 +34,11 @@ Datos <- datos %>%
     # Pasamos las entradas a brazos abiertos a integer
     Brazos_abiertos_entradas = as.integer(Brazos_abiertos_entradas),
     # Pasamos el número de camada a factor
-    camada = factor(camada)
+    camada = factor(camada),
+    # Fijación explícita de niveles de referencia (baselines)
+    sexo = relevel(factor(sexo), ref = "hembra"),
+    FLX_SUC = relevel(factor(FLX_SUC), ref = "SUC"),
+    SAL_CNO = relevel(factor(SAL_CNO), ref = "SAL")
   )%>%
   # Filtramos al dato mal copiado
   filter(
