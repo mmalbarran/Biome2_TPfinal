@@ -408,44 +408,21 @@ AIC(modelo2, modelo3, modelo4, modelo5)
 summary(modelo2)
 Anova(modelo2, type = "III")
 
-# ------------------------------------------------------------------------------
-# A. COMPARACIONES A PRIORI (Contrastes planificados para H1, H2 y H3)
-# ------------------------------------------------------------------------------
-# Grilla de medias marginales para las 8 celdas experimentales (escala log)
-emm_grid <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo)
-
-# Definición de contrastes basados estrictamente en las predicciones teóricas
-hipotesis <- list(
-  "H1: FLX_SAL vs SUC_SAL (Efecto Fluoxetina)"      = c(0, 0,  0.5, -0.5, 0, 0,  0.5, -0.5),
-  "H2: FLX_CNO vs FLX_SAL (Efecto Rescate CNO)"      = c(0.5, 0, -0.5,  0, 0.5, 0, -0.5,  0),
-  "H3: Hembras vs Machos en FLX_SAL (Resiliencia)"  = c(0, 0,  1,    0,   0, 0, -1,    0)
-)
-
-# Ejecución de comparaciones a priori en escala real de la VR (Ratio de conteos)
-comp_apriori <- contrast(emm_grid, hipotesis, type = "response", adjust = "none")
-summary(comp_apriori, infer = c(TRUE, TRUE))
+##### NAZA
 
 
-
-
-
-ef_todas <- emmeans(modelo2, pairwise ~ FLX_SUC * SAL_CNO | sexo,
+ef_todas <- emmeans(modelo2, pairwise ~ SAL_CNO * sexo,
                     type = "response", adjust = "tukey")
 plot(ef_todas$emmeans, comparisons = TRUE)
 ef_todas
 
+ef_todasxsexo <- emmeans(modelo2, pairwise ~ SAL_CNO | sexo,
+                    type = "response", adjust = "tukey")
+plot(ef_todas$emmeans, comparisons = TRUE)
+ef_todasxsexo
+
 emm_options(emmeans = list(infer = c(TRUE, FALSE)),
             contrast = list(infer = c(TRUE, TRUE)))
-
-
-efsimpleZona<- emmeans(modelo2, pairwise ~  | Zona) #Tukey por default
-plot(efsimpleZona$emmeans, comparisons = TRUE)
-efsimpleZona
-
-# Escala de la variable respuesta
-efsimpleZona<- emmeans(m2_cmp, pairwise ~ Uso | Zona, type="response") #Tukey por default
-plot(efsimpleZona$emmeans, comparisons = TRUE)
-efsimpleZona
 
 
 # Medias ajustadas por combinación
@@ -507,3 +484,180 @@ hipotesis <- list(
 res_final <- contrast(emm, hipotesis, type = "response", adjust = "none")
 summary(res_final, infer = c(TRUE, TRUE))
 
+
+
+# ==============================================================================
+# SECCIÓN 5: RESULTADOS Y CONTRASTES A PRIORI
+# ==============================================================================
+
+library(emmeans)
+library(car)
+
+# 1. Evaluación de efectos fijos globales mediante ANOVA de Wald Tipo III
+Anova(modelo2, type = "III")
+
+# 2. Generación de la grilla de medias marginales estimadas (escala log)
+emm <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo)
+
+# ------------------------------------------------------------------------------
+# COMPROBACIÓN AUTOMÁTICA DE LA GRILLA Y VECTOR DE CONTRASTES
+# ------------------------------------------------------------------------------
+# Convertimos la grilla a dataframe para inspeccionar el orden exacto de las celdas
+grilla_df <- as.data.frame(emm)[, c("FLX_SUC", "SAL_CNO", "sexo")]
+grilla_df$Fila <- 1:nrow(grilla_df)
+
+cat("\n==================================================================\n")
+cat("COMPROBACIÓN 1: GRILLA DE MEDIAS Y ORDEN DE NIVELES EN EMMEANS\n")
+cat("==================================================================\n")
+print(grilla_df[, c("Fila", "FLX_SUC", "SAL_CNO", "sexo")])
+
+# ------------------------------------------------------------------------------
+# DEFINICIÓN DE VECTORES DE CONTRASTE (Ajustados dinámicamente según la grilla)
+# ------------------------------------------------------------------------------
+# Identificamos las filas correspondientes a cada grupo para evitar errores manuales:
+f_flx_sal_h <- which(grilla_df$FLX_SUC == "FLX" & grilla_df$SAL_CNO == "SAL" & grilla_df$sexo == "hembra")
+f_suc_sal_h <- which(grilla_df$FLX_SUC == "SUC" & grilla_df$SAL_CNO == "SAL" & grilla_df$sexo == "hembra")
+
+f_flx_sal_m <- which(grilla_df$FLX_SUC == "FLX" & grilla_df$SAL_CNO == "SAL" & grilla_df$sexo == "macho")
+f_suc_sal_m <- which(grilla_df$FLX_SUC == "SUC" & grilla_df$SAL_CNO == "SAL" & grilla_df$sexo == "macho")
+
+f_flx_cno_h <- which(grilla_df$FLX_SUC == "FLX" & grilla_df$SAL_CNO == "CNO" & grilla_df$sexo == "hembra")
+f_flx_cno_m <- which(grilla_df$FLX_SUC == "FLX" & grilla_df$SAL_CNO == "CNO" & grilla_df$sexo == "macho")
+
+# Construcción programática de los vectores de contraste (longitud 8)
+vec_h1a <- numeric(8); vec_h1a[f_flx_sal_h] <- 1; vec_h1a[f_suc_sal_h] <- -1
+vec_h1b <- numeric(8); vec_h1b[f_flx_sal_m] <- 1; vec_h1b[f_suc_sal_m] <- -1
+
+vec_h2  <- numeric(8)
+vec_h2[f_flx_cno_h] <- 0.5; vec_h2[f_flx_cno_m] <- 0.5
+vec_h2[f_flx_sal_h] <- -0.5; vec_h2[f_flx_sal_m] <- -0.5
+
+vec_h3  <- numeric(8); vec_h3[f_flx_sal_h] <- 1; vec_h3[f_flx_sal_m] <- -1
+
+# Lista de hipótesis planteadas
+hipotesis <- list(
+  "H1a: FLX_SAL vs SUC_SAL (Hembras)"         = vec_h1a,
+  "H1b: FLX_SAL vs SUC_SAL (Machos)"          = vec_h1b,
+  "H2:  FLX_CNO vs FLX_SAL (Rescate CNO Gen)" = vec_h2,
+  "H3:  Hembra vs Macho (en FLX_SAL)"         = vec_h3
+)
+
+# ------------------------------------------------------------------------------
+# COMPROBACIÓN 2: VERIFICACIÓN MATEMÁTICA Y DE PESOS ASIGNADOS
+# ------------------------------------------------------------------------------
+cat("\n==================================================================\n")
+cat("COMPROBACIÓN 2: MATRIZ DE PESOS Y VERIFICACIÓN DE SUMA CERO\n")
+cat("==================================================================\n")
+
+matriz_pesos <- do.call(rbind, hipotesis)
+colnames(matriz_pesos) <- paste0("Fila_", 1:8)
+cat("Suma de coeficientes por contraste (debe ser siempre 0):\n")
+print(rowSums(matriz_pesos))
+
+cat("\nMatriz detallada de coeficientes aplicados:\n")
+print(matriz_pesos)
+
+# ------------------------------------------------------------------------------
+# EJECUCIÓN DE CONTRASTES EN ESCALA NATURAL (RATIO DE CONTEOS)
+# ------------------------------------------------------------------------------
+comp_apriori <- contrast(emm, hipotesis, type = "response", adjust = "none")
+
+cat("\n==================================================================\n")
+cat("RESULTADOS DE CONTRASTES A PRIORI (Escala real de la VR)\n")
+cat("==================================================================\n")
+summary(comp_apriori, infer = c(TRUE, TRUE))
+
+
+emm <- emmeans(modelo, ~ tratamiento)
+
+# Definir la matriz de contrastes
+mis_contrastes <- list(
+  "A vs resto"   = c( 3, -1, -1, -1) / 6,
+  "B vs (C, D)"  = c( 0,  2, -1, -1) / 4,
+  "C vs D"       = c( 0,  0,  1, -1) / 2
+)
+
+contrast(emm, method = mis_contrastes)
+
+# Con intervalos de confianza
+confint(contrast(emm, method = mis_contrastes))
+
+contrast(emm, method = mis_contrastes, type = "response")
+
+#Si los grupos tienen distintos tamaños (diseño desbalanceado), la ortogonalidad ponderada requiere dividir por el $n$ de cada grupo:
+
+#n <- c(10, 10, 10, 10)  # tamaños de cada grupo
+
+sum(c1 * c2 / n)  # debe ser 0 para ortogonalidad ponderada
+
+
+
+
+library(emmeans)
+library(car)
+
+# 1. Generar la grilla de medias marginales estimadas (escala log)
+emm <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo)
+
+# 2. Verificar el orden exacto de las 8 celdas en tu grilla de R:
+grilla_df <- as.data.frame(emm)[, c("FLX_SUC", "SAL_CNO", "sexo")]
+print(grilla_df)
+# Orden alfabético por defecto en R:
+# 1: FLX, CNO, hembra | 2: SUC, CNO, hembra | 3: FLX, SAL, hembra | 4: SUC, SAL, hembra
+# 5: FLX, CNO, macho  | 6: SUC, CNO, macho  | 7: FLX, SAL, macho  | 8: SUC, SAL, macho
+
+# 3. Definición de la matriz de contrastes a priori
+mis_contrastes <- list(
+  # H1: FLX_SAL vs SUC_SAL (Efecto Fluoxetina promediando sexos)
+  "H1: FLX_SAL vs SUC_SAL (Efecto FLX)"      = c( 0,   0,   0.5, -0.5,  0,   0,   0.5, -0.5),
+  
+  # H2: FLX_CNO vs FLX_SAL (Rescate por inhibición de CPF promediando sexos)
+  "H2: FLX_CNO vs FLX_SAL (Rescate CNO)"     = c( 0.5, 0,  -0.5,  0,   0.5,  0,  -0.5,  0),
+  
+  # H3: Hembra FLX_SAL vs Macho FLX_SAL (Resiliencia por sexo)
+  "H3: Hembra vs Macho en FLX_SAL"           = c( 0,   0,   1,    0,   0,   0,  -1,    0)
+)
+
+# 4. Calcular contrastes en la escala del predictor lineal (diferencia de logs)
+res_link <- contrast(emm, method = mis_contrastes)
+print(res_link)
+
+# 5. Calcular contrastes en la escala real de la VR (Ratio de conteos e Intervalos de Confianza del 95%)
+res_response <- contrast(emm, method = mis_contrastes, type = "response")
+
+# Mostrar p-valores e intervalos de confianza simultáneamente
+summary(res_response, infer = c(TRUE, TRUE))
+
+# Alternativa para ver solo los intervalos de confianza:
+confint(res_response)
+
+
+
+  # 1. Medias marginales estimadas para la variable 'tratamiento'
+  emm_trat <- emmeans(modelo2, ~ tratamiento)
+
+# Ver el orden de los 4 niveles en R (ej: FLX CNO, FLX SAL, SUC CNO, SUC SAL)
+print(as.data.frame(emm_trat)[, "tratamiento"])
+
+# 2. Matriz de contrastes para 4 niveles
+mis_contrastes_trat <- list(
+  "H1: FLX SAL vs SUC SAL"   = c(0,  1,  0, -1),
+  "H2: FLX CNO vs FLX SAL"   = c(1, -1,  0,  0),
+  "Ctrl: SUC CNO vs SUC SAL" = c(0,  0,  1, -1)
+)
+
+# 3. Contrastes en la escala de la variable respuesta (Ratio de conteos)
+res_trat <- contrast(emm_trat, method = mis_contrastes_trat, type = "response")
+summary(res_trat, infer = c(TRUE, TRUE))
+
+
+
+c1 <- c( 1,  1,  0,  0, -1, -1,  0,  0)
+c2 <- c(-1, -1,  1,  1,  0,  0,  0,  0)
+c3 <- c( 1, -1,  0,  0,  0,  0,  0,  0)
+
+sum(c1 * c2)  
+sum(c1 * c3)  # 0 ✓
+sum(c2 * c3)  # 0 ✓
+
+#hacer bonferroni 
