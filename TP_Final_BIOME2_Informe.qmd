@@ -49,11 +49,12 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### Diccionario de variables
 
 | Variable | Tipo | Descripción |
-|----|----|----|
+|---------------------|------------------|---------------------------------|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (1 a 20) |
-| `tratamiento` | Factor | tratamiento recibido por toda la camada (SUC SAL; SUC CNO; FLX SAL; FLX CNO) |
-| ID | Factor | código que identifica a cada ratón individual (1 a 111) |
+| `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
+| `SAL_CNO` | Factor | administración de CNO o de salina como control (SAL) |
+| `ID` | Factor | código que identifica a cada ratón individual (1 a 111) |
 | `Brazos_abiertos_entradas` | Conteo (integer) | n° de entradas a brazos abiertos en 10 minutos |
 
 #### Preparación de la base de datos y fijación de referencias
@@ -87,10 +88,93 @@ Datos <- datos_raw %>%
     FLX_SUC = relevel(factor(FLX_SUC), ref = "SUC"),
     SAL_CNO = relevel(factor(SAL_CNO), ref = "SAL")
   ) %>%
-  select(ID, camada, sexo, FLX_SUC, SAL_CNO, tratamiento, Brazos_abiertos_entradas)
+  select(ID, camada, sexo, FLX_SUC, SAL_CNO, Brazos_abiertos_entradas)
 
 # Inspección de la estructura final
 str(Datos)
+```
+
+### Exploración de los datos
+
+Descripción de las variables mediante la función `summary()` de R
+
+```{r}
+#| label: summary
+#| warning: false
+#| echo: false
+
+summary (Datos)
+
+```
+
+Exploración gráfica mediante boxplots del número de entradas a brazos abiertos según el sexo y los tratamientos recibidos.
+
+```{r}
+#| label: boxplots
+#| warning: false
+#| echo: false
+
+p3 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order = TRUE),
+                        y = Brazos_abiertos_entradas,
+                        fill = sexo)) +
+  geom_boxplot(color = "black") +
+  facet_wrap(~sexo,
+             labeller = as_labeller(c(hembra = "Hembras", macho = "Machos"))) +
+  scale_fill_manual(values = c("hembra" = "#F5793A", "macho" = "#56B4E9")) +
+  labs(x = "Grupo de tratamiento",
+       y = "Nº de entradas a brazos abiertos (en 10 min)") +
+  theme_classic() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 30, hjust = 1))
+
+p3
+```
+
+Gráfico de perfiles del número promedio de entradas a brazos abiertos según el sexo y los tratamientos recibidos. Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales.
+
+```{r}
+#| label: gráfico de perfiles
+#| warning: false
+#| echo: false
+
+p5 <- ggplot(Datos, aes(x = FLX_SUC,
+                        y = Brazos_abiertos_entradas,
+                        colour = SAL_CNO,
+                        fill = SAL_CNO,
+                        group = SAL_CNO)) +
+  geom_jitter(shape = 21,
+              colour = "white",
+              stroke = 0.3,
+              width = 0.08,
+              height = 0,
+              size = 2,
+              alpha = 0.8) +
+  stat_summary(fun = mean, geom = "line", linewidth = 1) +
+  stat_summary(fun = mean, geom = "point",
+               shape = 21, size = 2, stroke = 1.5) +
+  facet_wrap(~sexo,
+             labeller = as_labeller(c(macho = "Machos",
+                                      hembra = "Hembras"))) +
+  scale_colour_manual(
+    values = c("SAL" = "#2B7BBF",
+               "CNO" = "#C4501B"),
+    labels = c("SAL" = "Salina",
+               "CNO" = "CNO")
+  ) +
+  scale_fill_manual(
+    values = c("SAL" = "#85C0F9",
+               "CNO" = "#F5793A"),
+    labels = c("SAL" = "Salina",
+               "CNO" = "CNO")
+  ) +
+  xlab("Tratamiento") +
+  ylab("N° promedio de entradas a brazos abiertos") +
+  ggtitle("Entradas a brazos abiertos vs. tratamiento") +
+  labs(colour = "Administración de CNO",
+       fill = "Administración de CNO")
+
+p5
+
 ```
 
 ### Análisis estadístico
@@ -110,7 +194,7 @@ $$Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{V
 ```{r}
 modelo1 <- glmmTMB(
   Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
-  data = datos.v2,
+  data = Datos,
   family = poisson(link = "log"))
 
 summary(modelo1)
