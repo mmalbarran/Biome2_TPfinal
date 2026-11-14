@@ -49,7 +49,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### Diccionario de variables
 
 | Variable | Tipo | Descripción |
-|---------------------|-----------------|----------------------------------|
+|----|----|----|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (1 a 20) |
 | `tratamiento` | Factor | tratamiento recibido por toda la camada (SUC SAL; SUC CNO; FLX SAL; FLX CNO) |

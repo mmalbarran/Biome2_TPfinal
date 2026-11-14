@@ -454,8 +454,11 @@ library(emmeans)
 
 
 # 1. Obtener las medias estimadas del modelo
-emm <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo)
-emm
+medias.log <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
+medias.log
+medias.rta <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
+medias.rta
+
 # El orden interno de las 8 celdas en la grilla 'emm' (por orden alfabético de R) es:
 # 1: FLX, CNO, hembra
 # 2: SUC     CNO     hembra
