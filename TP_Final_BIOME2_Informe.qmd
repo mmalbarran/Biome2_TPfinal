@@ -64,6 +64,9 @@ A partir de la base de datos original (`EPM Tam +Mili - Hoja 1.csv`), se selecci
 ```{r}
 #| label: preparacion-datos
 #| warning: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Ver código"
 
 library(dplyr)
 library(ggplot2)
@@ -101,7 +104,9 @@ Descripción de las variables mediante la función `summary()` de R
 ```{r}
 #| label: summary
 #| warning: false
-#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Ver código"
 
 summary (Datos)
 
@@ -112,7 +117,9 @@ Exploración gráfica mediante boxplots del número de entradas a brazos abierto
 ```{r}
 #| label: boxplots
 #| warning: false
-#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Ver código"
 
 p3 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order = TRUE),
                         y = Brazos_abiertos_entradas,
@@ -135,7 +142,9 @@ Gráfico de perfiles del número promedio de entradas a brazos abiertos según e
 ```{r}
 #| label: gráfico de perfiles
 #| warning: false
-#| echo: false
+#| message: false
+#| code-fold: true
+#| code-summary: "Ver código"
 
 p5 <- ggplot(Datos, aes(x = FLX_SUC,
                         y = Brazos_abiertos_entradas,
@@ -177,13 +186,13 @@ p5
 
 ```
 
-### Análisis estadístico
+### Modelo de Poisson
 
-#### Planteo inicial: Modelo de Poisson
+Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.
 
-Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson.
+##### Especificación y supuestos distribucionales
 
-$$\begin{aligned}
+#### $$\begin{aligned}
 Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
 & + \beta_4 (\text{FLX} \times \text{CNO})_{ij} + \beta_5 (\text{FLX} \times \text{Macho})_{ik} + \beta_6 (\text{CNO} \times \text{Macho})_{jk} \\
 & + \beta_7 (\text{FLX} \times \text{CNO} \times \text{Macho})_{ijk} + C_l
