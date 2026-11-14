@@ -51,7 +51,6 @@ Datos <- datos %>%
     sexo,                        # VE efectos fijos
     FLX_SUC,                     # VE efectos fijos
     SAL_CNO,                     # VE efectos fijos
-    tratamiento,                 # Combinacion de FLX_SUC y SAL_CNO
     Brazos_abiertos_entradas     # VR discreta: conteo en continuo
   )
 
@@ -69,7 +68,7 @@ head(Datos)
 ### Tabla resumen de los datos por tratamiento ---------------------------------
 
 resumen <- Datos %>% 
-  group_by(tratamiento) %>%
+  group_by(FLX_SUC, SAL_CNO) %>%
   summarise(media = mean(Brazos_abiertos_entradas),
             sd = sd(Brazos_abiertos_entradas),
             min =min(Brazos_abiertos_entradas),
@@ -96,7 +95,8 @@ resumenxsexo
 
 ### Boxplot con un color por camada --------------------------------------------
 
-p1 <- ggplot(Datos, aes(x = tratamiento, y = Brazos_abiertos_entradas)) +
+p1 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order = TRUE),
+                        y = Brazos_abiertos_entradas)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(aes(color = factor(camada)), width = 0.15, size = 2, alpha = 0.8) +
   labs(x = "Grupo de tratamiento",
@@ -108,7 +108,8 @@ p1
 
 ### Boxplot mas sencillo, solo con outliers ------------------------------------
 
-p2 <- ggplot(Datos, aes(x = tratamiento, y = Brazos_abiertos_entradas)) +
+p2 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order = TRUE),
+                        y = Brazos_abiertos_entradas)) +
   geom_boxplot(fill = "white", color = "black") +
   labs(x = "Grupo de tratamiento",
        y = "Nº de entradas a brazos abiertos (en 15 min)") +
@@ -118,45 +119,20 @@ p2
 
 ### Boxplot diferenciado por sexo ----------------------------------------------
 
-p3 <- ggplot(Datos, aes(x = tratamiento, y = Brazos_abiertos_entradas, fill = sexo)) +
+p3 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order = TRUE),
+                        y = Brazos_abiertos_entradas,
+                        fill = sexo)) +
   geom_boxplot(color = "black") +
   facet_wrap(~sexo,
              labeller = as_labeller(c(hembra = "Hembras", macho = "Machos"))) +
-  scale_fill_manual(values = c("hembra" = "#E69F00", "macho" = "#56B4E9")) +
+  scale_fill_manual(values = c("hembra" = "#F5793A", "macho" = "#56B4E9")) +
   labs(x = "Grupo de tratamiento",
        y = "Nº de entradas a brazos abiertos (en 10 min)") +
   theme_classic() +
-  theme(legend.position = "none")
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 30, hjust = 1))
 
 p3
-
-### Gráfico de perfiles solo promedio ------------------------------------------
-
-p4 <- ggplot(Datos, aes(x = FLX_SUC,
-                        y = Brazos_abiertos_entradas,
-                        colour = SAL_CNO,
-                        group = SAL_CNO)) +
-        stat_summary(fun = mean, geom = "point", size = 3) +
-        stat_summary(fun = mean, geom = "line", linewidth = 1) +
-        facet_wrap(~sexo,
-                   labeller = as_labeller(c(macho = "Machos", 
-                                            hembra = "Hembras"))) +
-        scale_colour_manual(
-          values = c("SAL" = "#85C0F9",
-                     "CNO" = "#F5793A"),
-          labels = c("SAL" = "Salina",
-                     "CNO" = "CNO")
-        ) +
-        scale_x_discrete(
-          labels = c("SUC" = "SUC",
-                     "FLX" = "FLX")
-        ) +
-        xlab("Tratamiento") +
-        ylab("N° promedio de entradas a brazos abiertos") +
-        ggtitle("Entradas a brazos abiertos vs. tratamiento") +
-        labs(colour = "Administración de CNO")
-
-p4
 
 ### Gráfico de perfiles promedio + observaciones -------------------------------
 
