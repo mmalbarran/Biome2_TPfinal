@@ -434,7 +434,7 @@ library(emmeans)
 
 
 # 1. Obtener las medias estimadas del modelo
-medias.log <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
+medias.log <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "link")
 medias.log
 medias.rta <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
 medias.rta
