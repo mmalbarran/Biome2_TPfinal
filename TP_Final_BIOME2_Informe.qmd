@@ -201,7 +201,6 @@ Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 
 $$Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \mu_{ijkl}$$
 
 ```{r}
-
 #| code-fold: true
 #| code-summary: "Ver código"
 
@@ -221,7 +220,6 @@ Se utilizó el test de ANOVA tipo III debido a que los grupos de combinación de
 En el modelo de Poisson se asume $\text{Var}(Y_{ijkl}) = \mu_{ijkl}$ y un valor cercano a 1 del estadístico de dispersión es consistente con el supuesto; valores $≫1$ indican sobredispersión.
 
 ```{r}
-
 #| code-fold: true
 #| code-summary: "Ver código"
 
@@ -277,7 +275,49 @@ El estadístico de dispersión es superior al valor esperado de 1 bajo el modelo
 Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional de dispersión.
 :::
 
-#### Binomial negativa (NB2)
+Además de la sobredispersión, se evalúa el supuesto de normalidad de los efectos aleatorios de camada, que en el modelo se asumen distribuidos normalmente con media 0 y varianza σ².
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+ef_camadas_m1 <- ranef(modelo1)$cond$camada[["(Intercept)"]]
+
+qqPlot(
+  ef_camadas_m1,
+  main = "QQ Plot de efectos aleatorios de las camadas",
+  ylab = "Efectos aleatorios estimados"
+)
+
+shapiro.test(ef_camadas_m1)       # Shapiro-Wilks test
+```
+
+No hay evidencia suficiente para rechazar que los efectos aleatorios de camada siguen una distribución normal.
+
+### Modelos alternativos para sobredispersión
+
+##### **Binomial negativa (NB2)**
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+modelo2 <- glmmTMB(
+  Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
+  family = "nbinom2",
+  data = Datos
+)
+
+summary(modelo2)
+Anova(modelo2, type = "III")
+```
+
+Supuestos
+
+```{r}
+residuos_m2 <- simulateResiduals(modelo2)          # Simulamos residuos con DHARMa
+plot(residuos_m2)
+```
+
+El diagnóstico de residuos de DHARMa para el modelo de binomial negativa no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha).
 
 #### Conway-Maxwell-Poisson (CMP)
 
