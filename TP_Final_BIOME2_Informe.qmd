@@ -7,7 +7,7 @@ editor: visual
 
 ###### INTEGRANTES
 
-Milagros Albarrán, Carolina Banchón, Nicole Gothop, Celina Liu, Nazarena Nieva
+Milagros Albarrán, Carolina Banchón, Nicole Gothop, Celina Liu, Nazarena Lourdes Nieva
 
 ## **Introducción**
 
@@ -49,11 +49,11 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### **Diccionario de variables**
 
 | Variable | Tipo | Descripción |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
-| `camada` | Factor | n° que identifica la camada de origen de cada ratón (1 a 20) |
+| `camada` | Factor | n° que identifica la camada de origen de cada ratón (20 niveles) |
 | `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
-| `SAL_CNO` | Factor | administración de CNO o de salina como control (SAL) |
+| `SAL_CNO` | Factor | administración de CNO o de solución salina como control (SAL) |
 | `ID` | Factor | código que identifica a cada ratón individual (1 a 111) |
 | `Brazos_abiertos_entradas` | Conteo (integer) | n° de entradas a brazos abiertos en 10 minutos |
 
@@ -103,14 +103,44 @@ Descripción de las variables mediante la función `summary()` de R
 
 ```{r}
 #| label: summary
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: Ver código
+
+summary (Datos)
+
+```
+
+A partir de esta salida se puede observar que la base de datos cuenta con observaciones de 110 ratones, 56 de los cuales son hembras y 54 machos. El summary también muestra 6 camadas, las cuales tienen 7 ratones cada una, pero hay camadas que no se muestran. A 51 ratones se les asignó tratamiento con sacarosa, mientras que a 59 con Fluoxetina. A 52 ratones se les asignó tratamiento con solución salina, y a 58 tratamiento con CNO. Para el número de entradas a los brazos abiertos en 10 min, se observa un mínimo de 0 (cota inferior dado el diseño experimental) y un máximo de 31, con una mediana de 6 y una media de 6.682.
+
+Verificación de la cantidad de ratones por camada
+
+```{r}
+#| label: Ratones por camada
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: Ver código
+
+table(Datos$camada)
+```
+
+Hay de 2 a 7 ratones en cada camada.
+
+Verificación del número de ratones por cada combinación de variables explicativas fijas.
+
+```{r}
+#| label: Ratones por combinación de VEs fijas
 #| warning: false
 #| message: false
 #| code-fold: true
 #| code-summary: "Ver código"
 
-summary (Datos)
-
+ftable(Datos$FLX_SUC, Datos$SAL_CNO, Datos$sexo)
 ```
+
+Hay entre 11 y 17 ratones por cada combinación de variables explicativas fijas. Se observa desbalanceo entre grupos, pero no es muy extremo. Es relevante detectar si hay desbalanceo entre los grupos, ya que define el tipo de Anova que utilizaremos más adelante.
 
 Exploración gráfica mediante boxplots del número de entradas a brazos abiertos según el sexo y los tratamientos recibidos.
 
@@ -136,6 +166,8 @@ p3 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order
 
 p3
 ```
+
+A simple vista, pareciera que en hembras la administración de Fluoxetina deriva en un aumento en las entradas en brazos abiertos, mientras que en machos deriva en una pequeña disminución. También pareciera que las hembras tratadas con Fluoxetina presentan un mayor número de entradas a los brazos abiertos que los machos tratados con Fluoxetina, lo que se condice con nuestra tercera hipótesis. Sin embargo, según nuestra primera hipótesis sería de esperar que los ratones tratados con Fluoxetina presenten un menor número de entradas a los brazos abiertos que aquellos tratados con sacarosa, pero el gráfico no da indicios de que esto sea así. Por último, se esperaba que el grupo tratado con Fluoxetina y CNO aumente el número de entradas a los brazos abiertos en comparación al grupo tratado con Fluoxetina y solución salina. Sin embargo, esto solo parece ser cierto para los machos, y ocurrir lo opuesto en hembras.
 
 Gráfico de perfiles del número promedio de entradas a brazos abiertos según el sexo y los tratamientos recibidos. Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales.
 

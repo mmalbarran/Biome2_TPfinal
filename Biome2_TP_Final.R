@@ -60,6 +60,12 @@ str(Datos)
 summary(Datos)
 head(Datos)
 
+# Ratones por camada
+table(Datos$camada)
+
+# Ratones por combinación de VEs fijas
+ftable(Datos$FLX_SUC, Datos$SAL_CNO, Datos$sexo)
+
 
 # ESTADÍSTICA DESCRIPTIVA ######################################################
 
@@ -390,6 +396,11 @@ Anova(modelo2, type = "III")
 
 ##### NAZA
 
+tuk <- emmeans(modelo2,~ FLX_SUC * SAL_CNO * sexo,
+               type = "response", adjust = "tukey")
+plot(tuk$emmeans, comparisons = TRUE)
+tuk
+contrast(tuk, method = "pairwise")
 
 ef_todas <- emmeans(modelo2, pairwise ~ SAL_CNO * sexo,
                     type = "response", adjust = "tukey")
@@ -481,7 +492,8 @@ contrastes <- list("SUC vs FLX" = c1, "CNO vs SAL" = c2, "FLX machos vs FLX hemb
 
 # Bonferroni
 res_bonf <- contrast(medias.log, contrastes, type = "response", adjust = "bonferroni")
-
+res_bonf
+summary(res_bonf, infer = c(TRUE, TRUE))
 
 # Opción 2: Verificación de ortogonalidad de contrastes
 
