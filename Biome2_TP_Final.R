@@ -440,7 +440,7 @@ medias.rta <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
 medias.rta
 
 # El orden interno de las 8 celdas en la grilla 'emm' (por orden alfabético de R) es:
-# 1: FLX, CNO, hembra
+# 1: FLX     CNO     hembra
 # 2: SUC     CNO     hembra
 # 3: FLX     SAL     hembra 
 # 4: SUC     SAL     hembra 
@@ -466,6 +466,63 @@ hipotesis <- list(
 # Ejecutar y mostrar ÚNICAMENTE estas 3 comparaciones en la escala real (Ratio de entradas)
 res_final <- contrast(emm, hipotesis, type = "response", adjust = "none")
 summary(res_final, infer = c(TRUE, TRUE))
+
+# Verificación de ortogonalidad de contrastes
+
+c1 <- c( 0,  0,  0.5,  -0.5, 0, 0,  0.5,  -0.5)
+c2 <- c(0.5, 0,  -0.5,  0,  0.5,  0,  -0.5,  0)
+c3 <- c( 0, 0,  1,  0,  0,  0,  -1,  0)
+
+sum(c1 * c2)  
+sum(c1 * c3)  # 0 ✓
+sum(c2 * c3)
+
+contrastes <- list("SUC vs FLX" = c1, "CNO vs SAL" = c2, "FLX machos vs FLX hembras" = c3)
+
+# Bonferroni
+res_bonf <- contrast(medias.log, contrastes, type = "response", adjust = "bonferroni")
+
+
+# Opción 2: Verificación de ortogonalidad de contrastes
+
+# H1a: SUC vs FLX en hembras
+c1a <- c( 0,  0,  1,  -1, 0, 0,  0,  0)
+# H1b: SUC vs FLX en machos
+c1b <- c( 0,  0,  0,  0, 0, 0,  1,  -1)
+# H2: CNO vs SAL promediando hembras y machos
+c2 <- c(0.5, 0,  -0.5,  0,  0.5,  0,  -0.5,  0)
+# H3: Hembra FLX vs Macho FLX
+c3 <- c( 0, 0,  1,  0,  0,  0,  -1,  0)
+
+sum(c1a * c1b) 
+sum(c1a * c2)  
+sum(c1a * c3) 
+sum(c1b * c2) 
+sum(c1b * c3)
+sum(c2 * c3)
+
+
+
+# H1a: SUC vs FLX en hembras
+c1a <- c( 0,  0,  1,  -1, 0, 0,  0,  0)
+# H1b: SUC vs FLX en machos
+c1b <- c( 0,  0,  0,  0, 0, 0,  1,  -1)
+# H2: CNO vs SAL promediando hembras y machos
+c2a <- c(1, 0,  -1,  0,  0,  0,  0,  0)
+c2b <- c(0, 0,  0,  0,  1,  0,  1,  0)
+# H3: Hembra FLX vs Macho FLX
+c3 <- c( 0, 0,  1,  0,  0,  0,  -1,  0)
+
+sum(c1a * c1b) 
+sum(c1a * c2a) 
+sum(c1a * c2b) 
+sum(c1a * c3) 
+sum(c1b * c2a) 
+sum(c1b * c2b) 
+sum(c1b * c3)
+sum(c2a * c2b)
+sum(c2a * c3)
+sum(c2b * c3)
 
 
 
