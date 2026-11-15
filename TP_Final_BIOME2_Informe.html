@@ -157,7 +157,7 @@ window.Quarto = {
 <section id="metodología" class="level2">
 <h2 class="anchored" data-anchor-id="metodología"><strong>Metodología</strong></h2>
 <section id="descripción-del-ensayo" class="level3">
-<h3 class="anchored" data-anchor-id="descripción-del-ensayo">Descripción del ensayo</h3>
+<h3 class="anchored" data-anchor-id="descripción-del-ensayo"><strong>Descripción del ensayo</strong></h3>
 <p>Se trabajó con 111 ratones de cepa C57 provenientes de 20 camadas, a los cuales se les administró diariamente entre P1 y P14: Fluoxetina o sacarosa (vehículo) por vía oral, y CNO o solución salina vía inyección intraperitoneal. Si bien la administración de los tratamientos es a nivel individual, la asignación de la combinación de tratamientos fue realizada aleatoriamente a nivel de la camada; por ende, la camada es la unidad experimental.&nbsp;</p>
 <p>A cada ratón se le aplicó en edad adulta (&gt;P90) una batería de tests, entre los cuales se encuentra el Elevated Plus Maze (EPM, Laberinto elevado en cruz). La prueba del EPM evalúa el comportamiento de tipo ansioso en roedores basándose en el conflicto innato entre la motivación exploratoria y la aversión a los espacios abiertos y elevados. Un menor número de entradas a los brazos abiertos refleja la evitación del riesgo y se interpreta como un fenotipo de tipo ansioso, mientras que un incremento en las entradas indica un efecto protector o ansiolítico.</p>
 <p>Es así como el número de entradas a brazos abiertos en 10 minutos (duración del test) se definió como la variable de respuesta, donde cada ratón es la unidad observacional. Como variables explicativas fijas se incluyeron el tratamiento con Fluoxetina, el tratamiento con CNO y el sexo, las cuales están cruzadas entre sí por lo que se analizó la interacción entre ellas. Además, se incluyó a la camada como variable explicativa de efecto aleatorio porque se encuentran anidadas en la interacción de los tratamientos de Fluoxetina y CNO, y los ratones están anidados en camada.</p>
@@ -167,7 +167,7 @@ window.Quarto = {
 <p>El número de entradas a los brazos abiertos en 10 minutos se analizó utilizando un Modelo Lineal Generalizado Mixto, utilizando inicialmente una distribución Poisson con función de enlace log. Debido a la presencia de sobredispersión en el modelo Poisson, se analizaron los modelos <strong>Binomial Negativa</strong> , <strong>Conway-Maxwell-Poisson</strong>, <strong>Tweedie</strong> y <strong>Efectos Aleatorios a Nivel Individual (OLRE) y finalmente se utilizó una distribución Binomial Negativa.</strong> &nbsp;El análisis de los residuales se efectuó utilizando el paquete ‘DHARMa’ (Hartig, 2020). Se efectuó selección de modelos mediante AIC. Todos los análisis se efectuaron con R (R Development Core Team).</p>
 <p>Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv</p>
 <section id="diccionario-de-variables" class="level4">
-<h4 class="anchored" data-anchor-id="diccionario-de-variables">Diccionario de variables</h4>
+<h4 class="anchored" data-anchor-id="diccionario-de-variables"><strong>Diccionario de variables</strong></h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -215,8 +215,9 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="preparación-de-la-base-de-datos-y-fijación-de-referencias" class="level4">
-<h4 class="anchored" data-anchor-id="preparación-de-la-base-de-datos-y-fijación-de-referencias">Preparación de la base de datos y fijación de referencias</h4>
+</section>
+<section id="preparación-de-la-base-de-datos-y-fijación-de-referencias" class="level3">
+<h3 class="anchored" data-anchor-id="preparación-de-la-base-de-datos-y-fijación-de-referencias"><strong>Preparación de la base de datos y fijación de referencias</strong></h3>
 <p>A partir de la base de datos original (<code>EPM Tam +Mili - Hoja 1.csv</code>), se seleccionaron las variables de interés, se filtró un registro inconsistente (<code>R35</code>) y se definieron explícitamente los niveles de referencia (<em>baseline</em>) para que el intercepto del modelo represente al grupo control triple (<code>SUC</code>, <code>SAL</code>, <code>hembra</code>).</p>
 <div class="cell">
 <details class="code-fold">
@@ -260,9 +261,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-</section>
 <section id="exploración-de-los-datos" class="level3">
-<h3 class="anchored" data-anchor-id="exploración-de-los-datos">Exploración de los datos</h3>
+<h3 class="anchored" data-anchor-id="exploración-de-los-datos"><strong>Exploración de los datos</strong></h3>
 <p>Descripción de las variables mediante la función <code>summary()</code> de R</p>
 <div class="cell">
 <details class="code-fold">
@@ -367,10 +367,10 @@ window.Quarto = {
 </div>
 </section>
 <section id="modelo-de-poisson" class="level3">
-<h3 class="anchored" data-anchor-id="modelo-de-poisson">Modelo de Poisson</h3>
+<h3 class="anchored" data-anchor-id="modelo-de-poisson"><strong>Modelo de Poisson</strong></h3>
 <p>Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.</p>
-<section id="especificación-y-supuestos-distribucionales" class="level5">
-<h5 class="anchored" data-anchor-id="especificación-y-supuestos-distribucionales"><strong>Especificación y supuestos distribucionales</strong></h5>
+<section id="especificación-y-supuestos-distribucionales" class="level4">
+<h4 class="anchored" data-anchor-id="especificación-y-supuestos-distribucionales"><strong>Especificación y supuestos distribucionales</strong></h4>
 </section>
 <section id="beginaligned-y_ijkl-beta_0-beta_1-textflx_i-beta_2-textcno_j-beta_3-textmacho_k-beta_4-textflx-times-textcno_ij-beta_5-textflx-times-textmacho_ik-beta_6-textcno-times-textmacho_jk-beta_7-textflx-times-textcno-times-textmacho_ijk-c_l-endaligned" class="level4">
 <h4 class="anchored" data-anchor-id="beginaligned-y_ijkl-beta_0-beta_1-textflx_i-beta_2-textcno_j-beta_3-textmacho_k-beta_4-textflx-times-textcno_ij-beta_5-textflx-times-textmacho_ik-beta_6-textcno-times-textmacho_jk-beta_7-textflx-times-textcno-times-textmacho_ijk-c_l-endaligned"><span class="math display">\[\begin{aligned}
@@ -440,8 +440,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>Se utilizó el test de ANOVA tipo III debido a que los grupos de combinación de los factores se encuentran desbalanceados.</p>
-<section id="diagnóstico-sobredispersión" class="level5">
-<h5 class="anchored" data-anchor-id="diagnóstico-sobredispersión"><strong>Diagnóstico: SOBREDISPERSIÓN</strong></h5>
+</section>
+<section id="diagnóstico-sobredispersión" class="level4">
+<h4 class="anchored" data-anchor-id="diagnóstico-sobredispersión"><strong>Diagnóstico: SOBREDISPERSIÓN</strong></h4>
 <p>En el modelo de Poisson se asume <span class="math inline">\(\text{Var}(Y_{ijkl}) = \mu_{ijkl}\)</span> y un valor cercano a 1 del estadístico de dispersión es consistente con el supuesto; valores <span class="math inline">\(≫1\)</span> indican sobredispersión.</p>
 <div class="cell">
 <details class="code-fold">
@@ -458,7 +459,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </div>
-<p>Diagnóstico DHARMa para el modelo de Poisson. El Q-Q plot (izquierda) muestra desviaciones respecto a la distribución uniforme esperada bajo el modelo. El gráfico de residuos contra predicciones (derecha) no mostró evidencia de heterogeneidad de varianzas entre grupos (test de Levene n.s.)</p>
+<p>Diagnóstico DHARMa para el modelo de Poisson. El Q-Q plot (izquierda) muestra desviaciones respecto a la distribución uniforme esperada bajo el modelo. El gráfico de residuos contra predicciones (derecha) no muestra evidencia de heterogeneidad de varianzas entre grupos (test de Levene n.s.).</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
@@ -482,15 +483,25 @@ alternative hypothesis: two.sided</code></pre>
 </div>
 </div>
 <p>La dispersión observada (línea roja) supera la esperada bajo el modelo de Poisson (histograma), lo que indica sobredispersión (dispersión = 2.28, p &lt; 2.2e-16).</p>
+<p>Luego, el test de inflación de ceros de DHARMa indicó que el modelo de Poisson subestima la cantidad de ceros observados (5 observados frente a ~1 esperado; razón observado/simulado = 5.66, p &lt; 2.2e16), lo que es coherente con la sobredispersión detectada.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Ver código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testZeroInflation</span>(residuos_m1)                     <span class="co"># Test inflación en ceros</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/ceros-m1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -504,30 +515,54 @@ ratioObsSim = 5.6561, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided</code></pre>
 </div>
 </div>
-<p>El test de inflación de ceros de DHARMa indicó que el modelo de Poisson subestima la cantidad de ceros observados (5 observados frente a ~1 esperado; razón observado/simulado = 5.66, p &lt; 2.2e16), lo que es coherente con la sobredispersión detectada.</p>
+</div>
+</div>
+</div>
+<p>También, en los residuos de DHARMa frente a las predicciones del modelo de Poisson se detectan desviaciones de los cuantiles (curva roja) con observaciones atípicas en los extremos (asteriscos rojos), lo que es coherente con la sobredispersión observada.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Ver código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotResiduals</span>(residuos_m1, <span class="at">form =</span> <span class="fu">fitted</span>(modelo1)) <span class="co"># Residuos frente a valores ajustados</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/residuos-ajustados-m1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Residuos de DHARMa frente a las predicciones del modelo de Poisson. Se detectaron desviaciones de los cuantiles (curva roja) con observaciones atípicas en los extremos (asteriscos rojos), lo que es coherente con la sobredispersión observada.</p>
+</div>
+</div>
+</div>
+<p>Y por último, en el test de valores atípicos de DHARMa para el modelo de Poisson se indica con las barras rojas que hay observaciones fuera del rango de los datos simulados (5 de 110; frecuencia observada = 0.045 frente a 0.007 esperada, p &lt; 2.2e-16), lo que es coherente con la sobredispersión.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Ver código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testOutliers</span>(residuos_m1)                          <span class="co"># Test Outliers</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/outliers-m1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -539,16 +574,22 @@ data:  residuos_m1
 outliers at both margin(s) = 5, observations = 110, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided
  percent confidence interval:
- 0.00000000 0.02295455
+ 0.00000000 0.02727273
 sample estimates:
-outlier frequency (expected: 0.007 ) 
-                          0.04545455 </code></pre>
+outlier frequency (expected: 0.00709090909090909 ) 
+                                        0.04545455 </code></pre>
 </div>
 </div>
-<p>Test de valores atípicos de DHARMa para el modelo de Poisson. Las barras rojas indican observaciones fuera del rango de los datos simulados (5 de 110; frecuencia observada = 0.045 frente a 0.007 esperada, p &lt; 2.2e-16), lo que es coherente con la sobredispersión.</p>
+</div>
+</div>
+</div>
+<p>También, de forma manual se calcula el estadístico de dispersión</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos estadístico de dispersión manualmente</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(modelo1, <span class="at">type=</span><span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">df.residual</span>(modelo1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.597938</code></pre>
 </div>
@@ -567,10 +608,20 @@ outlier frequency (expected: 0.007 )
 <p>Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional de dispersión.</p>
 </div>
 </div>
-<p>Además de la sobredispersión, se evalúa el supuesto de normalidad de los efectos aleatorios de camada, que en el modelo se asumen distribuidos normalmente con media 0 y varianza σ².</p>
+<p>Además de la sobredispersión, se evalúa el supuesto de normalidad de los residuos aleatorios de las camadas, que en el modelo se asumen distribuidos normalmente con media 0 y varianza σ². Y se concluye que no hay evidencia suficiente para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold">
-<summary>Ver código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m1 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo1)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
@@ -578,21 +629,17 @@ outlier frequency (expected: 0.007 )
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/efectos-aleatorios-m1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11 20</code></pre>
 </div>
-<details class="code-fold">
-<summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m1)       <span class="co"># Shapiro-Wilks test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m1)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -601,14 +648,15 @@ data:  ef_camadas_m1
 W = 0.94325, p-value = 0.276</code></pre>
 </div>
 </div>
-<p>No hay evidencia suficiente para rechazar que los efectos aleatorios de camada siguen una distribución normal.</p>
-</section>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="modelos-alternativos-para-sobredispersión" class="level3">
-<h3 class="anchored" data-anchor-id="modelos-alternativos-para-sobredispersión">Modelos alternativos para sobredispersión</h3>
-<section id="binomial-negativa-nb2" class="level5">
-<h5 class="anchored" data-anchor-id="binomial-negativa-nb2"><strong>Binomial negativa (NB2)</strong></h5>
+<h3 class="anchored" data-anchor-id="modelos-alternativos-para-sobredispersión"><strong>Modelos alternativos para sobredispersión</strong></h3>
+<section id="binomial-negativa-nb2" class="level4">
+<h4 class="anchored" data-anchor-id="binomial-negativa-nb2"><strong>Binomial negativa (NB2)</strong></h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
@@ -616,66 +664,367 @@ W = 0.94325, p-value = 0.276</code></pre>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"nbinom2"</span>,</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+</div>
+<section id="supuestos" class="level5">
+<h5 class="anchored" data-anchor-id="supuestos"><strong>Supuestos</strong></h5>
+<p>El diagnóstico de residuos de DHARMa para el modelo de binomial negativa no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha). Tampoco hay evidencia para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>residuos_m2 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo2)          <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/diagnostico-m2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m2 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo2)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m2,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/efectos-aleatorios-m2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code> Family: nbinom2  ( log )
-Formula:          
-Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada)
-Data: Datos
-
-      AIC       BIC    logLik -2*log(L)  df.resid 
-    632.9     659.9    -306.5     612.9       100 
-
-Random effects:
-
-Conditional model:
- Groups Name        Variance Std.Dev.
- camada (Intercept) 0.05914  0.2432  
-Number of obs: 110, groups:  camada, 20
-
-Dispersion parameter for nbinom2 family (): 3.61 
-
-Conditional model:
-                                Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)                      1.78216    0.24446   7.290  3.1e-13 ***
-FLX_SUCFLX                       0.43041    0.31744   1.356   0.1751    
-SAL_CNOCNO                      -0.27860    0.33891  -0.822   0.4110    
-sexomacho                       -0.12080    0.29481  -0.410   0.6820    
-FLX_SUCFLX:SAL_CNOCNO           -0.06144    0.43791  -0.140   0.8884    
-FLX_SUCFLX:sexomacho            -0.65766    0.39852  -1.650   0.0989 .  
-SAL_CNOCNO:sexomacho             0.51890    0.41802   1.241   0.2145    
-FLX_SUCFLX:SAL_CNOCNO:sexomacho  0.62519    0.54821   1.140   0.2541    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>[1] 11  6</code></pre>
 </div>
-<details class="code-fold">
-<summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(modelo2, <span class="at">type =</span> <span class="st">"III"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m2)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+<pre><code>
+    Shapiro-Wilk normality test
 
-Response: Brazos_abiertos_entradas
-                       Chisq Df Pr(&gt;Chisq)    
-(Intercept)          53.1459  1  3.097e-13 ***
-FLX_SUC               1.8383  1    0.17515    
-SAL_CNO               0.6758  1    0.41105    
-sexo                  0.1679  1    0.68199    
-FLX_SUC:SAL_CNO       0.0197  1    0.88842    
-FLX_SUC:sexo          2.7234  1    0.09889 .  
-SAL_CNO:sexo          1.5409  1    0.21448    
-FLX_SUC:SAL_CNO:sexo  1.3006  1    0.25411    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+data:  ef_camadas_m2
+W = 0.93929, p-value = 0.2325</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="conway-maxwell-poisson-cmp" class="level4">
-<h4 class="anchored" data-anchor-id="conway-maxwell-poisson-cmp">Conway-Maxwell-Poisson (CMP)</h4>
+<h4 class="anchored" data-anchor-id="conway-maxwell-poisson-cmp"><strong>Conway-Maxwell-Poisson (CMP)</strong></h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"compois"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="supuestos-1" class="level5">
+<h5 class="anchored" data-anchor-id="supuestos-1"><strong>Supuestos</strong></h5>
+<p>El diagnóstico de residuos de DHARMa para el modelo de Conway-Maxwell-Poisson no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha). Tampoco hay evidencia para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>residuos_m3 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo3)          <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/diagnostico-m3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m3 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo3)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m3,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/efectos-aleatorios-m3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11  6</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m3)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  ef_camadas_m3
+W = 0.9358, p-value = 0.1995</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
+</section>
+<section id="tweedie" class="level4">
+<h4 class="anchored" data-anchor-id="tweedie"><strong>Tweedie</strong></h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>modelo4 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"tweedie"</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="supuestos-2" class="level5">
+<h5 class="anchored" data-anchor-id="supuestos-2"><strong>Supuestos</strong></h5>
+<p>El diagnóstico de residuos de DHARMa para el modelo de Tweedie no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha). Tampoco hay evidencia para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>residuos_m4 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo4)          <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/diagnostico-m4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m4 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo4)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m4,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/efectos-aleatorios-m4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11  6</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m4)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  ef_camadas_m4
+W = 0.93602, p-value = 0.2015</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="olre" class="level4">
+<h4 class="anchored" data-anchor-id="olre"><strong>OLRE</strong></h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>modelo5 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ID),</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"poisson"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="supuestos-3" class="level5">
+<h5 class="anchored" data-anchor-id="supuestos-3"><strong>Supuestos</strong></h5>
+<p>El diagnóstico de residuos de DHARMa para el modelo de OLRE no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha). Tampoco hay evidencia para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>residuos_m5 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo5, <span class="at">simulateREs =</span> <span class="st">"unconditional"</span>) <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/diagnostico-m5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled" title="Ver código">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ver código
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m5 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo5)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m5,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/efectos-aleatorios-m5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11  6</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m5)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  ef_camadas_m5
+W = 0.94792, p-value = 0.3366</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="comparación-por-aic" class="level3">
+<h3 class="anchored" data-anchor-id="comparación-por-aic"><strong>Comparación por AIC</strong></h3>
+<p>Se selecciona el modelo con menor AIC entre aquellos con diagnóstico DHARMa aceptable.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo2, modelo3, modelo4, modelo5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>        df      AIC
+modelo2 10 632.9165
+modelo3 10 635.0152
+modelo4 11 637.1339
+modelo5 10 632.8728</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Selección del modelo">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Selección del modelo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Entre los modelos con menor AIC, OLRE y binomial negativa, se selecciona <strong>la binomial negativa</strong> para el análisis de resultados.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="resultados" class="level2">

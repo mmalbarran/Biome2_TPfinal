@@ -32,7 +32,7 @@ Por último, considerando la evidencia bibliográfica a favor de una mayor toler
 
 ## **Metodología**
 
-### Descripción del ensayo
+### **Descripción del ensayo**
 
 Se trabajó con 111 ratones de cepa C57 provenientes de 20 camadas, a los cuales se les administró diariamente entre P1 y P14: Fluoxetina o sacarosa (vehículo) por vía oral, y CNO o solución salina vía inyección intraperitoneal. Si bien la administración de los tratamientos es a nivel individual, la asignación de la combinación de tratamientos fue realizada aleatoriamente a nivel de la camada; por ende, la camada es la unidad experimental. 
 
@@ -46,7 +46,7 @@ El número de entradas a los brazos abiertos en 10 minutos se analizó utilizand
 
 Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
-#### Diccionario de variables
+#### **Diccionario de variables**
 
 | Variable | Tipo | Descripción |
 |------------------------|------------------------|------------------------|
@@ -57,7 +57,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 | `ID` | Factor | código que identifica a cada ratón individual (1 a 111) |
 | `Brazos_abiertos_entradas` | Conteo (integer) | n° de entradas a brazos abiertos en 10 minutos |
 
-#### Preparación de la base de datos y fijación de referencias
+### **Preparación de la base de datos y fijación de referencias**
 
 A partir de la base de datos original (`EPM Tam +Mili - Hoja 1.csv`), se seleccionaron las variables de interés, se filtró un registro inconsistente (`R35`) y se definieron explícitamente los niveles de referencia (*baseline*) para que el intercepto del modelo represente al grupo control triple (`SUC`, `SAL`, `hembra`).
 
@@ -97,7 +97,7 @@ Datos <- datos_raw %>%
 str(Datos)
 ```
 
-### Exploración de los datos
+### **Exploración de los datos**
 
 Descripción de las variables mediante la función `summary()` de R
 
@@ -186,11 +186,11 @@ p5
 
 ```
 
-### Modelo de Poisson
+### **Modelo de Poisson**
 
 Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.
 
-##### **Especificación y supuestos distribucionales**
+#### **Especificación y supuestos distribucionales**
 
 #### $$\begin{aligned}
 Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
@@ -215,7 +215,7 @@ Anova(modelo1, type = "III")
 
 Se utilizó el test de ANOVA tipo III debido a que los grupos de combinación de los factores se encuentran desbalanceados.
 
-##### **Diagnóstico: SOBREDISPERSIÓN**
+#### **Diagnóstico: SOBREDISPERSIÓN**
 
 En el modelo de Poisson se asume $\text{Var}(Y_{ijkl}) = \mu_{ijkl}$ y un valor cercano a 1 del estadístico de dispersión es consistente con el supuesto; valores $≫1$ indican sobredispersión.
 
@@ -229,7 +229,7 @@ plot(residuos_m1)
 
 ```
 
-Diagnóstico DHARMa para el modelo de Poisson. El Q-Q plot (izquierda) muestra desviaciones respecto a la distribución uniforme esperada bajo el modelo. El gráfico de residuos contra predicciones (derecha) no mostró evidencia de heterogeneidad de varianzas entre grupos (test de Levene n.s.)
+Diagnóstico DHARMa para el modelo de Poisson. El Q-Q plot (izquierda) muestra desviaciones respecto a la distribución uniforme esperada bajo el modelo. El gráfico de residuos contra predicciones (derecha) no muestra evidencia de heterogeneidad de varianzas entre grupos (test de Levene n.s.).
 
 ```{r}
 #| code-fold: true
@@ -239,32 +239,41 @@ testDispersion(residuos_m1)                        # Test dispersión
 
 La dispersión observada (línea roja) supera la esperada bajo el modelo de Poisson (histograma), lo que indica sobredispersión (dispersión = 2.28, p \< 2.2e-16).
 
+Luego, el test de inflación de ceros de DHARMa indicó que el modelo de Poisson subestima la cantidad de ceros observados (5 observados frente a \~1 esperado; razón observado/simulado = 5.66, p \< 2.2e16), lo que es coherente con la sobredispersión detectada.
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
 ```{r}
-#| code-fold: true
-#| code-summary: "Ver código"
+#| label: ceros-m1
+
 testZeroInflation(residuos_m1)                     # Test inflación en ceros
-
 ```
+:::
 
-El test de inflación de ceros de DHARMa indicó que el modelo de Poisson subestima la cantidad de ceros observados (5 observados frente a \~1 esperado; razón observado/simulado = 5.66, p \< 2.2e16), lo que es coherente con la sobredispersión detectada.
+También, en los residuos de DHARMa frente a las predicciones del modelo de Poisson se detectan desviaciones de los cuantiles (curva roja) con observaciones atípicas en los extremos (asteriscos rojos), lo que es coherente con la sobredispersión observada.
 
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
 ```{r}
-#| code-fold: true
-#| code-summary: "Ver código"
+#| label: residuos-ajustados-m1
+
 plotResiduals(residuos_m1, form = fitted(modelo1)) # Residuos frente a valores ajustados
 ```
+:::
 
-Residuos de DHARMa frente a las predicciones del modelo de Poisson. Se detectaron desviaciones de los cuantiles (curva roja) con observaciones atípicas en los extremos (asteriscos rojos), lo que es coherente con la sobredispersión observada.
+Y por último, en el test de valores atípicos de DHARMa para el modelo de Poisson se indica con las barras rojas que hay observaciones fuera del rango de los datos simulados (5 de 110; frecuencia observada = 0.045 frente a 0.007 esperada, p \< 2.2e-16), lo que es coherente con la sobredispersión.
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
+```{r}
+#| label: outliers-m1
+
+testOutliers(residuos_m1)                          # Test Outliers
+```
+:::
+
+También, de forma manual se calcula el estadístico de dispersión
 
 ```{r}
 #| code-fold: true
 #| code-summary: "Ver código"
-testOutliers(residuos_m1)                          # Test Outliers
-```
-
-Test de valores atípicos de DHARMa para el modelo de Poisson. Las barras rojas indican observaciones fuera del rango de los datos simulados (5 de 110; frecuencia observada = 0.045 frente a 0.007 esperada, p \< 2.2e-16), lo que es coherente con la sobredispersión.
-
-```{r}
 # Calculamos estadístico de dispersión manualmente
 sum(residuals(modelo1, type="pearson")^2)/df.residual(modelo1)
 ```
@@ -275,11 +284,12 @@ El estadístico de dispersión es superior al valor esperado de 1 bajo el modelo
 Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional de dispersión.
 :::
 
-Además de la sobredispersión, se evalúa el supuesto de normalidad de los efectos aleatorios de camada, que en el modelo se asumen distribuidos normalmente con media 0 y varianza σ².
+Además de la sobredispersión, se evalúa el supuesto de normalidad de los residuos aleatorios de las camadas, que en el modelo se asumen distribuidos normalmente con media 0 y varianza σ². Y se concluye que no hay evidencia suficiente para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.
 
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
 ```{r}
-#| code-fold: true
-#| code-summary: "Ver código"
+#| label: efectos-aleatorios-m1
+
 ef_camadas_m1 <- ranef(modelo1)$cond$camada[["(Intercept)"]]
 
 qqPlot(
@@ -288,14 +298,13 @@ qqPlot(
   ylab = "Efectos aleatorios estimados"
 )
 
-shapiro.test(ef_camadas_m1)       # Shapiro-Wilks test
+shapiro.test(ef_camadas_m1)       # Shapiro-Wilk test
 ```
+:::
 
-No hay evidencia suficiente para rechazar que los efectos aleatorios de camada siguen una distribución normal.
+### **Modelos alternativos para sobredispersión**
 
-### Modelos alternativos para sobredispersión
-
-##### **Binomial negativa (NB2)**
+#### **Binomial negativa (NB2)**
 
 ```{r}
 #| code-fold: true
@@ -306,20 +315,173 @@ modelo2 <- glmmTMB(
   data = Datos
 )
 
-summary(modelo2)
-Anova(modelo2, type = "III")
 ```
 
-Supuestos
+##### **Supuestos**
 
+El diagnóstico de residuos de DHARMa para el modelo de binomial negativa no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha). Tampoco hay evidencia para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
 ```{r}
+#| label: diagnostico-m2
+
 residuos_m2 <- simulateResiduals(modelo2)          # Simulamos residuos con DHARMa
 plot(residuos_m2)
 ```
+:::
 
-El diagnóstico de residuos de DHARMa para el modelo de binomial negativa no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha).
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
+```{r}
+#| label: efectos-aleatorios-m2
 
-#### Conway-Maxwell-Poisson (CMP)
+ef_camadas_m2 <- ranef(modelo2)$cond$camada[["(Intercept)"]]
+
+qqPlot(
+  ef_camadas_m2,
+  main = "QQ Plot de efectos aleatorios de las camadas",
+  ylab = "Efectos aleatorios estimados"
+)
+
+shapiro.test(ef_camadas_m2)       # Shapiro-Wilk test
+```
+:::
+
+#### **Conway-Maxwell-Poisson (CMP)**
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+modelo3 <- glmmTMB(
+  Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
+  family = "compois",
+  data = Datos
+)
+```
+
+##### **Supuestos**
+
+El diagnóstico de residuos de DHARMa para el modelo de Conway-Maxwell-Poisson no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha). Tampoco hay evidencia para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
+```{r}
+#| label: diagnostico-m3
+
+residuos_m3 <- simulateResiduals(modelo3)          # Simulamos residuos con DHARMa
+plot(residuos_m3)
+```
+:::
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
+```{r}
+#| label: efectos-aleatorios-m3
+
+ef_camadas_m3 <- ranef(modelo3)$cond$camada[["(Intercept)"]]
+
+qqPlot(
+  ef_camadas_m3,
+  main = "QQ Plot de efectos aleatorios de las camadas",
+  ylab = "Efectos aleatorios estimados"
+)
+
+shapiro.test(ef_camadas_m3)       # Shapiro-Wilk test
+```
+:::
+
+#### **Tweedie**
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+modelo4 <- glmmTMB(
+  Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
+  family = "tweedie",
+  data = Datos
+)
+```
+
+##### **Supuestos**
+
+El diagnóstico de residuos de DHARMa para el modelo de Tweedie no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha). Tampoco hay evidencia para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
+```{r}
+#| label: diagnostico-m4
+
+residuos_m4 <- simulateResiduals(modelo4)          # Simulamos residuos con DHARMa
+plot(residuos_m4)
+```
+:::
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
+```{r}
+#| label: efectos-aleatorios-m4
+
+ef_camadas_m4 <- ranef(modelo4)$cond$camada[["(Intercept)"]]
+
+qqPlot(
+  ef_camadas_m4,
+  main = "QQ Plot de efectos aleatorios de las camadas",
+  ylab = "Efectos aleatorios estimados"
+)
+
+shapiro.test(ef_camadas_m4)       # Shapiro-Wilk test
+```
+:::
+
+#### **OLRE**
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+modelo5 <- glmmTMB(
+  Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada) + (1 | ID),
+  family = "poisson",
+  data = Datos
+)
+```
+
+##### **Supuestos**
+
+El diagnóstico de residuos de DHARMa para el modelo de OLRE no mostró evidencia de desviaciones respecto de la distribución uniforme esperada (izquierda), ni de heterogeneidad de varianzas entre grupos (derecha). Tampoco hay evidencia para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
+```{r}
+#| label: diagnostico-m5
+
+residuos_m5 <- simulateResiduals(modelo5, simulateREs = "unconditional") # Simulamos residuos con DHARMa
+plot(residuos_m5)
+```
+:::
+
+::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
+```{r}
+#| label: efectos-aleatorios-m5
+
+ef_camadas_m5 <- ranef(modelo5)$cond$camada[["(Intercept)"]]
+
+qqPlot(
+  ef_camadas_m5,
+  main = "QQ Plot de efectos aleatorios de las camadas",
+  ylab = "Efectos aleatorios estimados"
+)
+
+shapiro.test(ef_camadas_m5)       # Shapiro-Wilk test
+```
+:::
+
+### **Comparación por AIC**
+
+Se selecciona el modelo con menor AIC entre aquellos con diagnóstico DHARMa aceptable.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+AIC(modelo2, modelo3, modelo4, modelo5)
+```
+
+::: {.callout-tip title="Selección del modelo"}
+Entre los modelos con menor AIC, OLRE y binomial negativa, se selecciona **la binomial negativa** para el análisis de resultados.
+:::
 
 ## Resultados
 
