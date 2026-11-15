@@ -49,7 +49,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### Diccionario de variables
 
 | Variable | Tipo | Descripción |
-|---------------------|------------------|---------------------------------|
+|------------------------|------------------------|------------------------|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (1 a 20) |
 | `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
@@ -190,7 +190,7 @@ p5
 
 Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.
 
-##### Especificación y supuestos distribucionales
+##### **Especificación y supuestos distribucionales**
 
 #### $$\begin{aligned}
 Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
@@ -201,6 +201,10 @@ Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 
 $$Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \mu_{ijkl}$$
 
 ```{r}
+
+#| code-fold: true
+#| code-summary: "Ver código"
+
 modelo1 <- glmmTMB(
   Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
   data = Datos,
@@ -212,22 +216,66 @@ Anova(modelo1, type = "III")
 
 Se utilizó el test de ANOVA tipo III debido a que los grupos de combinación de los factores se encuentran desbalanceados.
 
-##### Diagnóstico: sobredispersión
+##### **Diagnóstico: SOBREDISPERSIÓN**
+
+En el modelo de Poisson se asume $\text{Var}(Y_{ijkl}) = \mu_{ijkl}$ y un valor cercano a 1 del estadístico de dispersión es consistente con el supuesto; valores $≫1$ indican sobredispersión.
 
 ```{r}
+
+#| code-fold: true
+#| code-summary: "Ver código"
+
 residuos_m1 <- simulateResiduals(modelo1)          # Simulamos residuos con DHARMa
 
 plot(residuos_m1)
-testUniformity(residuos_m1)                        # Test uniformidad
-testDispersion(residuos_m1)                        # Test dispersión
-testZeroInflation(residuos_m1)                     # Test inflación en ceros
-plotResiduals(residuos_m1, form = fitted(modelo1)) # Residuos frente a valores ajustados
-testOutliers(residuos_m1)                          # Test Outliers
 
+```
+
+Diagnóstico DHARMa para el modelo de Poisson. El Q-Q plot (izquierda) muestra desviaciones respecto a la distribución uniforme esperada bajo el modelo. El gráfico de residuos contra predicciones (derecha) no mostró evidencia de heterogeneidad de varianzas entre grupos (test de Levene n.s.)
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+testDispersion(residuos_m1)                        # Test dispersión
+```
+
+La dispersión observada (línea roja) supera la esperada bajo el modelo de Poisson (histograma), lo que indica sobredispersión (dispersión = 2.28, p \< 2.2e-16).
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+testZeroInflation(residuos_m1)                     # Test inflación en ceros
+
+```
+
+El test de inflación de ceros de DHARMa indicó que el modelo de Poisson subestima la cantidad de ceros observados (5 observados frente a \~1 esperado; razón observado/simulado = 5.66, p \< 2.2e16), lo que es coherente con la sobredispersión detectada.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+plotResiduals(residuos_m1, form = fitted(modelo1)) # Residuos frente a valores ajustados
+```
+
+Residuos de DHARMa frente a las predicciones del modelo de Poisson. Se detectaron desviaciones de los cuantiles (curva roja) con observaciones atípicas en los extremos (asteriscos rojos), lo que es coherente con la sobredispersión observada.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Ver código"
+testOutliers(residuos_m1)                          # Test Outliers
+```
+
+Test de valores atípicos de DHARMa para el modelo de Poisson. Las barras rojas indican observaciones fuera del rango de los datos simulados (5 de 110; frecuencia observada = 0.045 frente a 0.007 esperada, p \< 2.2e-16), lo que es coherente con la sobredispersión.
+
+```{r}
+# Calculamos estadístico de dispersión manualmente
 sum(residuals(modelo1, type="pearson")^2)/df.residual(modelo1)
 ```
 
+El estadístico de dispersión es superior al valor esperado de 1 bajo el modelo de Poisson, lo que indica sobredispersión.
+
+::: {.callout-important title="Sobredispersión confirmada"}
 Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional de dispersión.
+:::
 
 #### Binomial negativa (NB2)
 

@@ -170,9 +170,9 @@ window.Quarto = {
 <h4 class="anchored" data-anchor-id="diccionario-de-variables">Diccionario de variables</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 29%">
-<col style="width: 25%">
-<col style="width: 45%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -370,7 +370,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="modelo-de-poisson">Modelo de Poisson</h3>
 <p>Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.</p>
 <section id="especificación-y-supuestos-distribucionales" class="level5">
-<h5 class="anchored" data-anchor-id="especificación-y-supuestos-distribucionales">Especificación y supuestos distribucionales</h5>
+<h5 class="anchored" data-anchor-id="especificación-y-supuestos-distribucionales"><strong>Especificación y supuestos distribucionales</strong></h5>
 </section>
 <section id="beginaligned-y_ijkl-beta_0-beta_1-textflx_i-beta_2-textcno_j-beta_3-textmacho_k-beta_4-textflx-times-textcno_ij-beta_5-textflx-times-textmacho_ik-beta_6-textcno-times-textmacho_jk-beta_7-textflx-times-textcno-times-textmacho_ijk-c_l-endaligned" class="level4">
 <h4 class="anchored" data-anchor-id="beginaligned-y_ijkl-beta_0-beta_1-textflx_i-beta_2-textcno_j-beta_3-textmacho_k-beta_4-textflx-times-textcno_ij-beta_5-textflx-times-textmacho_ik-beta_6-textcno-times-textmacho_jk-beta_7-textflx-times-textcno-times-textmacho_ijk-c_l-endaligned"><span class="math display">\[\begin{aligned}
@@ -380,12 +380,15 @@ Y_{ijkl} = {} &amp; \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \bet
 \end{aligned}\]</span></h4>
 <p><span class="math display">\[Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \mu_{ijkl}\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Ver código"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: poisson  ( log )
 Formula:          
@@ -435,11 +438,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Se utilizó el test de ANOVA tipo III debido a que los grupos de combinación de los factores se encuentran desbalanceados.</p>
 <section id="diagnóstico-sobredispersión" class="level5">
-<h5 class="anchored" data-anchor-id="diagnóstico-sobredispersión">Diagnóstico: sobredispersión</h5>
+<h5 class="anchored" data-anchor-id="diagnóstico-sobredispersión"><strong>Diagnóstico: SOBREDISPERSIÓN</strong></h5>
+<p>En el modelo de Poisson se asume <span class="math inline">\(\text{Var}(Y_{ijkl}) = \mu_{ijkl}\)</span> y un valor cercano a 1 del estadístico de dispersión es consistente con el supuesto; valores <span class="math inline">\(≫1\)</span> indican sobredispersión.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>residuos_m1 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo1)          <span class="co"># Simulamos residuos con DHARMa</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Ver código"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>residuos_m1 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo1)          <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -447,27 +454,17 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testUniformity</span>(residuos_m1)                        <span class="co"># Test uniformidad</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Diagnóstico DHARMa para el modelo de Poisson. El Q-Q plot (izquierda) muestra desviaciones respecto a la distribución uniforme esperada bajo el modelo. El gráfico de residuos contra predicciones (derecha) no mostró evidencia de heterogeneidad de varianzas entre grupos (test de Levene n.s.)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testDispersion</span>(residuos_m1)                        <span class="co"># Test dispersión</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Asymptotic one-sample Kolmogorov-Smirnov test
-
-data:  simulationOutput$scaledResiduals
-D = 0.15021, p-value = 0.01398
-alternative hypothesis: two-sided</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testDispersion</span>(residuos_m1)                        <span class="co"># Test dispersión</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -480,11 +477,17 @@ data:  simulationOutput
 dispersion = 2.2753, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testZeroInflation</span>(residuos_m1)                     <span class="co"># Test inflación en ceros</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>La dispersión observada (línea roja) supera la esperada bajo el modelo de Poisson (histograma), lo que indica sobredispersión (dispersión = 2.28, p &lt; 2.2e-16).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testZeroInflation</span>(residuos_m1)                     <span class="co"># Test inflación en ceros</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -497,19 +500,31 @@ data:  simulationOutput
 ratioObsSim = 5.6561, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotResiduals</span>(residuos_m1, <span class="at">form =</span> <span class="fu">fitted</span>(modelo1)) <span class="co"># Residuos frente a valores ajustados</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El test de inflación de ceros de DHARMa indicó que el modelo de Poisson subestima la cantidad de ceros observados (5 observados frente a ~1 esperado; razón observado/simulado = 5.66, p &lt; 2.2e16), lo que es coherente con la sobredispersión detectada.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotResiduals</span>(residuos_m1, <span class="at">form =</span> <span class="fu">fitted</span>(modelo1)) <span class="co"># Residuos frente a valores ajustados</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-2-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testOutliers</span>(residuos_m1)                          <span class="co"># Test Outliers</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Residuos de DHARMa frente a las predicciones del modelo de Poisson. Se detectaron desviaciones de los cuantiles (curva roja) con observaciones atípicas en los extremos (asteriscos rojos), lo que es coherente con la sobredispersión observada.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testOutliers</span>(residuos_m1)                          <span class="co"># Test Outliers</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-2-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -523,15 +538,32 @@ alternative hypothesis: two.sided
  percent confidence interval:
  0.00000000 0.01818182
 sample estimates:
-outlier frequency (expected: 0.00727272727272727 ) 
+outlier frequency (expected: 0.00663636363636364 ) 
                                         0.04545455 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(modelo1, <span class="at">type=</span><span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">df.residual</span>(modelo1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Test de valores atípicos de DHARMa para el modelo de Poisson. Las barras rojas indican observaciones fuera del rango de los datos simulados (5 de 110; frecuencia observada = 0.045 frente a 0.007 esperada, p &lt; 2.2e-16), lo que es coherente con la sobredispersión.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos estadístico de dispersión manualmente</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(modelo1, <span class="at">type=</span><span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">df.residual</span>(modelo1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.597938</code></pre>
 </div>
 </div>
+<p>El estadístico de dispersión es superior al valor esperado de 1 bajo el modelo de Poisson, lo que indica sobredispersión.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Sobredispersión confirmada">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Sobredispersión confirmada
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional de dispersión.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="binomial-negativa-nb2" class="level4">
