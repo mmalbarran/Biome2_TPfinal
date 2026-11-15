@@ -379,6 +379,7 @@ Y_{ijkl} = {} &amp; \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \bet
 &amp; + \beta_7 (\text{FLX} \times \text{CNO} \times \text{Macho})_{ijk} + C_l
 \end{aligned}\]</span></h4>
 <p><span class="math display">\[Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \mu_{ijkl}\]</span></p>
+<p>La interacción triple contempla que el efecto de FLX difiere según la administración de CNO y según el sexo, mientras que el efecto aleatorio de camada contempla que los ratones de una misma camada no son independientes entre sí.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
@@ -574,10 +575,10 @@ data:  residuos_m1
 outliers at both margin(s) = 5, observations = 110, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided
  percent confidence interval:
- 0.00000000 0.02727273
+ 0.00000000 0.02295455
 sample estimates:
-outlier frequency (expected: 0.00709090909090909 ) 
-                                        0.04545455 </code></pre>
+outlier frequency (expected: 0.007 ) 
+                          0.04545455 </code></pre>
 </div>
 </div>
 </div>
