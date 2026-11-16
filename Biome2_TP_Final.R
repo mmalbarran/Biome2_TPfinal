@@ -711,4 +711,36 @@ sum(c1 * c2)
 sum(c1 * c3)  # 0 ✓
 sum(c2 * c3)  # 0 ✓
 
-#hacer bonferroni 
+
+
+# ------------------------------------------------------------------------------
+# CONTRASTES BONFERRONI CODIGO DE CELI (NO CHEQUEADO POR NAZA)
+# ------------------------------------------------------------------------------
+medias.log <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "link")
+print(medias.log)
+#FLX_SUC SAL_CNO sexo   emmean    SE  df asymp.LCL asymp.UCL
+#SUC     SAL     hembra   1.78 0.244 Inf     1.303      2.26
+#FLX     SAL     hembra   2.21 0.203 Inf     1.816      2.61
+#SUC     CNO     hembra   1.50 0.236 Inf     1.041      1.97
+#FLX     CNO     hembra   1.87 0.190 Inf     1.501      2.24
+#SUC     SAL     macho    1.66 0.228 Inf     1.215      2.11
+#FLX     SAL     macho    1.43 0.228 Inf     0.987      1.88
+#SUC     CNO     macho    1.90 0.230 Inf     1.451      2.35
+#FLX     CNO     macho    2.24 0.194 Inf     1.858      2.62
+
+contrastes_planeados <- list(
+  # H1: FLX_SAL [filas 2, 6] vs SUC_SAL [filas 1, 5]
+  "H1: FLX_SAL vs SUC_SAL (General)" = c(-0.5,  0.5, 0,   0, -0.5,  0.5, 0,   0),
+  
+  # H2: FLX_CNO [filas 4, 8] vs FLX_SAL [filas 2, 6]
+  "H2: FLX_CNO vs FLX_SAL (General)" = c( 0,   -0.5, 0, 0.5,  0,   -0.5, 0, 0.5),
+  
+  # H3: Hembra FLX_SAL [fila 2] vs Macho FLX_SAL [fila 6]
+  "H3: Hembra vs Macho (en FLX_SAL)" = c( 0,    1,   0,   0,  0,   -1,   0,   0)
+)
+# EN ESCALA log (LINK)
+bonfe_log<-contrast(medias.log, method = contrastes_planeados, type = "link", adjust = "bonferroni")
+bonfe_log
+# EN ESCALA NATURAL (RATIO DE CONTEOS)
+bonfe_resp<-contrast(medias.log, method = contrastes_planeados, type = "response", adjust = "bonferroni")
+bonfe_resp
