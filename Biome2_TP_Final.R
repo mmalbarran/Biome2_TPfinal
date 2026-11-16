@@ -66,7 +66,7 @@ table(Datos$camada)
 # Ratones por combinación de VEs fijas
 ftable(Datos$FLX_SUC, Datos$SAL_CNO, Datos$sexo)
 
-
+Anova(modelo2, type = "II")
 # ESTADÍSTICA DESCRIPTIVA ######################################################
 
 ## Tablas descriptivas =========================================================
@@ -395,6 +395,104 @@ summary(modelo2)
 Anova(modelo2, type = "III")
 
 ##### NAZA
+
+# Coeficientes del modelo
+library(emmeans)
+
+cel <- as.data.frame(emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo))   # escala log
+mu  <- mean(cel$emmean)
+
+alfa <- as.data.frame(emmeans(modelo2, ~ FLX_SUC))
+alfa$alfa <- alfa$emmean - mu
+
+beta <- as.data.frame(emmeans(modelo2, ~ SAL_CNO))
+beta$beta <- beta$emmean - mu
+
+gamma <- as.data.frame(emmeans(modelo2, ~ sexo))
+gamma$gamma <- gamma$emmean - mu
+
+cel$alfabeta <- cel$emmean - mu -
+  alfa$alfa[match(cel$FLX_SUC, alfa$FLX_SUC)] -
+  beta$beta[match(cel$SAL_CNO, beta$SAL_CNO)]
+
+cel$alfagamma <- cel$emmean - mu -
+  alfa$alfa[match(cel$FLX_SUC, alfa$FLX_SUC)] -
+  gamma$gamma[match(cel$sexo, gamma$sexo)]
+
+cel$betagamma <- cel$emmean - mu -
+  beta$beta[match(cel$SAL_CNO, beta$SAL_CNO)] -
+  gamma$gamma[match(cel$sexo, gamma$sexo)]
+
+cel$alfabetagamma <- cel$emmean - mu -
+  alfa$alfa[match(cel$FLX_SUC, alfa$FLX_SUC)] -
+  beta$beta[match(cel$SAL_CNO, beta$SAL_CNO)] -
+  gamma$gamma[match(cel$sexo, gamma$sexo)] 
+
+
+library(emmeans)
+library(dplyr)
+
+cel <- as.data.frame(emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo))
+mu  <- mean(cel$emmean)
+
+# Efectos principales
+alfa  <- as.data.frame(emmeans(modelo2, ~ FLX_SUC)) %>% mutate(alfa  = emmean - mu)
+beta  <- as.data.frame(emmeans(modelo2, ~ SAL_CNO)) %>% mutate(beta  = emmean - mu)
+gamma <- as.data.frame(emmeans(modelo2, ~ sexo))    %>% mutate(gamma = emmean - mu)
+
+# Interacciones dobles (a partir de las marginales de 2 factores)
+ab <- as.data.frame(emmeans(modelo2, ~ FLX_SUC * SAL_CNO)) %>%
+  left_join(select(alfa, FLX_SUC, alfa), by = "FLX_SUC") %>%
+  left_join(select(beta, SAL_CNO, beta), by = "SAL_CNO") %>%
+  mutate(alfabeta = emmean - mu - alfa - beta)
+
+ag <- as.data.frame(emmeans(modelo2, ~ FLX_SUC * sexo)) %>%
+  left_join(select(alfa, FLX_SUC, alfa), by = "FLX_SUC") %>%
+  left_join(select(gamma, sexo, gamma), by = "sexo") %>%
+  mutate(alfagamma = emmean - mu - alfa - gamma)
+
+bg <- as.data.frame(emmeans(modelo2, ~ SAL_CNO * sexo)) %>%
+  left_join(select(beta, SAL_CNO, beta), by = "SAL_CNO") %>%
+  left_join(select(gamma, sexo, gamma), by = "sexo") %>%
+  mutate(betagamma = emmean - mu - beta - gamma)
+
+# Interacción triple (por celda)
+cel <- cel %>%
+  select(FLX_SUC, SAL_CNO, sexo, emmean) %>%
+  left_join(select(alfa,  FLX_SUC, alfa),  by = "FLX_SUC") %>%
+  left_join(select(beta,  SAL_CNO, beta),  by = "SAL_CNO") %>%
+  left_join(select(gamma, sexo, gamma),    by = "sexo") %>%
+  left_join(select(ab, FLX_SUC, SAL_CNO, alfabeta),  by = c("FLX_SUC", "SAL_CNO")) %>%
+  left_join(select(ag, FLX_SUC, sexo, alfagamma),    by = c("FLX_SUC", "sexo")) %>%
+  left_join(select(bg, SAL_CNO, sexo, betagamma),    by = c("SAL_CNO", "sexo")) %>%
+  mutate(alfabetagamma = emmean - mu - alfa - beta - gamma -
+           alfabeta - alfagamma - betagamma)
+  
+# Estimación de medias
+  
+emm_options(emmeans = list(infer = c(TRUE, FALSE)),
+            contrast = list(infer = c(TRUE, TRUE)))
+
+# 1. Obtener las medias estimadas del modelo
+medias.log <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "link")
+medias.log
+medias.rta <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
+medias.rta
+
+
+# Comparaciones
+
+# El orden interno de las 8 celdas en la grilla de emmeans es:
+# 1: FLX     CNO     hembra
+# 2: SUC     CNO     hembra
+# 3: FLX     SAL     hembra 
+# 4: SUC     SAL     hembra 
+# 5: FLX     CNO     macho
+# 6: SUC     CNO     macho
+# 7: FLX     SAL     macho 
+# 8: SUC     SAL     macho
+
+
 
 tuk <- emmeans(modelo2,~ FLX_SUC * SAL_CNO * sexo,
                type = "response", adjust = "tukey")

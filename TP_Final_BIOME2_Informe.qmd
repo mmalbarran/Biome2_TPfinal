@@ -236,6 +236,8 @@ logE(Y_{ijkl}) = {} & \mu + \text{FLX_SUC}_i + \text{SAL_CNO}_j + \text{sexo}_k 
 
 $$Y_{ijkl} \approx \text{Poisson}(\lambda_{ijkl}), \quad \text{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \lambda_{ijkl} = \mu_{ijkl}$$
 
+$$C_l \sim NID(0,\sigma_\text{camada}^2)$$
+
 La interacción triple contempla que el efecto de FLX difiere según la administración de CNO y según el sexo, mientras que el efecto aleatorio de camada contempla que los ratones de una misma camada no son independientes entre sí.
 
 ```{r}
@@ -519,6 +521,57 @@ Entre los modelos con menor AIC, OLRE y binomial negativa, se selecciona **la bi
 :::
 
 ## Resultados
+
+Tabla de Anova
+
+```{r}
+Anova(modelo2, type="III")
+```
+
+Utilizamos un Anova de tipo III ya que el diseño es factorial y desbalanceado, de modo que las sumas de cuadrados dejan de ser ortogonales. Este tipo de Anova mide la contribución de una variable explicativa siendo que todas las otras ya se encuentran incluidas en el modelo.
+
+Estimación de medias
+
+```{r}
+emm_options(emmeans = list(infer = c(TRUE, FALSE)),
+            contrast = list(infer = c(TRUE, TRUE)))
+
+# Obtener las medias estimadas del modelo en escala log
+medias.log <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "link")
+medias.log
+```
+
+```{r}
+# Obtener las medias estimadas del modelo en escala de la VR
+medias.rta <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
+medias.rta
+```
+
+Contrastes
+
+Los contrastes fueron planeados a priori, en base a las hipótesis y predicciones. Se aplicaron contrastes de Bonferroni, dado que no se cumplía la ortogonalidad.
+
+```{r}
+# El orden interno de las 8 celdas en la grilla de emmeans es:
+# 1: FLX     CNO     hembra
+# 2: SUC     CNO     hembra
+# 3: FLX     SAL     hembra 
+# 4: SUC     SAL     hembra 
+# 5: FLX     CNO     macho
+# 6: SUC     CNO     macho
+# 7: FLX     SAL     macho 
+# 8: SUC     SAL     macho
+
+c1 <- c( 0,  0,  0.5,  -0.5, 0, 0,  0.5,  -0.5)
+c2 <- c(0.5, 0,  -0.5,  0,  0.5,  0,  -0.5,  0)
+c3 <- c( 0, 0,  1,  0,  0,  0,  -1,  0)
+
+contrastes <- list("SUC vs FLX" = c1, "CNO vs SAL" = c2, "FLX machos vs FLX hembras" = c3)
+
+# Bonferroni
+res_bonf <- contrast(medias.log, contrastes, type = "response", adjust = "bonferroni")
+res_bonf
+```
 
 ## Discusión
 
