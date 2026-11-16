@@ -553,24 +553,30 @@ Los contrastes fueron planeados a priori, en base a las hipótesis y prediccione
 
 ```{r}
 # El orden interno de las 8 celdas en la grilla de emmeans es:
-# 1: FLX     CNO     hembra
-# 2: SUC     CNO     hembra
-# 3: FLX     SAL     hembra 
-# 4: SUC     SAL     hembra 
-# 5: FLX     CNO     macho
-# 6: SUC     CNO     macho
-# 7: FLX     SAL     macho 
-# 8: SUC     SAL     macho
+# 1: SUC SAL hembra
+# 2: FLX SAL hembra
+# 3: SUC CNO hembra
+# 4: FLX CNO hembra
+# 5: SUC SAL macho
+# 6: FLX SAL macho
+# 7: SUC CNO macho
+# 8: FLX CNO macho
 
-c1 <- c( 0,  0,  0.5,  -0.5, 0, 0,  0.5,  -0.5)
-c2 <- c(0.5, 0,  -0.5,  0,  0.5,  0,  -0.5,  0)
-c3 <- c( 0, 0,  1,  0,  0,  0,  -1,  0)
+c1 <- c(-0.5, 0.5, 0, 0, -0.5, 0.5, 0, 0)
+c2 <- c(0, -0.5, 0, 0.5,  0, -0.5, 0, 0.5)
+c3 <- c( 0, 1, 0, 0, 0, -1, 0, 0)
 
-contrastes <- list("SUC vs FLX" = c1, "CNO vs SAL" = c2, "FLX machos vs FLX hembras" = c3)
+contrastes <- list("FLX vs SUC" = c1, "CNO vs SAL" = c2, "FLX hembras vs FLX machos" = c3)
 
-# Bonferroni
-res_bonf <- contrast(medias.log, contrastes, type = "response", adjust = "bonferroni")
-res_bonf
+# Bonferroni en escala log
+comp_log <- contrast(medias.log, contrastes, adjust = "bonferroni")
+comp_log
+```
+
+```{r}
+# Bonferroni en escala de la variable respuesta
+comp_vr <- contrast(medias.log, contrastes, type = "response", adjust = "bonferroni")
+comp_vr
 ```
 
 ## Discusión
