@@ -1,7 +1,7 @@
 ---
 title: "Rol de la corteza prefrontal en el fenotipo tipo ansioso inducido por exposición neonatal a fluoxetina en ratones"
 subtitle: "Trabajo práctico final — Biometría II"
-format: html
+format: pdf
 editor: visual
 ---
 
