@@ -167,7 +167,9 @@ p3 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order
 p3
 ```
 
-A simple vista, pareciera que en hembras la administración de Fluoxetina deriva en un aumento en las entradas en brazos abiertos, mientras que en machos deriva en una pequeña disminución. También pareciera que las hembras tratadas con Fluoxetina presentan un mayor número de entradas a los brazos abiertos que los machos tratados con Fluoxetina, lo que se condice con nuestra tercera hipótesis. Sin embargo, según nuestra primera hipótesis sería de esperar que los ratones tratados con Fluoxetina presenten un menor número de entradas a los brazos abiertos que aquellos tratados con sacarosa, pero el gráfico no da indicios de que esto sea así. Por último, se esperaba que el grupo tratado con Fluoxetina y CNO aumente el número de entradas a los brazos abiertos en comparación al grupo tratado con Fluoxetina y solución salina. Sin embargo, esto solo parece ser cierto para los machos, y ocurrir lo opuesto en hembras.
+A nivel exploratorio, la observación de los datos crudos sugiere que en hembras la administración de Fluoxetina deriva en un aumento en las entradas en brazos abiertos, mientras que en machos deriva en una pequeña disminución. También pareciera que las hembras tratadas con Fluoxetina presentan un mayor número de entradas a los brazos abiertos que los machos tratados con Fluoxetina, lo que se condice con nuestra tercera hipótesis. Sin embargo, según nuestra primera hipótesis sería de esperar que los ratones tratados con Fluoxetina presenten un menor número de entradas a los brazos abiertos que aquellos tratados con sacarosa, pero el gráfico no da indicios de que esto sea así para ambos sexos. Por último, se esperaba que el grupo tratado con Fluoxetina y CNO aumente el número de entradas a los brazos abiertos en comparación al grupo tratado con Fluoxetina y solución salina. Sin embargo, esto solo parece ser cierto para los machos, y ocurrir lo opuesto en hembras.
+
+Resulta curioso destacar que para las hembras, el CNO parecería disminuir en cierta medida el número de entradas a brazos abiertos, mientras que para machos parecería aumentarlo. Dentro de cada sexo el número de entradas a los brazos abiertos para el tratamiento Fluoxetina-CNO parecería modificarse en sentido contrario al del tratamiento Fluoxetina-solución salina, indicando que podría contrarrestar aunque sea parcialmente el efecto del tratamiento con Fluoxetina. Estos detalles podrían indicar una interacción entre el sexo y el CNO.
 
 Gráfico de perfiles del número promedio de entradas a brazos abiertos según el sexo y los tratamientos recibidos. Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales.
 
@@ -218,19 +220,21 @@ p5
 
 ```
 
+En el gráfico de perfiles se puede observar que el tratamiento con Fluoxetina y solución salina varía entre sexos, dado que se puede apreciar una pendiente positiva en hembras y una pendiente negativa en machos. El CNO muestra una pendiente positiva en ambos casos, pero más marcada en el caso de los machos. Además, en el tratamiento con Fluoxetina, se puede observar una mayor diferencia entre el tratamiento con solución salina y CNO en machos. En conjunto, esto evidencia una posible interacción triple y confirma la relevancia de incluir el factor sexo.
+
 ### **Modelo de Poisson**
 
 Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.
 
 #### **Especificación y supuestos distribucionales**
 
-#### $$\begin{aligned}
-Y_{ijkl} = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
-& + \beta_4 (\text{FLX} \times \text{CNO})_{ij} + \beta_5 (\text{FLX} \times \text{Macho})_{ik} + \beta_6 (\text{CNO} \times \text{Macho})_{jk} \\
-& + \beta_7 (\text{FLX} \times \text{CNO} \times \text{Macho})_{ijk} + C_l
+$$\begin{aligned}
+logE(Y_{ijkl}) = {} & \mu + \text{FLX_SUC}_i + \text{SAL_CNO}_j + \text{sexo}_k + (\text{FLX_SUC} \times \text{SAL_CNO})_{ij} \\
+& +  (\text{FLX_SUC} \times \text{sexo})_{ik} + (\text{SAL_CNO} \times \text{sexo})_{jk} + \\ 
+& +(\text{FLX_SUC} \times \text{SAL_CNO} \times \text{sexo})_{ijk} + C_l
 \end{aligned}$$
 
-$$Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \mu_{ijkl}$$
+$$Y_{ijkl} \approx \text{Poisson}(\lambda_{ijkl}), \quad \text{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \lambda_{ijkl} = \mu_{ijkl}$$
 
 La interacción triple contempla que el efecto de FLX difiere según la administración de CNO y según el sexo, mientras que el efecto aleatorio de camada contempla que los ratones de una misma camada no son independientes entre sí.
 
@@ -244,10 +248,7 @@ modelo1 <- glmmTMB(
   family = poisson(link = "log"))
 
 summary(modelo1)
-Anova(modelo1, type = "III")
 ```
-
-Se utilizó el test de ANOVA tipo III debido a que los grupos de combinación de los factores se encuentran desbalanceados.
 
 #### **Diagnóstico: SOBREDISPERSIÓN**
 

@@ -289,7 +289,7 @@ window.Quarto = {
 </div>
 </div>
 <p>A partir de esta salida se puede observar que la base de datos cuenta con observaciones de 110 ratones, 56 de los cuales son hembras y 54 machos. El summary también muestra 6 camadas, las cuales tienen 7 ratones cada una, pero hay camadas que no se muestran. A 51 ratones se les asignó tratamiento con sacarosa, mientras que a 59 con Fluoxetina. A 52 ratones se les asignó tratamiento con solución salina, y a 58 tratamiento con CNO. Para el número de entradas a los brazos abiertos en 10 min, se observa un mínimo de 0 (cota inferior dado el diseño experimental) y un máximo de 31, con una mediana de 6 y una media de 6.682.</p>
-<p>Cantidad de ratones por camada</p>
+<p>Verificación de la cantidad de ratones por camada</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
@@ -317,6 +317,7 @@ FLX SAL      14    13
     CNO      17    15</code></pre>
 </div>
 </div>
+<p>Hay entre 11 y 17 ratones por cada combinación de variables explicativas fijas. Se observa desbalanceo entre grupos, pero no es muy extremo. Es relevante detectar si hay desbalanceo entre los grupos, ya que define el tipo de Anova que utilizaremos más adelante.</p>
 <p>Exploración gráfica mediante boxplots del número de entradas a brazos abiertos según el sexo y los tratamientos recibidos.</p>
 <div class="cell">
 <details class="code-fold">
@@ -344,6 +345,8 @@ FLX SAL      14    13
 </div>
 </div>
 </div>
+<p>A simple vista, pareciera que en hembras la administración de Fluoxetina deriva en un aumento en las entradas en brazos abiertos, mientras que en machos deriva en una pequeña disminución. También pareciera que las hembras tratadas con Fluoxetina presentan un mayor número de entradas a los brazos abiertos que los machos tratados con Fluoxetina, lo que se condice con nuestra tercera hipótesis. Sin embargo, según nuestra primera hipótesis sería de esperar que los ratones tratados con Fluoxetina presenten un menor número de entradas a los brazos abiertos que aquellos tratados con sacarosa, pero el gráfico no da indicios de que esto sea así. Por último, se esperaba que el grupo tratado con Fluoxetina y CNO aumente el número de entradas a los brazos abiertos en comparación al grupo tratado con Fluoxetina y solución salina. Sin embargo, esto solo parece ser cierto para los machos, y ocurrir lo opuesto en hembras.</p>
+<p>Resulta curioso destacar que dentro de cada sexo el número de entradas a los brazos abiertos para el tratamiento Fluoxetina-CNO parecería modificarse en sentido contrario al del tratamiento Fluoxetina-solución salina, indicando que podría contrarrestar aunque sea parcialmente el efecto del tratamiento con Fluoxetina.</p>
 <p>Gráfico de perfiles del número promedio de entradas a brazos abiertos según el sexo y los tratamientos recibidos. Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales.</p>
 <div class="cell">
 <details class="code-fold">
@@ -604,9 +607,9 @@ data:  residuos_m1
 outliers at both margin(s) = 5, observations = 110, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided
  percent confidence interval:
- 0.00000000 0.01818182
+ 0.00000000 0.02295455
 sample estimates:
-outlier frequency (expected: 0.00681818181818182 ) 
+outlier frequency (expected: 0.00754545454545455 ) 
                                         0.04545455 </code></pre>
 </div>
 </div>

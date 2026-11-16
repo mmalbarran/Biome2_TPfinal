@@ -514,7 +514,6 @@ sum(c1b * c3)
 sum(c2 * c3)
 
 
-
 # H1a: SUC vs FLX en hembras
 c1a <- c( 0,  0,  1,  -1, 0, 0,  0,  0)
 # H1b: SUC vs FLX en machos
