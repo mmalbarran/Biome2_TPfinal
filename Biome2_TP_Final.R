@@ -36,9 +36,9 @@ Datos <- datos %>%
     # Pasamos el número de camada a factor
     camada = factor(camada),
     # Fijación explícita de niveles de referencia (baselines)
-    sexo = relevel(factor(sexo), ref = "hembra"),
-    FLX_SUC = relevel(factor(FLX_SUC), ref = "SUC"),
-    SAL_CNO = relevel(factor(SAL_CNO), ref = "SAL")
+ #   sexo = relevel(factor(sexo), ref = "hembra"),
+  #  FLX_SUC = relevel(factor(FLX_SUC), ref = "SUC"),
+   # SAL_CNO = relevel(factor(SAL_CNO), ref = "SAL")
   )%>%
   # Filtramos al dato mal copiado
   filter(
@@ -393,6 +393,7 @@ AIC(modelo2, modelo3, modelo4, modelo5)
 
 summary(modelo2)
 Anova(modelo2, type = "III")
+Anova(modelo2, type = "II")
 
 ##### NAZA
 
@@ -779,36 +780,6 @@ summary(res_response, infer = c(TRUE, TRUE))
 
 # Alternativa para ver solo los intervalos de confianza:
 confint(res_response)
-
-
-
-  # 1. Medias marginales estimadas para la variable 'tratamiento'
-  emm_trat <- emmeans(modelo2, ~ tratamiento)
-
-# Ver el orden de los 4 niveles en R (ej: FLX CNO, FLX SAL, SUC CNO, SUC SAL)
-print(as.data.frame(emm_trat)[, "tratamiento"])
-
-# 2. Matriz de contrastes para 4 niveles
-mis_contrastes_trat <- list(
-  "H1: FLX SAL vs SUC SAL"   = c(0,  1,  0, -1),
-  "H2: FLX CNO vs FLX SAL"   = c(1, -1,  0,  0),
-  "Ctrl: SUC CNO vs SUC SAL" = c(0,  0,  1, -1)
-)
-
-# 3. Contrastes en la escala de la variable respuesta (Ratio de conteos)
-res_trat <- contrast(emm_trat, method = mis_contrastes_trat, type = "response")
-summary(res_trat, infer = c(TRUE, TRUE))
-
-
-
-c1 <- c( 1,  1,  0,  0, -1, -1,  0,  0)
-c2 <- c(-1, -1,  1,  1,  0,  0,  0,  0)
-c3 <- c( 1, -1,  0,  0,  0,  0,  0,  0)
-
-sum(c1 * c2)  
-sum(c1 * c3)  # 0 ✓
-sum(c2 * c3)  # 0 ✓
-
 
 
 # ------------------------------------------------------------------------------
