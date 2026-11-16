@@ -142,7 +142,7 @@ ftable(Datos$FLX_SUC, Datos$SAL_CNO, Datos$sexo)
 
 Hay entre 11 y 17 ratones por cada combinación de variables explicativas fijas. Se observa desbalanceo entre grupos, pero no es muy extremo. Es relevante detectar si hay desbalanceo entre los grupos, ya que define el tipo de Anova que utilizaremos más adelante.
 
-Exploración gráfica mediante boxplots del número de entradas a brazos abiertos según el sexo y los tratamientos recibidos.
+Se exploran gráficamente los datos del número de entradas a brazos abiertos mediante boxplots, que resumen la distribución de cada grupo, y un gráfico de perfiles, que muestra la media de cada combinación de tratamientos y permite explorar visualmente posibles interacciones entre los tratamientos y el sexo.
 
 ```{r}
 #| label: boxplots
@@ -150,6 +150,7 @@ Exploración gráfica mediante boxplots del número de entradas a brazos abierto
 #| message: false
 #| code-fold: true
 #| code-summary: "Ver código"
+#| fig-cap: "**Figura 1. Distribución del número de entradas a brazos abiertos según el sexo y los tratamientos recibidos.** FLX: fluoxetina; SUC: sacarosa (control); CNO:activador de los DREADDs; SAL: salina (control). Cada caja resume la distribución de los datos del grupo correspondiente."
 
 p3 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order = TRUE),
                         y = Brazos_abiertos_entradas,
@@ -171,14 +172,13 @@ A nivel exploratorio, la observación de los datos crudos sugiere que en hembras
 
 Resulta curioso destacar que para las hembras, el CNO parecería disminuir en cierta medida el número de entradas a brazos abiertos, mientras que para machos parecería aumentarlo. Dentro de cada sexo el número de entradas a los brazos abiertos para el tratamiento Fluoxetina-CNO parecería modificarse en sentido contrario al del tratamiento Fluoxetina-solución salina, indicando que podría contrarrestar aunque sea parcialmente el efecto del tratamiento con Fluoxetina. Estos detalles podrían indicar una interacción entre el sexo y el CNO.
 
-Gráfico de perfiles del número promedio de entradas a brazos abiertos según el sexo y los tratamientos recibidos. Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales.
-
 ```{r}
 #| label: gráfico de perfiles
 #| warning: false
 #| message: false
 #| code-fold: true
 #| code-summary: "Ver código"
+#| fig-cap: "**Figura 2. Gráfico de perfiles del número promedio de entradas a brazos abiertos (en 10 minutos) según el sexo y los tratamientos recibidos.** Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales. El color indica la administración de CNO (azul: salina; naranja: CNO)."
 
 p5 <- ggplot(Datos, aes(x = FLX_SUC,
                         y = Brazos_abiertos_entradas,
@@ -229,9 +229,8 @@ Debido a que la variable respuesta es un conteo en un continuo temporal, se prop
 #### **Especificación y supuestos distribucionales**
 
 $$\begin{aligned}
-logE(Y_{ijkl}) = {} & \mu + \text{FLX_SUC}_i + \text{SAL_CNO}_j + \text{sexo}_k + (\text{FLX_SUC} \times \text{SAL_CNO})_{ij} \\
-& +  (\text{FLX_SUC} \times \text{sexo})_{ik} + (\text{SAL_CNO} \times \text{sexo})_{jk} + \\ 
-& +(\text{FLX_SUC} \times \text{SAL_CNO} \times \text{sexo})_{ijk} + C_l
+logE(Y_{ijkl}) = {} & \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3\text{macho}_k + \beta_4 (\text{FLX} \times \text{CNO})_{ij} + \beta_5 (\text{FLX} \times \text{macho})_{ik}\\
+& + \beta_6 (\text{CNO} \times \text{macho})_{jk} + \beta_7 (\text{FLX} \times \text{CNO} \times \text{macho})_{ijk} + C_l
 \end{aligned}$$
 
 $$Y_{ijkl} \approx \text{Poisson}(\lambda_{ijkl}), \quad \text{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \lambda_{ijkl} = \mu_{ijkl}$$
@@ -522,17 +521,49 @@ Entre los modelos con menor AIC, OLRE y binomial negativa, se selecciona **la bi
 
 ## Resultados
 
-Tabla de Anova
+### Modelo
 
 ```{r}
-Anova(modelo2, type="III")
+options(contrasts = c("contr.sum", "contr.poly"))
+modelo2 <- glmmTMB(
+  Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
+  family = "nbinom2",
+  data = Datos
+)
+
+
+tabla.summary <- summary(modelo2)
+tabla.anova <- Anova(modelo2, type="III")
+
+options(contrasts = c("contr.treatment", "contr.poly"))
+
+tabla.summary
+
+```
+
+$$\begin{aligned}
+logE(Y_{ijkl}) = {} & 1.82 -0.11 \text{ FLX}_i -0.05 \text{ CNO}_j + 0.01\text{ macho}_k + 0.06 (\text{FLX} \times \text{CNO})_{ij} \\
+& -0.08 (\text{FLX} \times \text{macho})_{ik} + 0.2 (\text{CNO} \times \text{macho})_{jk} \\
+& -0.07 (\text{FLX} \times \text{CNO} \times \text{macho})_{ijk} + C_l
+\end{aligned}$$
+
+### Tabla de Anova
+
+```{r}
+tabla.anova
 ```
 
 Utilizamos un Anova de tipo III ya que el diseño es factorial y desbalanceado, de modo que las sumas de cuadrados dejan de ser ortogonales. Este tipo de Anova mide la contribución de una variable explicativa siendo que todas las otras ya se encuentran incluidas en el modelo.
 
-Estimación de medias
+### Estimación de medias
 
 ```{r}
+#| label: Tabla de medias estimadas en escala log
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Ver código"
+
 emm_options(emmeans = list(infer = c(TRUE, FALSE)),
             contrast = list(infer = c(TRUE, TRUE)))
 
@@ -542,16 +573,44 @@ medias.log
 ```
 
 ```{r}
-# Obtener las medias estimadas del modelo en escala de la VR
-medias.rta <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
-medias.rta
+#| label: Tabla de medias estimadas en escala vr
+#| message: false
+#| warning: false
+#| fig-cap: "**Tabla 2. Medias marginales estimadas (esperanzas poblacionales,) e intervalos de confianza del 95% para el número de entradas a los brazos abiertos en 10 minutos, según tratamiento neonatal y sexo.** Las estimaciones puntuales y sus correspondientes límites de confianza se obtuvieron a partir del modelo Binomial Negativo. Los intervalos de confianza del 95% presentan asimetría debido al uso de la función de enlace logarítmica. Las estimaciones tabuladas corresponden a las esperanzas poblacionales individuales de cada celda experimental y sus intervalos de confianza no están ajustados por comparaciones múltiples."
+
+
+# Obtención de medias marginales en escala real
+medias_vr <- emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
+
+# Formateo como dataframe para presentación limpia
+df_medias <- as.data.frame(medias_vr) %>%
+  rename(
+    `Fluoxetina/Sacarosa` = FLX_SUC,
+    `CNO/Salina` = SAL_CNO,
+    Sexo = sexo,
+    `Media Estimada (μ)` = response,
+    `Error Estándar` = SE,
+    `IC 95% Inferior` = asymp.LCL,
+    `IC 95% Superior` = asymp.UCL
+  ) %>%
+  mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+knitr::kable(df_medias, align = "ccclrrr")
+
 ```
 
-Contrastes
+### Contrastes
 
-Los contrastes fueron planeados a priori, en base a las hipótesis y predicciones. Se aplicaron contrastes de Bonferroni, dado que no se cumplía la ortogonalidad.
+Inicialmente se consideró plantear un conjunto de contrastes ortogonales, que al ser independientes entre sí permiten evaluarse sin ajuste por comparaciones múltiples y, por lo tanto, conservan más potencia. Sin embargo, los contrastes que respondían a las hipótesis biológicas del estudio no cumplían con la ortogonalidad, ya que comparten celdas entre sí. Dado que priorizamos la correspondencia con las predicciones por sobre la ortogonalidad, se mantuvieron los contrastes planificados a priori mediante la corrección de Bonferroni. 
+
+De esta forma, se evaluaron los contrastes planificados a priori sobre las medias marginales estimadas (emmeans) del modelo Binomial Negativo mixto seleccionado (con camada como efecto aleatorio), aplicando la corrección de Bonferroni para el control de la tasa de error global (la probabilidad de cometer al menos un error de tipo I en el conjunto de contrastes). Los contrastes se realizaron en la escala logarítmica mediante tests de Wald (z), mientras que las estimaciones se expresan en la escala de la variable respuesta como razones de medias esperadas, con intervalos de confianza del 95% ajustados por Bonferroni, de modo de evaluar tanto la significancia estadística como la magnitud de los efectos.
 
 ```{r}
+#| label: Tabla de medias estimadas en escala vr
+#| message: false
+#| warning: false
+#| fig-cap: "**Tabla 3. Contrastes a priori planificados para la evaluación de las hipótesis biológicas sobre el número esperado de entradas a los brazos abiertos.** Las estimaciones puntuales se presentan en la escala de la variable respuesta mediante el cociente de esperanzas poblacionales, obtenido a partir del modelo Binomial Negativo. Los IC 95% presentan asimetría y, junto con los p-valores, incorporan el ajuste de Bonferroni para el control de la tasa de error global."
+
 # El orden interno de las 8 celdas en la grilla de emmeans es:
 # 1: SUC SAL hembra
 # 2: FLX SAL hembra
@@ -578,6 +637,72 @@ comp_log
 comp_vr <- contrast(medias.log, contrastes, type = "response", adjust = "bonferroni")
 comp_vr
 ```
+
+A partir de los contrastes es posible concluir que la Fluoxetina presenta un efecto diferencial entre los sexos, aumentando el número de ingresos a los brazos abiertos entre un 14,2% y un 315% en hembras respecto a los machos, con una confianza del 95% (p = 0.0116).
+
+No se detectaron diferencias significativas entre FLX y SUC dentro de SAL (razón = 1.11; IC 95% ajustado: 0.61 a 2.01; p ajustado = 1.00) ni entre CNO y SAL dentro de FLX (razón = 1.26; IC 95% ajustado: 0.73 a 2.17; p ajustado = 0.92).
+
+### Gráfico final
+
+Para evaluar de forma integrada el comportamiento del modelo final, las medias marginales estimadas para el número de entradas a los brazos abiertos y sus correspondientes intervalos de confianza del 95% se ilustran en la **Figura X**. 
+
+```{r}
+#| label: gráfico final
+#| message: false
+#| warning: false
+#| fig-cap: "**Entradas a brazos abiertos del laberinto en cruz elevado (10 minutos) según tratamiento neonatal y sexo.** Los puntos representan las medias estimadas por el modelo (binomial negativa mixto, con camada como efecto aleatorio) y las barras, su intervalo de confianza del 95 %. Los corchetes indican los contrastes a priori, con p ajustado por Bonferroni (3 contrastes): FLX vs SUC dentro de SAL (promediando ambos sexos), CNO vs SAL dentro de FLX (promediando ambos sexos) y hembras vs machos dentro de FLX SAL. * p < 0.05; ns, no significativo. FLX: fluoxetina; SUC: sacarosa; CNO: clozapina-N-óxido; SAL: salina."
+
+# Medias estimadas (escala respuesta) con IC 95%
+emm <- as.data.frame(
+  emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
+)
+niveles <- c("SUC SAL", "FLX SAL", "FLX CNO", "SUC CNO")
+emm$grupo <- factor(paste(emm$FLX_SUC, emm$SAL_CNO), levels = niveles)
+
+# Estrellas desde los contrastes (orden: c1, c2, c3)
+comp <- as.data.frame(comp_vr)
+est <- as.character(cut(comp$p.value,
+                        breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),
+                        labels = c("***", "**", "*", "ns")))
+
+ymax <- max(emm$asymp.UCL)
+tick <- 0.03 * ymax
+dodge_w <- 0.5
+off <- dodge_w / 4          # distancia del centro a cada punto (hembra/macho)
+
+corchete <- function(x, xend, y, label) {
+  list(
+    annotate("segment", x = x,    xend = xend, y = y,        yend = y),
+    annotate("segment", x = x,    xend = x,    y = y - tick, yend = y),
+    annotate("segment", x = xend, xend = xend, y = y - tick, yend = y),
+    annotate("text", x = (x + xend) / 2, y = y + tick, label = label,
+             vjust = 0, size = if (label == "ns") 4.5 else 7)
+  )
+}
+
+ggplot(emm, aes(x = grupo, y = response, color = sexo)) +
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL),
+                position = position_dodge(dodge_w), width = 0, linewidth = 0.7) +
+  geom_point(position = position_dodge(dodge_w), size = 3) +
+  # c3: hembras vs machos dentro de FLX SAL (grupo 2)
+  corchete(2 - off, 2 + off, ymax * 1.08, est[3]) +
+  # c1: FLX vs SUC dentro de SAL (grupos 1 y 2)
+  corchete(1, 2, ymax * 1.22, est[1]) +
+  # c2: CNO vs SAL dentro de FLX (grupos 2 y 3)
+  corchete(2, 3, ymax * 1.36, est[2]) +
+  scale_color_manual(values = c(hembra = "#E41A1C", macho = "#377EB8"),
+                     labels = c("Hembra", "Macho")) +
+  scale_x_discrete(labels = c("SUC\nSAL", "FLX\nSAL", "FLX\nCNO", "SUC\nCNO")) +
+  coord_cartesian(ylim = c(0, ymax * 1.55), clip = "off") +
+  labs(x = "Tratamiento neonatal",
+       y = "Entradas a brazos abiertos en 10 minutos predichas",
+       color = "Sexo") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid.minor = element_blank())
+
+```
+
+Como se ilustra en la Figura X, las medias marginales estimadas para el número de entradas a los brazos abiertos muestran un comportamiento homogéneo entre la mayoría de las condiciones experimentales, caracterizado por un amplio solapamiento de sus intervalos de confianza del 95%. Dicha amplitud refleja una marcada imprecisión en las estimaciones puntuales, consecuencia de una elevada variabilidad residual entre los individuos al interior de cada grupo experimental. La diferencia más notable en la conducta exploratoria se concentra en el grupo expuesto a fluoxetina sin inhibición prefrontal (FLX SAL), donde las hembras exhiben una media estimada visiblemente superior y un intervalo de confianza diferenciado del de los machos (p = 0.0116), patrón que no se replica en los animales controles (SUC SAL) ni en los tratados con CNO.
 
 ## Discusión
 

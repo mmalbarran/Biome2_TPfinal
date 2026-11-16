@@ -345,8 +345,8 @@ FLX SAL      14    13
 </div>
 </div>
 </div>
-<p>A simple vista, pareciera que en hembras la administración de Fluoxetina deriva en un aumento en las entradas en brazos abiertos, mientras que en machos deriva en una pequeña disminución. También pareciera que las hembras tratadas con Fluoxetina presentan un mayor número de entradas a los brazos abiertos que los machos tratados con Fluoxetina, lo que se condice con nuestra tercera hipótesis. Sin embargo, según nuestra primera hipótesis sería de esperar que los ratones tratados con Fluoxetina presenten un menor número de entradas a los brazos abiertos que aquellos tratados con sacarosa, pero el gráfico no da indicios de que esto sea así. Por último, se esperaba que el grupo tratado con Fluoxetina y CNO aumente el número de entradas a los brazos abiertos en comparación al grupo tratado con Fluoxetina y solución salina. Sin embargo, esto solo parece ser cierto para los machos, y ocurrir lo opuesto en hembras.</p>
-<p>Resulta curioso destacar que dentro de cada sexo el número de entradas a los brazos abiertos para el tratamiento Fluoxetina-CNO parecería modificarse en sentido contrario al del tratamiento Fluoxetina-solución salina, indicando que podría contrarrestar aunque sea parcialmente el efecto del tratamiento con Fluoxetina.</p>
+<p>A nivel exploratorio, la observación de los datos crudos sugiere que en hembras la administración de Fluoxetina deriva en un aumento en las entradas en brazos abiertos, mientras que en machos deriva en una pequeña disminución. También pareciera que las hembras tratadas con Fluoxetina presentan un mayor número de entradas a los brazos abiertos que los machos tratados con Fluoxetina, lo que se condice con nuestra tercera hipótesis. Sin embargo, según nuestra primera hipótesis sería de esperar que los ratones tratados con Fluoxetina presenten un menor número de entradas a los brazos abiertos que aquellos tratados con sacarosa, pero el gráfico no da indicios de que esto sea así para ambos sexos. Por último, se esperaba que el grupo tratado con Fluoxetina y CNO aumente el número de entradas a los brazos abiertos en comparación al grupo tratado con Fluoxetina y solución salina. Sin embargo, esto solo parece ser cierto para los machos, y ocurrir lo opuesto en hembras.</p>
+<p>Resulta curioso destacar que para las hembras, el CNO parecería disminuir en cierta medida el número de entradas a brazos abiertos, mientras que para machos parecería aumentarlo. Dentro de cada sexo el número de entradas a los brazos abiertos para el tratamiento Fluoxetina-CNO parecería modificarse en sentido contrario al del tratamiento Fluoxetina-solución salina, indicando que podría contrarrestar aunque sea parcialmente el efecto del tratamiento con Fluoxetina. Estos detalles podrían indicar una interacción entre el sexo y el CNO.</p>
 <p>Gráfico de perfiles del número promedio de entradas a brazos abiertos según el sexo y los tratamientos recibidos. Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales.</p>
 <div class="cell">
 <details class="code-fold">
@@ -397,20 +397,20 @@ FLX SAL      14    13
 </div>
 </div>
 </div>
+<p>En el gráfico de perfiles se puede observar que el tratamiento con Fluoxetina y solución salina varía entre sexos, dado que se puede apreciar una pendiente positiva en hembras y una pendiente negativa en machos. El CNO muestra una pendiente positiva en ambos casos, pero más marcada en el caso de los machos. Además, en el tratamiento con Fluoxetina, se puede observar una mayor diferencia entre el tratamiento con solución salina y CNO en machos. En conjunto, esto evidencia una posible interacción triple y confirma la relevancia de incluir el factor sexo.</p>
 </section>
 <section id="modelo-de-poisson" class="level3">
 <h3 class="anchored" data-anchor-id="modelo-de-poisson"><strong>Modelo de Poisson</strong></h3>
 <p>Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.</p>
 <section id="especificación-y-supuestos-distribucionales" class="level4">
 <h4 class="anchored" data-anchor-id="especificación-y-supuestos-distribucionales"><strong>Especificación y supuestos distribucionales</strong></h4>
-</section>
-<section id="beginaligned-y_ijkl-beta_0-beta_1-textflx_i-beta_2-textcno_j-beta_3-textmacho_k-beta_4-textflx-times-textcno_ij-beta_5-textflx-times-textmacho_ik-beta_6-textcno-times-textmacho_jk-beta_7-textflx-times-textcno-times-textmacho_ijk-c_l-endaligned" class="level4">
-<h4 class="anchored" data-anchor-id="beginaligned-y_ijkl-beta_0-beta_1-textflx_i-beta_2-textcno_j-beta_3-textmacho_k-beta_4-textflx-times-textcno_ij-beta_5-textflx-times-textmacho_ik-beta_6-textcno-times-textmacho_jk-beta_7-textflx-times-textcno-times-textmacho_ijk-c_l-endaligned"><span class="math display">\[\begin{aligned}
-Y_{ijkl} = {} &amp; \beta_0 + \beta_1 \text{FLX}_i + \beta_2 \text{CNO}_j + \beta_3 \text{Macho}_k \\
-&amp; + \beta_4 (\text{FLX} \times \text{CNO})_{ij} + \beta_5 (\text{FLX} \times \text{Macho})_{ik} + \beta_6 (\text{CNO} \times \text{Macho})_{jk} \\
-&amp; + \beta_7 (\text{FLX} \times \text{CNO} \times \text{Macho})_{ijk} + C_l
-\end{aligned}\]</span></h4>
-<p><span class="math display">\[Y_{ijkl} \sim \text{Poisson}(\mu_{ijkl}), \quad \mathbb{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \mu_{ijkl}\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+logE(Y_{ijkl}) = {} &amp; \mu + \text{FLX_SUC}_i + \text{SAL_CNO}_j + \text{sexo}_k + (\text{FLX_SUC} \times \text{SAL_CNO})_{ij} \\
+&amp; +  (\text{FLX_SUC} \times \text{sexo})_{ik} + (\text{SAL_CNO} \times \text{sexo})_{jk} + \\
+&amp; +(\text{FLX_SUC} \times \text{SAL_CNO} \times \text{sexo})_{ijk} + C_l
+\end{aligned}\]</span></p>
+<p><span class="math display">\[Y_{ijkl} \approx \text{Poisson}(\lambda_{ijkl}), \quad \text{E}(Y_{ijkl}) = \text{Var}(Y_{ijkl}) = \lambda_{ijkl} = \mu_{ijkl}\]</span></p>
+<p><span class="math display">\[C_l \sim NID(0,\sigma_\text{camada}^2)\]</span></p>
 <p>La interacción triple contempla que el efecto de FLX difiere según la administración de CNO y según el sexo, mientras que el efecto aleatorio de camada contempla que los ratones de una misma camada no son independientes entre sí.</p>
 <div class="cell">
 <details class="code-fold">
@@ -451,28 +451,7 @@ FLX_SUCFLX:SAL_CNOCNO:sexomacho  0.59405    0.33724   1.762   0.0782 .
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<details class="code-fold">
-<summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(modelo1, <span class="at">type =</span> <span class="st">"III"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
-
-Response: Brazos_abiertos_entradas
-                       Chisq Df Pr(&gt;Chisq)    
-(Intercept)          71.1726  1    &lt; 2e-16 ***
-FLX_SUC               1.9896  1    0.15838    
-SAL_CNO               1.1193  1    0.29007    
-sexo                  1.0726  1    0.30035    
-FLX_SUC:SAL_CNO       0.0066  1    0.93535    
-FLX_SUC:sexo          5.5830  1    0.01814 *  
-SAL_CNO:sexo          5.2576  1    0.02185 *  
-FLX_SUC:SAL_CNO:sexo  3.1029  1    0.07815 .  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-</div>
-<p>Se utilizó el test de ANOVA tipo III debido a que los grupos de combinación de los factores se encuentran desbalanceados.</p>
 </section>
 <section id="diagnóstico-sobredispersión" class="level4">
 <h4 class="anchored" data-anchor-id="diagnóstico-sobredispersión"><strong>Diagnóstico: SOBREDISPERSIÓN</strong></h4>
@@ -480,9 +459,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>residuos_m1 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo1)          <span class="co"># Simulamos residuos con DHARMa</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>residuos_m1 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo1)          <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -496,7 +475,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testDispersion</span>(residuos_m1)                        <span class="co"># Test dispersión</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testDispersion</span>(residuos_m1)                        <span class="co"># Test dispersión</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -530,7 +509,7 @@ alternative hypothesis: two.sided</code></pre>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testZeroInflation</span>(residuos_m1)                     <span class="co"># Test inflación en ceros</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testZeroInflation</span>(residuos_m1)                     <span class="co"># Test inflación en ceros</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -565,7 +544,7 @@ alternative hypothesis: two.sided</code></pre>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotResiduals</span>(residuos_m1, <span class="at">form =</span> <span class="fu">fitted</span>(modelo1)) <span class="co"># Residuos frente a valores ajustados</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotResiduals</span>(residuos_m1, <span class="at">form =</span> <span class="fu">fitted</span>(modelo1)) <span class="co"># Residuos frente a valores ajustados</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -591,7 +570,7 @@ alternative hypothesis: two.sided</code></pre>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testOutliers</span>(residuos_m1)                          <span class="co"># Test Outliers</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">testOutliers</span>(residuos_m1)                          <span class="co"># Test Outliers</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -609,7 +588,7 @@ alternative hypothesis: two.sided
  percent confidence interval:
  0.00000000 0.02295455
 sample estimates:
-outlier frequency (expected: 0.00754545454545455 ) 
+outlier frequency (expected: 0.00718181818181818 ) 
                                         0.04545455 </code></pre>
 </div>
 </div>
@@ -620,8 +599,8 @@ outlier frequency (expected: 0.00754545454545455 )
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos estadístico de dispersión manualmente</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(modelo1, <span class="at">type=</span><span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">df.residual</span>(modelo1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos estadístico de dispersión manualmente</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(modelo1, <span class="at">type=</span><span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">df.residual</span>(modelo1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.597938</code></pre>
@@ -655,13 +634,13 @@ outlier frequency (expected: 0.00754545454545455 )
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m1 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo1)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m1,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m1 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo1)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m1,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -672,7 +651,7 @@ outlier frequency (expected: 0.00754545454545455 )
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11 20</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m1)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m1)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -693,11 +672,11 @@ W = 0.94325, p-value = 0.276</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"nbinom2"</span>,</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"nbinom2"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="supuestos" class="level5">
@@ -716,8 +695,8 @@ W = 0.94325, p-value = 0.276</code></pre>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>residuos_m2 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo2)          <span class="co"># Simulamos residuos con DHARMa</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>residuos_m2 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo2)          <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -742,13 +721,13 @@ W = 0.94325, p-value = 0.276</code></pre>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m2 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo2)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m2,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m2 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo2)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m2,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -759,7 +738,7 @@ W = 0.94325, p-value = 0.276</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11  6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m2)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m2)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -778,11 +757,11 @@ W = 0.93929, p-value = 0.2325</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"compois"</span>,</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"compois"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="supuestos-1" class="level5">
@@ -801,8 +780,8 @@ W = 0.93929, p-value = 0.2325</code></pre>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>residuos_m3 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo3)          <span class="co"># Simulamos residuos con DHARMa</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>residuos_m3 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo3)          <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -827,13 +806,13 @@ W = 0.93929, p-value = 0.2325</code></pre>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m3 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo3)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m3,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m3 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo3)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m3,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -844,7 +823,7 @@ W = 0.93929, p-value = 0.2325</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11  6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m3)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m3)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -863,11 +842,11 @@ W = 0.9358, p-value = 0.1995</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>modelo4 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"tweedie"</span>,</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>modelo4 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada),</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"tweedie"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="supuestos-2" class="level5">
@@ -886,8 +865,8 @@ W = 0.9358, p-value = 0.1995</code></pre>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>residuos_m4 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo4)          <span class="co"># Simulamos residuos con DHARMa</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>residuos_m4 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo4)          <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -912,13 +891,13 @@ W = 0.9358, p-value = 0.1995</code></pre>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m4 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo4)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m4,</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m4 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo4)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m4,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -929,7 +908,7 @@ W = 0.9358, p-value = 0.1995</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11  6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m4)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m4)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -948,11 +927,11 @@ W = 0.93602, p-value = 0.2015</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>modelo5 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ID),</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"poisson"</span>,</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>modelo5 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  Brazos_abiertos_entradas <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> camada) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ID),</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"poisson"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Datos</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="supuestos-3" class="level5">
@@ -971,8 +950,8 @@ W = 0.93602, p-value = 0.2015</code></pre>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>residuos_m5 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo5, <span class="at">simulateREs =</span> <span class="st">"unconditional"</span>) <span class="co"># Simulamos residuos con DHARMa</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>residuos_m5 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(modelo5, <span class="at">simulateREs =</span> <span class="st">"unconditional"</span>) <span class="co"># Simulamos residuos con DHARMa</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos_m5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -997,13 +976,13 @@ W = 0.93602, p-value = 0.2015</code></pre>
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m5 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo5)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m5,</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>ef_camadas_m5 <span class="ot">&lt;-</span> <span class="fu">ranef</span>(modelo5)<span class="sc">$</span>cond<span class="sc">$</span>camada[[<span class="st">"(Intercept)"</span>]]</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  ef_camadas_m5,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"QQ Plot de efectos aleatorios de las camadas"</span>,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Efectos aleatorios estimados"</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1014,7 +993,7 @@ W = 0.93602, p-value = 0.2015</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11  6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m5)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(ef_camadas_m5)       <span class="co"># Shapiro-Wilk test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -1035,7 +1014,7 @@ W = 0.94792, p-value = 0.3366</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Ver código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo2, modelo3, modelo4, modelo5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo2, modelo3, modelo4, modelo5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        df      AIC
@@ -1062,6 +1041,324 @@ modelo5 10 632.8728</code></pre>
 </section>
 <section id="resultados" class="level2">
 <h2 class="anchored" data-anchor-id="resultados">Resultados</h2>
+<p>Tabla de Anova</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(modelo2, <span class="at">type=</span><span class="st">"III"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+
+Response: Brazos_abiertos_entradas
+                       Chisq Df Pr(&gt;Chisq)    
+(Intercept)          53.1459  1  3.097e-13 ***
+FLX_SUC               1.8383  1    0.17515    
+SAL_CNO               0.6758  1    0.41105    
+sexo                  0.1679  1    0.68199    
+FLX_SUC:SAL_CNO       0.0197  1    0.88842    
+FLX_SUC:sexo          2.7234  1    0.09889 .  
+SAL_CNO:sexo          1.5409  1    0.21448    
+FLX_SUC:SAL_CNO:sexo  1.3006  1    0.25411    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Utilizamos un Anova de tipo III ya que el diseño es factorial y desbalanceado, de modo que las sumas de cuadrados dejan de ser ortogonales. Este tipo de Anova mide la contribución de una variable explicativa siendo que todas las otras ya se encuentran incluidas en el modelo.</p>
+<section id="estimación-de-medias" class="level3">
+<h3 class="anchored" data-anchor-id="estimación-de-medias">Estimación de medias</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emm_options</span>(<span class="at">emmeans =</span> <span class="fu">list</span>(<span class="at">infer =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)),</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">contrast =</span> <span class="fu">list</span>(<span class="at">infer =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>)))</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtener las medias estimadas del modelo en escala log</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>medias.log <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(modelo2, <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo, <span class="at">type =</span> <span class="st">"link"</span>)</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>medias.log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> FLX_SUC SAL_CNO sexo   emmean    SE  df asymp.LCL asymp.UCL
+ SUC     SAL     hembra   1.78 0.244 Inf     1.303      2.26
+ FLX     SAL     hembra   2.21 0.203 Inf     1.816      2.61
+ SUC     CNO     hembra   1.50 0.236 Inf     1.041      1.97
+ FLX     CNO     hembra   1.87 0.190 Inf     1.501      2.24
+ SUC     SAL     macho    1.66 0.228 Inf     1.215      2.11
+ FLX     SAL     macho    1.43 0.228 Inf     0.987      1.88
+ SUC     CNO     macho    1.90 0.230 Inf     1.451      2.35
+ FLX     CNO     macho    2.24 0.194 Inf     1.858      2.62
+
+Results are given on the log (not the response) scale. 
+Confidence level used: 0.95 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtener las medias estimadas del modelo en escala de la VR</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>medias.rta <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(modelo2, <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>medias.rta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> FLX_SUC SAL_CNO sexo   response    SE  df asymp.LCL asymp.UCL
+ SUC     SAL     hembra     5.94 1.453 Inf      3.68      9.60
+ FLX     SAL     hembra     9.14 1.851 Inf      6.14     13.59
+ SUC     CNO     hembra     4.50 1.061 Inf      2.83      7.14
+ FLX     CNO     hembra     6.50 1.233 Inf      4.49      9.43
+ SUC     SAL     macho      5.27 1.200 Inf      3.37      8.23
+ FLX     SAL     macho      4.20 0.957 Inf      2.68      6.56
+ SUC     CNO     macho      6.70 1.541 Inf      4.27     10.51
+ FLX     CNO     macho      9.38 1.818 Inf      6.41     13.71
+
+Confidence level used: 0.95 
+Intervals are back-transformed from the log scale </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtención de medias marginales en escala real</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>medias_emmeans <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(modelo2, <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Formateo como dataframe para presentación limpia</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>df_medias <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(medias_emmeans) <span class="sc">%&gt;%</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Fluoxetina/Vehículo</span><span class="st">`</span> <span class="ot">=</span> FLX_SUC,</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">CNO/Salina</span><span class="st">`</span> <span class="ot">=</span> SAL_CNO,</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sexo =</span> sexo,</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Media Estimada (u)</span><span class="st">`</span> <span class="ot">=</span> response,</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Error Estándar</span><span class="st">`</span> <span class="ot">=</span> SE,</span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">IC 95% Inferior</span><span class="st">`</span> <span class="ot">=</span> asymp.LCL,</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">IC 95% Superior</span><span class="st">`</span> <span class="ot">=</span> asymp.UCL</span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>)))</span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(df_medias, <span class="at">align =</span> <span class="st">"ccclrrr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 3%">
+<col style="width: 14%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Fluoxetina/Vehículo</th>
+<th style="text-align: center;">CNO/Salina</th>
+<th style="text-align: center;">Sexo</th>
+<th style="text-align: left;">Media Estimada (u)</th>
+<th style="text-align: right;">Error Estándar</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">IC 95% Inferior</th>
+<th style="text-align: center;">IC 95% Superior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">SUC</td>
+<td style="text-align: center;">SAL</td>
+<td style="text-align: center;">hembra</td>
+<td style="text-align: left;">5.94</td>
+<td style="text-align: right;">1.45</td>
+<td style="text-align: right;">Inf</td>
+<td style="text-align: right;">3.68</td>
+<td style="text-align: center;">9.60</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">FLX</td>
+<td style="text-align: center;">SAL</td>
+<td style="text-align: center;">hembra</td>
+<td style="text-align: left;">9.14</td>
+<td style="text-align: right;">1.85</td>
+<td style="text-align: right;">Inf</td>
+<td style="text-align: right;">6.14</td>
+<td style="text-align: center;">13.59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">SUC</td>
+<td style="text-align: center;">CNO</td>
+<td style="text-align: center;">hembra</td>
+<td style="text-align: left;">4.50</td>
+<td style="text-align: right;">1.06</td>
+<td style="text-align: right;">Inf</td>
+<td style="text-align: right;">2.83</td>
+<td style="text-align: center;">7.14</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">FLX</td>
+<td style="text-align: center;">CNO</td>
+<td style="text-align: center;">hembra</td>
+<td style="text-align: left;">6.50</td>
+<td style="text-align: right;">1.23</td>
+<td style="text-align: right;">Inf</td>
+<td style="text-align: right;">4.49</td>
+<td style="text-align: center;">9.43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">SUC</td>
+<td style="text-align: center;">SAL</td>
+<td style="text-align: center;">macho</td>
+<td style="text-align: left;">5.27</td>
+<td style="text-align: right;">1.20</td>
+<td style="text-align: right;">Inf</td>
+<td style="text-align: right;">3.37</td>
+<td style="text-align: center;">8.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">FLX</td>
+<td style="text-align: center;">SAL</td>
+<td style="text-align: center;">macho</td>
+<td style="text-align: left;">4.20</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">Inf</td>
+<td style="text-align: right;">2.68</td>
+<td style="text-align: center;">6.56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">SUC</td>
+<td style="text-align: center;">CNO</td>
+<td style="text-align: center;">macho</td>
+<td style="text-align: left;">6.70</td>
+<td style="text-align: right;">1.54</td>
+<td style="text-align: right;">Inf</td>
+<td style="text-align: right;">4.27</td>
+<td style="text-align: center;">10.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">FLX</td>
+<td style="text-align: center;">CNO</td>
+<td style="text-align: center;">macho</td>
+<td style="text-align: left;">9.38</td>
+<td style="text-align: right;">1.82</td>
+<td style="text-align: right;">Inf</td>
+<td style="text-align: right;">6.41</td>
+<td style="text-align: center;">13.71</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="contrastes" class="level3">
+<h3 class="anchored" data-anchor-id="contrastes">Contrastes</h3>
+<p>Inicialmente se consideró plantear un conjunto de contrastes ortogonales, que al ser independientes entre sí permiten evaluarse sin ajuste por comparaciones múltiples y, por lo tanto, conservan más potencia. Sin embargo, los contrastes que respondían a las hipótesis biológicas del estudio no cumplían con la ortogonalidad, ya que comparten celdas entre sí. Dado que priorizamos la correspondencia con las predicciones por sobre la ortogonalidad, se mantuvieron los contrastes planificados a priori mediante la corrección de Bonferroni.&nbsp;</p>
+<p>De esta forma, se evaluaron los contrastes planificados a priori sobre las medias marginales estimadas (emmeans) del modelo Binomial Negativo mixto seleccionado (con camada como efecto aleatorio), aplicando la corrección de Bonferroni para el control de la tasa de error global (la probabilidad de cometer al menos un error de tipo I en el conjunto de contrastes). Los contrastes se realizaron en la escala logarítmica mediante tests de Wald (z), mientras que las estimaciones se expresan en la escala de la variable respuesta como razones de medias esperadas, con intervalos de confianza del 95% ajustados por Bonferroni, de modo de evaluar tanto la significancia estadística como la magnitud de los efectos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># El orden interno de las 8 celdas en la grilla de emmeans es:</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1: SUC SAL hembra</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2: FLX SAL hembra</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 3: SUC CNO hembra</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 4: FLX CNO hembra</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 5: SUC SAL macho</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 6: FLX SAL macho</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 7: SUC CNO macho</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 8: FLX CNO macho</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>,  <span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>contrastes <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"FLX vs SUC"</span> <span class="ot">=</span> c1, <span class="st">"CNO vs SAL"</span> <span class="ot">=</span> c2, <span class="st">"FLX hembras vs FLX machos"</span> <span class="ot">=</span> c3)</span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Bonferroni en escala log</span></span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>comp_log <span class="ot">&lt;-</span> <span class="fu">contrast</span>(medias.log, contrastes, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>comp_log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast                  estimate    SE  df asymp.LCL asymp.UCL z.ratio
+ FLX vs SUC                   0.102 0.249 Inf    -0.495     0.698   0.408
+ CNO vs SAL                   0.232 0.227 Inf    -0.312     0.776   1.021
+ FLX hembras vs FLX machos    0.778 0.270 Inf     0.133     1.424   2.888
+ p.value
+  1.0000
+  0.9211
+  0.0116
+
+Results are given on the log (not the response) scale. 
+Confidence level used: 0.95 
+Conf-level adjustment: bonferroni method for 3 estimates 
+P value adjustment: bonferroni method for 3 tests </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bonferroni en escala de la variable respuesta</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>comp_vr <span class="ot">&lt;-</span> <span class="fu">contrast</span>(medias.log, contrastes, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">adjust =</span> <span class="st">"bonferroni"</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>comp_vr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast                  ratio    SE  df asymp.LCL asymp.UCL null z.ratio
+ FLX vs SUC                 1.11 0.276 Inf     0.610      2.01    1   0.408
+ CNO vs SAL                 1.26 0.286 Inf     0.732      2.17    1   1.021
+ FLX hembras vs FLX machos  2.18 0.587 Inf     1.142      4.15    1   2.888
+ p.value
+  1.0000
+  0.9211
+  0.0116
+
+Confidence level used: 0.95 
+Conf-level adjustment: bonferroni method for 3 estimates 
+Intervals are back-transformed from the log scale 
+P value adjustment: bonferroni method for 3 tests 
+Tests are performed on the log scale </code></pre>
+</div>
+</div>
+<p>A partir de los contrastes es posible concluir que la Fluoxetina presenta un efecto diferencial entre los sexos, aumentando el número de ingresos a los brazos abiertos entre un 14,2% y un 315% en hembras respecto a los machos, con una confianza del 95% (p = 0.0116).</p>
+<p>No se detectaron diferencias significativas entre FLX y SUC dentro de SAL (razón = 1.11; IC 95% ajustado: 0.61 a 2.01; p ajustado = 1.00) ni entre CNO y SAL dentro de FLX (razón = 1.26; IC 95% ajustado: 0.73 a 2.17; p ajustado = 0.92).</p>
+</section>
+<section id="gráfico-final" class="level3">
+<h3 class="anchored" data-anchor-id="gráfico-final">Gráfico final</h3>
+<p>Para evaluar de forma integrada el comportamiento del modelo final, las medias marginales estimadas para el número de entradas a los brazos abiertos y sus correspondientes intervalos de confianza del 95% se ilustran en la <strong>Figura X</strong>.&nbsp;</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Medias estimadas (escala respuesta) con IC 95%</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>emm <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(modelo2, <span class="sc">~</span> FLX_SUC <span class="sc">*</span> SAL_CNO <span class="sc">*</span> sexo, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>niveles <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"SUC SAL"</span>, <span class="st">"FLX SAL"</span>, <span class="st">"FLX CNO"</span>, <span class="st">"SUC CNO"</span>)</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>emm<span class="sc">$</span>grupo <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">paste</span>(emm<span class="sc">$</span>FLX_SUC, emm<span class="sc">$</span>SAL_CNO), <span class="at">levels =</span> niveles)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Estrellas desde los contrastes (orden: c1, c2, c3)</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>comp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(comp_vr)</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">cut</span>(comp<span class="sc">$</span>p.value,</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="cn">Inf</span>),</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"***"</span>, <span class="st">"**"</span>, <span class="st">"*"</span>, <span class="st">"ns"</span>)))</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>ymax <span class="ot">&lt;-</span> <span class="fu">max</span>(emm<span class="sc">$</span>asymp.UCL)</span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>tick <span class="ot">&lt;-</span> <span class="fl">0.03</span> <span class="sc">*</span> ymax</span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>dodge_w <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>off <span class="ot">&lt;-</span> dodge_w <span class="sc">/</span> <span class="dv">4</span>          <span class="co"># distancia del centro a cada punto (hembra/macho)</span></span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>corchete <span class="ot">&lt;-</span> <span class="cf">function</span>(x, xend, y, label) {</span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> x,    <span class="at">xend =</span> xend, <span class="at">y =</span> y,        <span class="at">yend =</span> y),</span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> x,    <span class="at">xend =</span> x,    <span class="at">y =</span> y <span class="sc">-</span> tick, <span class="at">yend =</span> y),</span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> xend, <span class="at">xend =</span> xend, <span class="at">y =</span> y <span class="sc">-</span> tick, <span class="at">yend =</span> y),</span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> (x <span class="sc">+</span> xend) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">y =</span> y <span class="sc">+</span> tick, <span class="at">label =</span> label,</span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>             <span class="at">vjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="cf">if</span> (label <span class="sc">==</span> <span class="st">"ns"</span>) <span class="fl">4.5</span> <span class="cf">else</span> <span class="dv">7</span>)</span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(emm, <span class="fu">aes</span>(<span class="at">x =</span> grupo, <span class="at">y =</span> response, <span class="at">color =</span> sexo)) <span class="sc">+</span></span>
+<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> asymp.LCL, <span class="at">ymax =</span> asymp.UCL),</span>
+<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(dodge_w), <span class="at">width =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb64-32"><a href="#cb64-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(dodge_w), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb64-33"><a href="#cb64-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># c3: hembras vs machos dentro de FLX SAL (grupo 2)</span></span>
+<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corchete</span>(<span class="dv">2</span> <span class="sc">-</span> off, <span class="dv">2</span> <span class="sc">+</span> off, ymax <span class="sc">*</span> <span class="fl">1.08</span>, est[<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># c1: FLX vs SUC dentro de SAL (grupos 1 y 2)</span></span>
+<span id="cb64-36"><a href="#cb64-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corchete</span>(<span class="dv">1</span>, <span class="dv">2</span>, ymax <span class="sc">*</span> <span class="fl">1.22</span>, est[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb64-37"><a href="#cb64-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># c2: CNO vs SAL dentro de FLX (grupos 2 y 3)</span></span>
+<span id="cb64-38"><a href="#cb64-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corchete</span>(<span class="dv">2</span>, <span class="dv">3</span>, ymax <span class="sc">*</span> <span class="fl">1.36</span>, est[<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb64-39"><a href="#cb64-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">hembra =</span> <span class="st">"#E41A1C"</span>, <span class="at">macho =</span> <span class="st">"#377EB8"</span>),</span>
+<span id="cb64-40"><a href="#cb64-40" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Hembra"</span>, <span class="st">"Macho"</span>)) <span class="sc">+</span></span>
+<span id="cb64-41"><a href="#cb64-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"SUC</span><span class="sc">\n</span><span class="st">SAL"</span>, <span class="st">"FLX</span><span class="sc">\n</span><span class="st">SAL"</span>, <span class="st">"FLX</span><span class="sc">\n</span><span class="st">CNO"</span>, <span class="st">"SUC</span><span class="sc">\n</span><span class="st">CNO"</span>)) <span class="sc">+</span></span>
+<span id="cb64-42"><a href="#cb64-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, ymax <span class="sc">*</span> <span class="fl">1.55</span>), <span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span></span>
+<span id="cb64-43"><a href="#cb64-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Tratamiento neonatal"</span>,</span>
+<span id="cb64-44"><a href="#cb64-44" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Entradas a brazos abiertos en 10 minutos predichas"</span>,</span>
+<span id="cb64-45"><a href="#cb64-45" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Sexo"</span>) <span class="sc">+</span></span>
+<span id="cb64-46"><a href="#cb64-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb64-47"><a href="#cb64-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="TP_Final_BIOME2_Informe_files/figure-html/gráfico%20final-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption><strong>Entradas a brazos abiertos del laberinto en cruz elevado (10 minutos) según tratamiento neonatal y sexo.</strong> Los puntos representan las medias estimadas por el modelo (binomial negativa mixto, con camada como efecto aleatorio) y las barras, su intervalo de confianza del 95 %. Los corchetes indican los contrastes a priori, con p ajustado por Bonferroni (3 contrastes): FLX vs SUC dentro de SAL (promediando ambos sexos), CNO vs SAL dentro de FLX (promediando ambos sexos) y hembras vs machos dentro de FLX SAL. * p &lt; 0.05; ns, no significativo. FLX: fluoxetina; SUC: sacarosa; CNO: clozapina-N-óxido; SAL: salina.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Como se ilustra en la Figura X, las medias marginales estimadas para el número de entradas a los brazos abiertos muestran un comportamiento homogéneo entre la mayoría de las condiciones experimentales, caracterizado por un amplio solapamiento de sus intervalos de confianza del 95%. Dicha amplitud refleja una marcada imprecisión en las estimaciones puntuales, consecuencia de una elevada variabilidad residual entre los individuos al interior de cada grupo experimental. La diferencia más notable en la conducta exploratoria se concentra en el grupo expuesto a fluoxetina sin inhibición prefrontal (FLX SAL), donde las hembras exhiben una media estimada visiblemente superior y un intervalo de confianza diferenciado del de los machos (p = 0.0116), patrón que no se replica en los animales controles (SUC SAL) ni en los tratados con CNO.</p>
+</section>
 </section>
 <section id="discusión" class="level2">
 <h2 class="anchored" data-anchor-id="discusión">Discusión</h2>
