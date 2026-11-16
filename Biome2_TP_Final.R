@@ -249,6 +249,10 @@ testOutliers(residuos_m2)                          # Test Outliers
 # Calculamos estadístico de dispersión manualmente
 sum(residuals(modelo2, type="pearson")^2)/df.residual(modelo2)
 
+library(performance)
+
+icc(modelo2)
+
 ### Supuestos efectos aleatorios -----------------------------------------------
 
 ef_camadas_m2 <- ranef(modelo2)$cond$camada[["(Intercept)"]]
@@ -351,6 +355,8 @@ modelo5 <- glmmTMB(
 
 summary(modelo5)
 Anova(modelo5, type = "III") # Usamos Anova tipo III porque tenemos grupos desbalanceados
+
+icc(modelo5)
 
 ### Supuestos efectos fijos ----------------------------------------------------
 
