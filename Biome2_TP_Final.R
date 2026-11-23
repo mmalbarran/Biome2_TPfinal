@@ -249,6 +249,10 @@ testOutliers(residuos_m2)                          # Test Outliers
 # Calculamos estadístico de dispersión manualmente
 sum(residuals(modelo2, type="pearson")^2)/df.residual(modelo2)
 
+library(performance)
+
+icc(modelo2)
+
 ### Supuestos efectos aleatorios -----------------------------------------------
 
 ef_camadas_m2 <- ranef(modelo2)$cond$camada[["(Intercept)"]]
@@ -351,6 +355,8 @@ modelo5 <- glmmTMB(
 
 summary(modelo5)
 Anova(modelo5, type = "III") # Usamos Anova tipo III porque tenemos grupos desbalanceados
+
+icc(modelo5)
 
 ### Supuestos efectos fijos ----------------------------------------------------
 
@@ -813,3 +819,72 @@ bonfe_log
 # EN ESCALA NATURAL (RATIO DE CONTEOS)
 bonfe_resp<-contrast(medias.log, method = contrastes_planeados, type = "response", adjust = "bonferroni")
 bonfe_resp
+
+
+# Gráfico final
+library(emmeans)
+library(ggplot2)
+
+# Medias estimadas (escala respuesta) con IC 95%
+emm <- as.data.frame(
+  emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
+)
+niveles <- c("SUC SAL", "FLX SAL", "FLX CNO", "SUC CNO")
+emm$grupo <- factor(paste(emm$FLX_SUC, emm$SAL_CNO), levels = niveles)
+
+# Estrellas desde los contrastes (orden: c1, c2, c3)
+comp <- as.data.frame(comp_vr)
+est <- as.character(cut(comp$p.value,
+                        breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),
+                        labels = c("***", "**", "*", "ns")))
+
+ymax <- max(emm$asymp.UCL)
+tick <- 0.03 * ymax
+dodge_w <- 0.5
+off <- dodge_w / 4          # distancia del centro a cada punto (hembra/macho)
+
+corchete <- function(x, xend, y, label) {
+  list(
+    annotate("segment", x = x,    xend = xend, y = y,        yend = y),
+    annotate("segment", x = x,    xend = x,    y = y - tick, yend = y),
+    annotate("segment", x = xend, xend = xend, y = y - tick, yend = y),
+    annotate("text", x = (x + xend) / 2, y = y + tick, label = label,
+             vjust = 0, size = if (label == "ns") 4.5 else 7)
+  )
+}
+
+ggplot(emm, aes(x = grupo, y = response, color = sexo)) +
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL),
+                position = position_dodge(dodge_w), width = 0, linewidth = 0.7) +
+  geom_point(position = position_dodge(dodge_w), size = 3) +
+  # c3: hembras vs machos dentro de FLX SAL (grupo 2)
+  corchete(2 - off, 2 + off, ymax * 1.08, est[3]) +
+  # c1: FLX vs SUC dentro de SAL (grupos 1 y 2)
+  corchete(1, 2, ymax * 1.22, est[1]) +
+  # c2: CNO vs SAL dentro de FLX (grupos 2 y 3)
+  corchete(2, 3, ymax * 1.36, est[2]) +
+  scale_color_manual(values = c(hembra = "#E41A1C", macho = "#377EB8"),
+                     labels = c("Hembra", "Macho")) +
+  scale_x_discrete(labels = c("SUC\nSAL", "FLX\nSAL", "FLX\nCNO", "SUC\nCNO")) +
+  coord_cartesian(ylim = c(0, ymax * 1.55), clip = "off") +
+  labs(x = "Tratamiento neonatal",
+       y = "Entradas a brazos abiertos en 10 minutos predichas",
+       color = "Sexo") +
+  theme_bw(base_size = 14) +
+  theme(panel.grid.minor = element_blank())
+
+options(contrasts = c("contr.sum", "contr.poly"))
+modelo2 <- glmmTMB(
+  Brazos_abiertos_entradas ~ FLX_SUC * SAL_CNO * sexo + (1 | camada),
+  family = "nbinom2",
+  data = Datos
+)
+
+
+tabla.summary <- summary(modelo2)
+tabla.anova <- Anova(modelo2, type="III")
+
+options(contrasts = c("contr.treatment", "contr.poly"))
+
+tabla.summary
+tabla.anova
