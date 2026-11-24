@@ -51,7 +51,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### **Diccionario de variables**
 
 | Variable | Tipo | Descripción |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (20 niveles) |
 | `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
@@ -61,7 +61,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
 ### **Preparación de la base de datos y fijación de referencias**
 
-A partir de la base de datos original (`EPM Tam +Mili - Hoja 1.csv`), se seleccionaron las variables de interés, se filtró un registro inconsistente (`R35`) y se definieron explícitamente los niveles de referencia (*baseline*) para que el intercepto del modelo represente al grupo control triple (`SUC`, `SAL`, `hembra`).
+A partir de la base de datos original (`EPM Tam +Mili - Hoja 1.csv`), se seleccionaron las variables de interés, se filtró un registro inconsistente (`R35`) correspondiente a un error de registro del operador, y se definieron explícitamente los niveles de referencia (*baseline*) para que el intercepto del modelo represente al grupo control triple (`SUC`, `SAL`, `hembra`).
 
 ```{r}
 #| label: preparacion-datos
