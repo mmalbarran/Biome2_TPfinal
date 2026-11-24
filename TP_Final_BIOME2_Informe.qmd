@@ -51,7 +51,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### **Diccionario de variables**
 
 | Variable | Tipo | Descripción |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (20 niveles) |
 | `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
@@ -114,7 +114,7 @@ summary (Datos)
 
 ```
 
-A partir de esta salida se puede observar que la base de datos cuenta con observaciones de 110 ratones, 56 de los cuales son hembras y 54 machos. El summary también muestra 6 camadas, las cuales tienen 7 ratones cada una, pero hay camadas que no se muestran. A 51 ratones se les asignó tratamiento con sacarosa, mientras que a 59 con Fluoxetina. A 52 ratones se les asignó tratamiento con solución salina, y a 58 tratamiento con CNO. Para el número de entradas a los brazos abiertos en 10 min, se observa un mínimo de 0 (cota inferior dado el diseño experimental) y un máximo de 31, con una mediana de 6 y una media de 6.682.
+A partir de esta salida se puede observar que la base de datos cuenta con observaciones de 110 ratones (N), 56 de los cuales son hembras y 54 machos. El summary también muestra 6 camadas, las cuales tienen 7 ratones cada una, pero hay camadas que no se muestran. A 51 ratones se les asignó tratamiento con sacarosa, mientras que a 59 con Fluoxetina. A 52 ratones se les asignó tratamiento con solución salina, y a 58 tratamiento con CNO. Para el número de entradas a los brazos abiertos en 10 min, se observa un mínimo de 0 (cota inferior dado el diseño experimental) y un máximo de 31, con una mediana de 6 y una media de 6.682.
 
 Verificación de la cantidad de ratones por camada
 
