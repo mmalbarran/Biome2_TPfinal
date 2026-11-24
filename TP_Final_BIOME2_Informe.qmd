@@ -1,7 +1,9 @@
 ---
 title: "Rol de la corteza prefrontal en el fenotipo tipo ansioso inducido por exposición neonatal a fluoxetina en ratones"
 subtitle: "Trabajo práctico final — Biometría II"
-format: pdf
+format:
+  html: default
+  pdf: default
 editor: visual
 ---
 
@@ -34,7 +36,7 @@ Por último, considerando la evidencia bibliográfica a favor de una mayor toler
 
 ### **Descripción del ensayo**
 
-Se trabajó con 111 ratones de cepa C57 provenientes de 20 camadas, a los cuales se les administró diariamente entre P1 y P14: Fluoxetina o sacarosa (vehículo) por vía oral, y CNO o solución salina vía inyección intraperitoneal. Si bien la administración de los tratamientos es a nivel individual, la asignación de la combinación de tratamientos fue realizada aleatoriamente a nivel de la camada; por ende, la camada es la unidad experimental. 
+Se trabajó con 111 ratones de cepa C57 provenientes de 20 camadas, a los cuales se les administró diariamente entre P2 y P14: Fluoxetina o sacarosa (vehículo) por vía oral, y CNO o solución salina vía inyección intraperitoneal. Si bien la administración de los tratamientos es a nivel individual, la asignación de la combinación de tratamientos fue realizada aleatoriamente a nivel de la camada; por ende, la camada es la unidad experimental. 
 
 A cada ratón se le aplicó en edad adulta (\>P90) una batería de tests, entre los cuales se encuentra el Elevated Plus Maze (EPM, Laberinto elevado en cruz). La prueba del EPM evalúa el comportamiento de tipo ansioso en roedores basándose en el conflicto innato entre la motivación exploratoria y la aversión a los espacios abiertos y elevados. Un menor número de entradas a los brazos abiertos refleja la evitación del riesgo y se interpreta como un fenotipo de tipo ansioso, mientras que un incremento en las entradas indica un efecto protector o ansiolítico.
 
@@ -49,7 +51,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### **Diccionario de variables**
 
 | Variable | Tipo | Descripción |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (20 niveles) |
 | `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
