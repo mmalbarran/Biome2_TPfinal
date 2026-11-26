@@ -401,6 +401,19 @@ summary(modelo2)
 Anova(modelo2, type = "III")
 Anova(modelo2, type = "II")
 
+#####NICOLE####
+
+options(emmeans= list(emmeans = list(infer = c(TRUE, F)),
+                      contrast = list(infer = c(TRUE, TRUE))))
+
+efsimple_escalalog<- emmeans(modelo2, pairwise ~ SAL_CNO | sexo)
+confint(efsimple_escalalog)
+
+efsimple_escalarespuesta<- emmeans(modelo2, pairwise ~ SAL_CNO | sexo,type="response")
+confint(efsimple_escalarespuesta)
+
+summary(efsimple_escalarespuesta$contrasts, infer = c(TRUE, TRUE)) #con los p valores
+
 ##### NAZA
 
 # Coeficientes del modelo
