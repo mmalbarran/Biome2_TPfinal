@@ -410,10 +410,65 @@ efsimple_escalalog<- emmeans(modelo2, pairwise ~ SAL_CNO | sexo)
 confint(efsimple_escalalog)
 
 efsimple_escalarespuesta<- emmeans(modelo2, pairwise ~ SAL_CNO | sexo,type="response")
-confint(efsimple_escalarespuesta)
+confint(efsimple_escalarespuesta,infer = TRUE)
 
 summary(efsimple_escalarespuesta$contrasts, infer = c(TRUE, TRUE)) #con los p valores
 
+
+plot(efsimple_escalarespuesta, comparisons = TRUE)
+
+library(emmeans)
+library(ggplot2)
+
+library(emmeans)
+library(ggplot2)
+
+emm <- emmeans(modelo2, ~ SAL_CNO | sexo, type = "response")
+emm_df <- as.data.frame(emm)
+emm_df$SAL_CNO <- factor(emm_df$SAL_CNO, levels = c("SAL", "CNO"))
+
+colores <- c("hembra" = "#F5793A", "macho" = "#56B4E9")
+
+
+y_max   <- max(emm_df$asymp.UCL[emm_df$sexo == "macho"])
+y_barra <- y_max * 1.08
+y_pata  <- y_barra * 0.97   
+
+ggplot(emm_df, aes(x = SAL_CNO, y = response, colour = sexo)) +
+  geom_linerange(aes(ymin = asymp.LCL, ymax = asymp.UCL),
+                 position = position_dodge(width = 0.4),
+                 linewidth = 1.2) +
+  geom_point(position = position_dodge(width = 0.4),
+             size = 3.5) +
+  
+  annotate("segment", x = 1.1, xend = 2.1, y = y_barra, yend = y_barra,
+           colour = "#56B4E9", linewidth = 0.8) +
+  annotate("segment", x = 1.1, xend = 1.1, y = y_pata, yend = y_barra,
+           colour = "#56B4E9", linewidth = 0.8) +
+  annotate("segment", x = 2.1, xend = 2.1, y = y_pata, yend = y_barra,
+           colour = "#56B4E9", linewidth = 0.8) +
+  annotate("text", x = 1.6, y = y_barra * 1.02, label = "*",
+           colour = "#56B4E9", size = 8) +
+  scale_colour_manual(values = colores,
+                      labels = c("hembra" = "Hembra", "macho" = "Macho")) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.12))) +
+  labs(x = "Tratamiento",
+       y = "Media estimada de entradas a brazos abiertos",
+       colour = "Sexo") +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major = element_line(colour = "grey90"),
+    panel.grid.minor.y = element_line(colour = "grey95"),
+    panel.grid.minor.x = element_blank(),
+    axis.line = element_line(colour = "grey50", linewidth = 0.5),
+    axis.ticks = element_line(colour = "grey50"),
+    axis.ticks.length = unit(0.2, "cm"),
+    axis.text = element_text(colour = "grey40", size = 12),
+    axis.title = element_text(colour = "grey20", size = 15),
+    axis.title.x = element_text(margin = margin(t = 10)),
+    axis.title.y = element_text(margin = margin(r = 10)),
+    legend.position = "right"
+  )
 ##### NAZA
 
 # Coeficientes del modelo
