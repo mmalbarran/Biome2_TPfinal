@@ -11,9 +11,7 @@ library(patchwork)
 library(betareg)
 library(DHARMa)
 library(emmeans)
-
-
-
+library(tidyr)
 
 
 # IMPORTO DATOS ################################################################
@@ -66,7 +64,34 @@ table(Datos$camada)
 # Ratones por combinación de VEs fijas
 ftable(Datos$FLX_SUC, Datos$SAL_CNO, Datos$sexo)
 
-Anova(modelo2, type = "II")
+
+# 1. Conteo de ratones por camada para calcular el tamaño de camada
+tam_camada <- Datos |>
+  count(FLX_SUC, SAL_CNO, camada, name = "crias")
+
+# 2. Resumen de camadas y tamaños por tratamiento
+res_camadas <- tam_camada |>
+  group_by(FLX_SUC, SAL_CNO) |>
+  summarise(
+    N_camadas = n(),
+    mediana_crias = median(crias),
+    min_crias = min(crias),
+    max_crias = max(crias),
+    .groups = "drop"
+  )
+
+# 3. Conteo de ratones totales y por sexo
+res_ratones <- Datos |>
+  count(FLX_SUC, SAL_CNO, sexo) |>
+  pivot_wider(names_from = sexo, values_from = n, values_fill = 0) |>
+  mutate(n_total = rowSums(across(where(is.numeric))))
+
+# 4. Unión final
+tabla_muestral <- left_join(res_camadas, res_ratones, by = c("FLX_SUC", "SAL_CNO"))
+tabla_muestral
+
+
+
 # ESTADÍSTICA DESCRIPTIVA ######################################################
 
 ## Tablas descriptivas =========================================================
