@@ -691,7 +691,7 @@ En un comienzo, se habían planteado contrastes a priori para poner a prueba las
 #| warning: false
 #| code-fold: true
 #| code-summary: "Ver código"
-#| fig-cap: "**Tabla 4. Contrastes a porteriori de efectos simples para el tratamiento de inhibición prefrontal desglosados por sexo, en la escala de la variable respuesta.** Estimaciones de las esperanzas poblacionales y cocientes de medias esperadas (ratio= $\mu_{CNO}$/$\mu_{SAL}$) obtenidos mediante el modelo GLMM Binomial Negativo, promediando sobre los niveles del tratamiento con Fluoxetina, junto con sus IC 95%. Un conciente cuyo IC95% no incluye al 1 indica una diferencia estadísticamente significativa"
+#| fig-cap: "**Tabla 4. Contrastes a porteriori de efectos simples para el tratamiento de inhibición prefrontal desglosados por sexo, en la escala de la variable respuesta.** Estimaciones de las esperanzas poblacionales y cocientes de medias esperadas (ratio= $\mu_{CNO}$/$\mu_{SAL}$) obtenidos mediante el modelo GLMM Binomial Negativo, promediando sobre los niveles del tratamiento con Fluoxetina, junto con sus IC95%. Un conciente cuyo IC95% no incluye al 1 indica una diferencia estadísticamente significativa"
 
 
 efsimple_escalarespuesta<- emmeans(modelo2, pairwise ~ SAL_CNO | sexo,type="response")
@@ -699,9 +699,12 @@ confint(efsimple_escalarespuesta)
 
 ```
 
-A partir de los contrastes \[Tabla 4\] es posible concluir que la Fluoxetina presenta un efecto diferencial entre los sexos, aumentando el número de ingresos a los brazos abiertos entre un 14,2% y un 315% en hembras respecto a los machos, con una confianza del 95% (p = 0.0116).
+En escala de respuesta, dado que la magnitud de efecto se mide como un ratio, se considera que existe una diferencia significativa cuando el intervalo de confianza del contraste no contiene al 1. En las hembras \[Tabla 4\] el intervalo de confianza \[0,478 ; 1,13\] contiene al 1 por lo que no se detectaron diferencias significativas entre CNO y SAL en este sexo. Por otra parte, se puede ver que en los machos el intervalo de confianza \[1,094 ; 2,60\] no contiene al 1 lo cual indica que se detectaron diferencias significativas entre machos tratados con CNO y SAL. 
 
-Dado que un valor de Ratio igual a 1.0 representa la hipótesis nula de equidad entre grupos, no se detectaron diferencias significativas entre FLX y SUC dentro de SAL (razón = 1.11; IC 95% ajustado: 0.61 a 2.01; p ajustado = 1.00) ni entre CNO y SAL dentro de FLX (razón = 1.26; IC 95% ajustado: 0.73 a 2.17; p ajustado = 0.92).
+La magnitud del efecto en los machos se cuantifica con el cociente de medias entre los grupos y este valor se obtiene exponenciando la diferencia estimada en escala log y expresa cuántas veces es el número esperado de entradas a brazos abiertos de un grupo respecto del otro:
+
+$$CNO/SAL = e^{0,522} = 1,686 \rightarrow (1,686 - 1) \times 100 = 68,6\% $$\
+De esta forma, se estima con un 95% de confianza que el número de entradas a brazos abiertos de machos del grupo CNO es, en promedio, 68,6% (IC95%: 9,4% y 160%) mayor que los del grupo SAL.
 
 ### Gráfico Final
 
