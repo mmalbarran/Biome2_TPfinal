@@ -15,7 +15,7 @@ Milagros Albarrán, Carolina Banchón, Nicole Gothop, Celina Liu, Nazarena Lourd
 
 En los modelos animales de neurodesarrollo, la serotonina actúa como un modulador trófico fundamental en la estructuración de los circuitos límbicos y corticales durante las etapas postnatales tempranas (Teissier et al., 2017). En ratones, la ventana crítica comprendida entre los días postnatales 2 y 14 (P2–P14) se caracteriza por una elevada sensibilidad del circuito bidireccional entre la corteza prefrontal (CPF) y el núcleo dorsal del rafe (NDR) a los niveles de serotonina en la hendidura sináptica (Soiza-Reilly y Commons, 2011; Teissier et al., 2017). Diversos estudios han demostrado que la elevación transitoria de serotonina durante este período sensible - por ejemplo, mediante la administración neonatal del inhibidor selectivo de la recaptación de serotonina fluoxetina (FLX) - altera el refinamiento de estas conexiones, traduciéndose en la adultez en una hiperactividad del NDR frente a eventos estresantes y en la consolidación de un fenotipo comportamental de tipo ansioso (Rayen et al., 2011; Houwing et al., 2019; Gallo et al., 2025).
 
-A pesar del conocimiento sobre este efecto persistente, el rol modulador específico que ejerce la actividad de la CPF durante esa ventana crítica en la impronta del circuito aún no está completamente dilucidado. Para abordar esta interrogante, este trabajo evalúa el efecto de la inhibición quimiogenética (tecnología DREADDs/CNO) de las neuronas de la CPF durante el desarrollo neonatal. Específicamente, se analiza si atenuar la actividad prefrontal durante el tratamiento con fluoxetina previene el desarrollo del fenotipo ansioso en la etapa adulta. Dicho fenotipo se evaluó mediante la prueba del Laberinto Elevado en Cruz (EPM), un modelo válido para medir ansiedad en roedores donde el número de entradas a los brazos abiertos funciona como indicador del nivel de ansiedad.
+A pesar del conocimiento sobre este efecto persistente, el rol modulador específico que ejerce la actividad de la CPF durante esa ventana crítica en la impronta del circuito aún no está completamente dilucidado. Para abordar esta interrogante, este trabajo evalúa el efecto de la inhibición quimiogenética (tecnología DREADDs/CNO) de las neuronas de la CPF durante el desarrollo neonatal. Específicamente, se analiza si atenuar la actividad prefrontal durante el tratamiento con fluoxetina previene el desarrollo del fenotipo ansioso en la etapa adulta. Dicho fenotipo se evaluó mediante la prueba del Laberinto Elevado en Cruz (EPM), un modelo válido para medir ansiedad en roedores donde el número de entradas a los brazos abiertos funciona como indicador del nivel de ansiedad (Cruz et al., 1994).
 
 ## **Objetivos**
 
@@ -51,7 +51,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### **Diccionario de variables**
 
 | Variable | Tipo | Descripción |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (20 niveles) |
 | `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
@@ -539,6 +539,8 @@ Utilizando este tipo de contrastes, cambia la interpretación de los parámetros
 
 ### Summary & Modelo
 
+Una vez elegida la distribución Binomial Negativa, se re-escribe el modelo con los parámetros estimados a partir de la muestra. Para ello se emplea la función summary y los mismos se pueden ver en la Tabla 1.
+
 ::: {.callout-note collapse="true" title="Ver código y summary" appearance="simple"}
 ```{r}
 #| label: summary modelo
@@ -709,7 +711,7 @@ A partir de los contrastes \[Tabla 4\] es posible concluir que la Fluoxetina pre
 
 Dado que un valor de Ratio igual a 1.0 representa la hipótesis nula de equidad entre grupos, no se detectaron diferencias significativas entre FLX y SUC dentro de SAL (razón = 1.11; IC 95% ajustado: 0.61 a 2.01; p ajustado = 1.00) ni entre CNO y SAL dentro de FLX (razón = 1.26; IC 95% ajustado: 0.73 a 2.17; p ajustado = 0.92).
 
-### Gráfico final
+### Gráfico Final
 
 Para evaluar de forma integrada el comportamiento del modelo final, las medias marginales estimadas para el número de entradas a los brazos abiertos y sus correspondientes intervalos de confianza del 95% se ilustran en la **Figura 3**. 
 
