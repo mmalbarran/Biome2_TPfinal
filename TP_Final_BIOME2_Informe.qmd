@@ -15,14 +15,14 @@ Milagros Albarrán, Carolina Banchón, Nicole Gothop, Celina Liu, Nazarena Lourd
 
 En los modelos animales de neurodesarrollo, la serotonina actúa como un modulador trófico fundamental en la estructuración de los circuitos límbicos y corticales durante las etapas postnatales tempranas (Teissier et al., 2017). En ratones, la ventana crítica comprendida entre los días postnatales 2 y 14 (P2–P14) se caracteriza por una elevada sensibilidad del circuito bidireccional entre la corteza prefrontal (CPF) y el núcleo dorsal del rafe (NDR) a los niveles de serotonina en la hendidura sináptica (Soiza-Reilly y Commons, 2011; Teissier et al., 2017). Diversos estudios han demostrado que la elevación transitoria de serotonina durante este período sensible - por ejemplo, mediante la administración neonatal del inhibidor selectivo de la recaptación de serotonina fluoxetina (FLX) - altera el refinamiento de estas conexiones, traduciéndose en la adultez en una hiperactividad del NDR frente a eventos estresantes y en la consolidación de un fenotipo comportamental de tipo ansioso (Rayen et al., 2011; Houwing et al., 2019; Gallo et al., 2025).
 
-A pesar del conocimiento sobre este efecto persistente, el rol modulador específico que ejerce la actividad de la CPF durante esa ventana crítica en la impronta del circuito aún no está completamente dilucidado. Para abordar esta interrogante, este trabajo evalúa el efecto de la inhibición quimiogenética (tecnología DREADDs/CNO) de las neuronas de la CPF durante el desarrollo neonatal. Específicamente, se analiza si atenuar la actividad prefrontal durante el tratamiento con fluoxetina previene el desarrollo del fenotipo ansioso en la etapa adulta. Dicho fenotipo se evaluó mediante la prueba del Laberinto Elevado en Cruz (EPM), un modelo válido para medir ansiedad en roedores donde el número de entradas a los brazos abiertos funciona como indicador del nivel de ansiedad.
+A pesar del conocimiento sobre este efecto persistente, el rol modulador específico que ejerce la actividad de la CPF durante esa ventana crítica en la impronta del circuito aún no está completamente dilucidado. Para abordar esta interrogante, este trabajo evalúa el efecto de la inhibición quimiogenética (tecnología DREADDs/CNO) de las neuronas de la CPF durante el desarrollo neonatal. Específicamente, se analiza si atenuar la actividad prefrontal durante el tratamiento con fluoxetina previene el desarrollo del fenotipo ansioso en la etapa adulta. Dicho fenotipo se evaluó mediante la prueba del Laberinto Elevado en Cruz (EPM), un modelo válido para medir ansiedad en roedores donde el número de entradas a los brazos abiertos funciona como indicador del nivel de ansiedad (Cruz et al., 1994).
 
 ## **Objetivos**
 
 Los objetivos planteados para este estudio son los siguientes:
 
 1.  Determinar el efecto de la inhibición de la corteza prefrontal sobre el fenotipo tipo ansioso causado por la administración de Fluoxetina.
-2.  Evaluar la existencia de respuestas diferenciales al tratamiento con Fluoxetina según el sexo de los individuos.
+2.  Evaluar la existencia de respuestas diferenciales a los tratamientos neonatales con Fluoxetina según el sexo de los individuos.
 
 ### **Hipótesis y predicciones**
 
@@ -38,20 +38,20 @@ Por último, considerando la evidencia bibliográfica a favor de una mayor toler
 
 Se trabajó con 111 ratones de cepa C57 provenientes de 20 camadas, a los cuales se les administró diariamente entre P2 y P14: Fluoxetina o sacarosa (vehículo) por vía oral, y CNO o solución salina vía inyección intraperitoneal. Si bien la administración de los tratamientos es a nivel individual, la asignación de la combinación de tratamientos fue realizada aleatoriamente a nivel de la camada; por ende, la camada es la unidad experimental. 
 
-A cada ratón se le realizó en edad adulta (\>P90) una batería de tests, entre los cuales se encuentra el Elevated Plus Maze (EPM, Laberinto elevado en cruz). La prueba del EPM evalúa el comportamiento de tipo ansioso en roedores basándose en el conflicto innato entre la motivación exploratoria y la aversión a los espacios abiertos y elevados. Un menor número de entradas a los brazos abiertos refleja la evitación del riesgo y se interpreta como un fenotipo de tipo ansioso, mientras que un incremento en las entradas indica un efecto protector o ansiolítico.
+A cada ratón se le realizó en edad adulta (\>P90) una batería de tests, entre los cuales se encuentra el Elevated Plus Maze (EPM, Laberinto elevado en cruz). La prueba del EPM evalúa el comportamiento de tipo ansioso en roedores basándose en el conflicto innato entre la motivación exploratoria y la aversión a los espacios abiertos y elevados (Dawson y Tricklebank, 1995). Un menor número de entradas a los brazos abiertos refleja la evitación del riesgo y se interpreta como un fenotipo de tipo ansioso, mientras que un incremento en las entradas indica un efecto protector o ansiolítico.
 
-Es así como el número de entradas a brazos abiertos en 10 minutos (duración del test) se definió como la variable de respuesta, donde cada ratón es la unidad observacional. Como variables explicativas fijas se incluyeron el tratamiento con Fluoxetina, el tratamiento con CNO y el sexo, las cuales están cruzadas entre sí por lo que se analizó la interacción entre ellas. Además, se incluyó a la camada como variable explicativa de efecto aleatorio porque se encuentran anidadas en la interacción de los tratamientos de Fluoxetina y CNO, y los ratones están anidados en camada.
+[**Es así como el número de entradas a brazos abiertos en 10 minutos (duración del test) se definió como la variable de respuesta, donde cada ratón es la unidad observacional. Como variables explicativas fijas se incluyeron el tratamiento con Fluoxetina, el tratamiento con CNO y el sexo, las cuales están cruzadas entre sí por lo que se analizó la interacción entre ellas. Además, se incluyó a la camada como variable explicativa de efecto aleatorio porque se encuentran anidadas en la interacción de los tratamientos de Fluoxetina y CNO, y los ratones están anidados en camada.**]{.underline}
 
 ### Desarrollo del análisis
 
-El número de entradas a los brazos abiertos en 10 minutos se analizó utilizando un Modelo Lineal Generalizado Mixto, proponiendo inicialmente una distribución Poisson con función de enlace log. Debido a la presencia de sobredispersión en el modelo Poisson, se analizaron los modelos **Binomial Negativa** , **Conway-Maxwell-Poisson**, **Tweedie** y **Efectos Aleatorios a Nivel Individual (OLRE) y finalmente se utilizó una distribución Binomial Negativa.**  El análisis de los residuales se efectuó utilizando el paquete 'DHARMa' (Hartig, 2020). Se efectuó selección de modelos mediante AIC. Todos los análisis se efectuaron con R (R Development Core Team).
+El número de entradas a los brazos abiertos en 10 minutos se analizó utilizando un Modelo Lineal Generalizado Mixto, proponiendo inicialmente una distribución Poisson con función de enlace log. Debido a la presencia de sobredispersión en el modelo Poisson, se analizaron los modelos **Binomial Negativa** , **Conway-Maxwell-Poisson**, **Tweedie** y **Efectos Aleatorios a Nivel Individual (OLRE) y finalmente se utilizó una distribución Binomial Negativa.**  El análisis de los residuales se efectuó utilizando el paquete 'DHARMa' (Hartig, 2020). Se efectuó selección de modelos mediante AIC. Todos los análisis se efectuaron con R y RStudio (R Development Core Team, 2026).
 
 Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 
 #### **Diccionario de variables**
 
 | Variable | Tipo | Descripción |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (20 niveles) |
 | `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
@@ -76,6 +76,7 @@ library(glmmTMB)
 library(car)
 library(DHARMa)
 library(emmeans)
+library(performance)
 
 # Carga de la base de datos original
 datos_raw <- read.csv("EPM Tam +Mili - Hoja 1.csv", header = TRUE, sep = ",", dec = ",", stringsAsFactors = TRUE)
@@ -172,7 +173,7 @@ p3 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order
 p3
 ```
 
-En el grafico de boxplots \[Figura 1\] se puede observar que, tanto en hembras como en machos, las medianas de entradas a los brazos abiertos se mantienen en un mismo rango (entre 4 y 8) entre los grupos de tratamiento. También, se observa una mayor dispersión de los datos en los machos que en las hembras (particularmente marcada hacia valores altos en el grupo FLX + CNO), además de registrarse algunos valores atípicos elevados en ambos sexos.
+En el grafico de boxplots \[Figura 1\] se puede observar que, tanto en hembras como en machos, las medianas de entradas a los brazos abiertos se mantienen en un rango entre 4 y 8 entradas a lo largo de los grupos de tratamiento. También, se observa una mayor dispersión de los datos en los machos que en las hembras (particularmente marcada hacia valores altos en el grupo FLX + CNO), además de registrarse algunos valores atípicos elevados en ambos sexos.
 
 ```{r}
 #| label: gráfico de perfiles
@@ -222,11 +223,11 @@ p5
 
 ```
 
-En el gráfico de perfiles \[Figura 2\] se puede observar que, dentro de los ratones tratados con SAL, el efecto de la Fluoxetina sobre las entradas a brazos abiertos parecería variar entre sexos, dado que se puede apreciar un aumento en la media de ingresos en hembras tratadas con FLX respecto a SUC y una disminución en machos. Por otra parte, en aquellos individuos tratados con CNO, se observa un aumento en la media de ingresos en ambos sexos, aunque más pronunciada en el caso de los machos.
+En el gráfico de perfiles \[Figura 2\] se puede observar que, dentro de los ratones tratados con SAL (líneas azules), el efecto de la Fluoxetina sobre las entradas a brazos abiertos parecería variar entre sexos, dado que se puede apreciar un aumento en la media de ingresos en hembras tratadas con FLX respecto a SUC y una disminución en machos. Por otra parte, en aquellos individuos tratados con CNO (líneas naranjas), se observa un aumento en la media de ingresos en ambos sexos, aunque más pronunciada en el caso de los machos.
 
 ### **Modelo de Poisson**
 
-Debido a que la variable respuesta es un conteo en un continuo temporal, se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.
+Debido a que la variable respuesta es un conteo en un continuo temporal (número de entradas a brazos abiertos en 10 minutos), se propuso inicialmente ajustar el modelo a una distribución de Poisson con función de enlace log.
 
 #### **Especificación y supuestos distribucionales**
 
@@ -239,7 +240,23 @@ $$Y_{ijkl} \approx \text{Poisson}(\lambda_{ijkl}), \quad \text{E}(Y_{ijkl}) = \t
 
 $$C_{l(ij)} \sim NID(0,\sigma_\text{camada}^2)$$
 
-La interacción triple contempla que el efecto de FLX difiere según la administración de CNO y según el sexo, mientras que el efecto aleatorio de camada contempla que los ratones de una misma camada no son independientes entre sí.
+Donde:
+
+- $E(Y_{ijkl})$ representa el número esperado de entradas a brazos abiertos para la i-ésima condición de Fluoxetina, j-ésima de CNO, k-ésimo sexo y l-ésima camada.
+
+- $\beta_0$ **es el intercepto global** en la escala logarítmica, correspondiente al **grupo de referencia (Hembra, SUC, SAL)**.
+
+- $\beta_1$ representa el efecto del tratamiento con Fluoxetina respecto al vehículo Sacarosa en hembras del grupo salina.
+
+- $\beta_2$ representa el efecto de la inhibición quimiogenética con CNO respecto a Salina en hembras no expuestas a fluoxetina.
+
+- $\beta_3$ representa la diferencia basal entre Machos y Hembras en el grupo control (SUC SAL).
+
+- $\beta_4$, $\beta_5$, $\beta_6$, $\beta_7$ son los parámetros de interacción de doble y triple en la escala del predictor lineal.
+
+- $C_1$ es el efecto aleatorio de la l-ésima camada, que modela la variabilidad entre camadas.
+
+La interacción triple contempla que el efecto de FLX difiere según la administración de CNO y según el sexo, mientras que las interacciones dobles representan cómo el efecto de uno de los factores sobre el número de entradas a brazos abiertos difiere según el nivel del otro factor, de forma independiente del tercero. Por último, el efecto aleatorio de camada contempla que los ratones de una misma camada no son independientes entre sí.
 
 ```{r}
 #| code-fold: true
@@ -307,7 +324,7 @@ testOutliers(residuos_m1)                          # Test Outliers
 ```
 :::
 
-También, de forma manual se calcula el estadístico de dispersión
+También, de forma manual se calcula el estadístico de dispersión obteniendo un valor de 2,598.
 
 ```{r}
 #| code-fold: true
@@ -319,10 +336,10 @@ sum(residuals(modelo1, type="pearson")^2)/df.residual(modelo1)
 El estadístico de dispersión es superior al valor esperado de 1 bajo el modelo de Poisson, lo que indica sobredispersión.
 
 ::: {.callout-important title="Sobredispersión confirmada"}
-Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional de dispersión.
+Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional que modele la sobredispersión.
 :::
 
-Además de la sobredispersión, se evalúa el supuesto de normalidad de los residuos aleatorios de las camadas, que en el modelo se asumen distribuidos normalmente con media 0 y varianza σ². Y se concluye que no hay evidencia suficiente para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.
+Además de la ausencia de equidispersión, se evalúa el supuesto de normalidad de los residuos aleatorios de las camadas, que en el modelo se asumen distribuidos normalmente con media 0 y varianza σ². Y se concluye que no hay evidencia suficiente para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.
 
 ::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
 ```{r}
@@ -340,7 +357,7 @@ shapiro.test(ef_camadas_m1)       # Shapiro-Wilk test
 ```
 :::
 
-### **Modelos alternativos para sobredispersión**
+### **Modelos alternativos para modelar la sobredispersión**
 
 #### **Binomial negativa (NB2)**
 
@@ -509,7 +526,7 @@ shapiro.test(ef_camadas_m5)       # Shapiro-Wilk test
 
 ### **Comparación por AIC**
 
-Se selecciona el modelo con menor AIC entre aquellos con diagnóstico DHARMa aceptable.
+Una vez realizado el diagnóstico de supuestos de los modelos candidatos, se selecciona el modelo con menor AIC entre aquellos modelos cuyos supuestos no fueron rechazados mediante el diagnóstico DHARMa.
 
 ```{r}
 #| code-fold: true
@@ -521,7 +538,7 @@ AIC(modelo2, modelo3, modelo4, modelo5)
 Entre los modelos con menor AIC, OLRE y binomial negativa, se selecciona **la binomial negativa** para el análisis de resultados.
 :::
 
-Para la evaluación global de los efectos fijos del modelo Binomial Negativo seleccionado, se especifica una prueba de ANOVA de Devianza de Wald Tipo III (car::Anova(..., type = "III")). Debido al desbalance muestral en las celdas experimentales y para garantizar el principio de marginalidad e independencia respecto a la categoría de referencia (baseline), el modelo se ajusta utilizando contrastes de suma cero (contr.sum). A diferencia de la codificación de referencia por defecto (donde el intercepto corresponde a una única combinación control y los coeficientes expresan efectos simples condicionados a dicho nivel basal), los contrastes de suma cero (contr.sum) reparametrizan el modelo de manera simétrica (±1). Esto permite que el intercepto estime la media general no ponderada del experimento y que cada efecto principal cuantifique el desvío promedio de cada factor a través de todos los niveles de los restantes factores, lo cual es indispensable para evaluar adecuadamente la significancia global de los factores mediante sumas de cuadrados tipo III en presencia de interacciones. Bajo esta codificación, las variables dummy  tienen un valor +1 en el primer nivel de cada factor (FLX, SAL y Hembra, respectivamente) y -1 en el segundo nivel (SUC, CNO y Macho). 
+Para la evaluación global de los efectos fijos del modelo Binomial Negativo seleccionado, se especifica una prueba de ANOVA de Devianza de Wald Tipo III (car::Anova(..., type = "III")). Debido al desbalance muestral en las celdas experimentales y para garantizar el principio de marginalidad e independencia respecto a la categoría de referencia (baseline), el modelo se ajusta utilizando contrastes de suma cero (contr.sum). A diferencia de la codificación de referencia por defecto (donde el intercepto corresponde a una única combinación control y los coeficientes expresan efectos simples condicionados a dicho nivel basal), los contrastes de suma cero (contr.sum) reparametrizan el modelo de manera simétrica (asignando valores de ±1 a las variables dummy, en lugar de 0 y 1 como se hace por defecto). Esto permite que el intercepto estime la media general no ponderada del experimento y que cada efecto principal cuantifique el desvío promedio de cada factor a través de todos los niveles de los restantes factores, lo cual es indispensable para evaluar adecuadamente la significancia global de los factores mediante sumas de cuadrados tipo III en presencia de interacciones. Bajo esta codificación, las variables dummy  tienen un valor +1 en el primer nivel de cada factor (FLX, SAL y Hembra, respectivamente) y -1 en el segundo nivel (SUC, CNO y Macho). 
 
 Utilizando este tipo de contrastes, cambia la interpretación de los parámetros del modelo:
 
@@ -537,12 +554,14 @@ Utilizando este tipo de contrastes, cambia la interpretación de los parámetros
 
 ## Resultados
 
-### Modelo
+### Summary & Modelo
+
+Una vez elegida la distribución Binomial Negativa, se re-escribe el modelo con los parámetros estimados a partir de la muestra. Para ello se emplea la función summary y los mismos se pueden ver en la Tabla 1.
 
 ::: {.callout-note collapse="true" title="Ver código y summary" appearance="simple"}
 ```{r}
 #| label: summary modelo
-#| fig-cap: "**Tabla 1. Resumen de parámetros y coeficientes del Modelo Lineal Generalizado Mixto (GLMM) Binomial Negativo final para la frecuencia de entradas a brazos abiertos.** Estimaciones de parámetros obtenidas mediante máxima verosimilitud para el modelo Binomial Negativo con función de enlace logarítmico. Los efectos fijos corresponden al diseño factorial completo de tres vías (FLX_SUC * SAL_CNO * sexo). Las categorías de referencia (baselines) fijadas explícitamente en la parametrización de variables indicadoras (dummy coding) son: SUC (vehículo sacarosa) para el tratamiento con Fluoxetina, SAL (solución salina) para la inhibición de la corteza prefrontal y hembra para el sexo. Se reportan las estimaciones puntuales de los coeficientes (), sus errores estándar (EE), los estadísticos z de Wald y los p-valores asociados. Nivel de significancia: *p < 0.05, **p < 0.01, ***p<0.001."
+#| fig-cap: "**Tabla 1. Resumen de parámetros y coeficientes del Modelo Lineal Generalizado Mixto (GLMM) Binomial Negativo final para la frecuencia de entradas a brazos abiertos.** Estimaciones de parámetros obtenidas mediante máxima verosimilitud para el modelo Binomial Negativo con función de enlace logarítmico. Los efectos fijos corresponden al diseño factorial completo de tres vías (FLX_SUC * SAL_CNO * sexo). Las categorías de referencia (baselines) fijadas explícitamente en la parametrización de variables indicadoras (dummy coding) son: SUC (vehículo sacarosa) para el tratamiento con Fluoxetina, SAL (solución salina) para la inhibición de la corteza prefrontal y hembra para el sexo. Se reportan las estimaciones puntuales de los coeficientes ($\hat{\beta}$), sus errores estándar (EE), los estadísticos z de Wald y los p-valores asociados. Nivel de significancia: *p < 0.05, **p < 0.01, ***p<0.001."
 
 options(contrasts = c("contr.sum", "contr.poly"))
 modelo2 <- glmmTMB(
@@ -569,9 +588,19 @@ logE(Y_{ijkl}) = {} & 1.82 -0.11 \text{ FLX}_i -0.05 \text{ CNO}_j + 0.01\text{ 
 
 El modelo presentó un ajuste global caracterizado por AIC = 632.9, BIC = 659.9 y logLik = -306.5, con un parámetro de dispersión estimado en k = 3.61 y una varianza asociada al efecto aleatorio de la camada de $\sigma^2_{\text{camada}} = 0.05914$.
 
-### Tabla de Anova
+### Coeficiente de correlación intraclase (ICC)
 
-Empleando el modelo ajustado, se realiza una tabla de Anova de tipo III \[Tabla 2\]
+A fin de evaluar la contribución de la estructura jerárquica a la variabilidad total de la variable respuesta, se estimó el Coeficiente de Correlación Intraclase (ICC) ajustado mediante la función `icc()` del paquete `performance` (método de Nakagawa) sobre el modelo Binomial Negativo final, obteniéndose un valor de 0,143.
+
+```{r}
+icc(modelo2)
+```
+
+Esto indica que el 14,3% de la varianza total en las entradas a los brazos abiertos es explicada por la variación entre diferentes camadas (variabilidad inter-camada), mientras que el 85,7% restante corresponde a la variación individual entre observaciones dentro de una misma camada junto con el error residual (variabilidad intra-camada). Este resultado confirma la presencia de una correlación intraclase no despreciable y justifica plenamente la inclusión de la camada como un intercepto aleatorio en el GLMM, en coherencia con la estructura jerárquica del diseño.
+
+### Tabla de ANOVA
+
+Para evaluar la significancia global de los efectos fijos e interacciones en el modelo Binomial Negativo seleccionado, se ejecutó un ANOVA de Devianza de Wald Tipo III \[Tabla 2\] mediante la función car::Anova(). Con el propósito de garantizar que las pruebas marginales Tipo III respeten el principio de marginalidad y sean estrictamente independientes de la elección arbitraria de un nivel de referencia (dummy baseline), el modelo se ajustó especificando contrastes de suma cero (contr.sum).
 
 ```{r}
 #| code-fold: true
@@ -581,13 +610,13 @@ Empleando el modelo ajustado, se realiza una tabla de Anova de tipo III \[Tabla 
 tabla.anova
 ```
 
-A partir de los resultados obtenidos \[Tabla 2\], se observa que la interacción triple entre tratamiento con Fluoxetina (FLX/SUC), inhibición de la CPF (SAL/CNO) y sexo no fue estadísticamente significativa (2=1.30; gl=1; p=0.254), por lo que se procedió a examinar las interacciones dobles. De ellas, la única que resultó significativa fue la interacción entre inyección de CNO y sexo (2=9.22; gl=1; p=0.002), indicando que el efecto de la inhibición en la CPF sobre el número de entradas a brazos abiertos difiere según el sexo biológico del ratón. Por otra parte, las interacciones entre FLX CNO(2=0.53; p=0.465) y entre FLX sexo (2=1.60; p=0.206) no alcanzaron significancia estadística.
+A partir de los resultados obtenidos \[Tabla 2\], se observa que la interacción triple entre tratamiento con Fluoxetina (FLX/SUC), inhibición de la CPF (SAL/CNO) y sexo no fue estadísticamente significativa ($\chi^2$=1.30; gl=1; p=0.254), por lo que se procedió a examinar las interacciones dobles. De ellas, la única que resultó significativa fue la interacción entre inyección de CNO y sexo ($\chi^2$=9.22; gl=1; p=0.002), indicando que el efecto de la inhibición en la CPF sobre el número de entradas a brazos abiertos difiere según el sexo biológico del ratón. Dado que la inyección de CNO y el sexo participan de una interacción significativa, sus efectos individuales no son interpretables de forma aislada.
 
-Dado que la inyección de CNO y el sexo participan de una interacción significativa, sus efectos principales individuales (inyección: 2=0.38, p=0.536; sexo: 2=0.06, p=0.802) no son interpretables de forma aislada. Por su parte, el tratamiento neonatal (FLX_SUC), al no participar de ninguna interacción significativa, permite la evaluación directa de su efecto principal, el cual no mostró diferencias estadísticamente detectables entre la exposición a fluoxetina y sacarosa (2=1.74; p=0.187), indicando que, al promediar sobre el conjunto de los factores, no se halló evidencia suficiente para afirmar que la fluoxetina neonatal altere por sí sola la frecuencia media de entradas a brazos abiertos respecto a solo administrar vehículo.
+Por otra parte, las interacciones entre FLX x CNO ($\chi^2$=0.53; p=0.465) y entre FLX y sexo ($\chi^2$=1.60; p=0.206) no alcanzaron significancia estadística. De esta forma, dado que el tratamiento neonatal (FLX_SUC) no participa de ninguna interacción significativa, permite la evaluación directa de su efecto principal. Sin embargo, no se detectaron diferencias estadísticamente significativas entre la exposición a fluoxetina y a sacarosa ($\chi^2$=1.74; p=0.187), indicando que, al promediar sobre el conjunto de los factores, no se halló evidencia suficiente para afirmar que la fluoxetina neonatal altere por sí sola el número medio de entradas a brazos abiertos respecto a solo administrar vehículo.
 
 ### Estimación de medias
 
-Para describir la magnitud de la respuesta en la escala de la variable (número de entradas a brazos abiertos en 10 min), se estimaron las medias marginales (emmeans) de las ocho combinaciones de tratamiento neonatal, junto con sus errores estándar e intervalos de confianza del 95%. Las estimaciones y los intervalos se calcularon en la escala logarítmica del predictor lineal y luego se retransformaron a la escala de la respuesta (utilizando el argumento type = "response"). Las medias corresponden a una camada tipo (efecto aleatorio igual a cero).
+Para describir la magnitud de la respuesta en la escala de la variable (número de entradas a brazos abiertos en 10 min), se estimaron las medias marginales (emmeans) de las ocho combinaciones de tratamiento neonatal, junto con sus errores estándar e intervalos de confianza del 95% \[Tabla 3\]. Las estimaciones y los intervalos se calcularon en la escala logarítmica del predictor lineal y luego se retransformaron a la escala de la respuesta (utilizando el argumento type = "response"). Las medias corresponden a una camada tipo (efecto aleatorio igual a cero).
 
 ::: {.callout-note collapse="true" title="Ver código y medias en escala log" appearance="simple"}
 ```{r}
@@ -625,7 +654,7 @@ medias.log
 #| warning: false
 #| code-fold: true
 #| code-summary: Ver código
-#| fig-cap: "**Tabla 2. Medias marginales estimadas (esperanzas poblacionales,) e intervalos de confianza del 95% para el número de entradas a los brazos abiertos en 10 minutos, según tratamiento neonatal y sexo.** Las estimaciones puntuales y sus correspondientes límites de confianza se obtuvieron a partir del modelo Binomial Negativo. Los intervalos de confianza del 95% presentan asimetría debido al uso de la función de enlace logarítmica. Las estimaciones tabuladas corresponden a las esperanzas poblacionales individuales de cada celda experimental y sus intervalos de confianza no están ajustados por comparaciones múltiples."
+#| fig-cap: "**Tabla 3. Medias marginales estimadas e intervalos de confianza del 95% para el número de entradas a los brazos abiertos en 10 minutos, según tratamiento neonatal y sexo.** Las estimaciones puntuales y sus correspondientes límites de confianza se obtuvieron a partir del modelo Binomial Negativo. Los intervalos de confianza del 95% presentan asimetría debido al uso de la función de enlace logarítmica. Las estimaciones tabuladas corresponden a las esperanzas poblacionales individuales de cada celda experimental y sus intervalos de confianza no están ajustados por comparaciones múltiples."
 
 
 # Obtención de medias marginales en escala real
@@ -648,60 +677,33 @@ knitr::kable(df_medias, align = "ccclrrr")
 
 ```
 
-De acuerdo con los datos resumidos en la Tabla 3, las medias poblacionales estimadas por el modelo oscilan entre 4.18 entradas (IC 95%: \[2.68; 6.56\]) en los machos expuestos al tratamiento FLX SAL y 9.40 entradas (IC 95%: \[6.41; 13.79\]) en los machos del grupo FLX CNO. Resulta importante señalar la asimetría observable en los intervalos de confianza del 95% respecto del valor puntual, una particularidad derivada de la transformación inversa del logaritmo aplicada desde el predictor lineal. Además es importante destacar que los intervalos no están ajustados por comparaciones múltiples, lo que implica que cada intervalo tiene un 95% de confianza por separado, pero el conjunto de las 8 medias no. 
+De acuerdo con los datos resumidos en la Tabla 3, las medias poblacionales estimadas por el modelo oscilan entre 4.18 entradas (IC 95%: \[2.68; 6.56\]) en los machos expuestos al tratamiento FLX SAL y 9.40 entradas (IC 95%: \[6.41; 13.79\]) en los machos del grupo FLX CNO. Resulta importante señalar la asimetría observable en los intervalos de confianza del 95% respecto del valor puntual, una particularidad derivada de la transformación inversa del logaritmo aplicada desde el predictor lineal. Además es importante destacar que dichos intervalos no incorporan ajuste por comparaciones múltiples; por ende, garantizan una cobertura individual del 95% para cada media por separado, pero no controlan la inflación de la tasa de Error Tipo I (falsos positivos) a nivel de la familia global de las ocho estimaciones.
 
 ### Contrastes
 
-Inicialmente se consideró plantear un conjunto de contrastes ortogonales, que al ser independientes entre sí permiten evaluarse sin ajuste por comparaciones múltiples y, por lo tanto, conservan más potencia. Sin embargo, los contrastes que respondían a las hipótesis biológicas del estudio no cumplían con la ortogonalidad, ya que comparten celdas entre sí. Dado que priorizamos la correspondencia con las predicciones por sobre la ortogonalidad, se mantuvieron los contrastes planificados a priori mediante la corrección de Bonferroni. 
+En un comienzo, se habían planteado contrastes a priori para poner a prueba las hipótesis planteadas. Sin embargo, dada la falta de significancia en la interacción entre Fluoxetina y sexo, y que la interacción entre el tratamiento con CNO y sexo resultó significativa, se realizaron contrastes a posteriori de efectos simples, comparando los niveles del tratamiento con CNO dentro de cada sexo.
 
-De esta forma, se evaluaron los contrastes planificados a priori sobre las medias marginales estimadas (emmeans) del modelo Binomial Negativo mixto seleccionado (con camada como efecto aleatorio), aplicando la corrección de Bonferroni para el control de la tasa de error global (la probabilidad de cometer al menos un error de tipo I en el conjunto de contrastes). Los contrastes se realizaron en la escala logarítmica mediante tests de Wald (z), mientras que las estimaciones se expresan en la escala de la variable respuesta como razones de medias esperadas, con intervalos de confianza del 95% ajustados por Bonferroni, de modo de evaluar tanto la significancia estadística como la magnitud de los efectos.
+#### **Escala de variable respuesta**
 
 ```{r}
-#| label: Contrastes en escala log
+#| label: Contrastes-en-escala-de-la-variable-respuesta
 #| message: false
 #| warning: false
 #| code-fold: true
 #| code-summary: "Ver código"
+#| fig-cap: "**Tabla 4. Contrastes a porteriori de efectos simples para el tratamiento de inhibición prefrontal desglosados por sexo, en la escala de la variable respuesta.** Estimaciones de las esperanzas poblacionales y cocientes de medias esperadas (ratio= $\mu_{CNO}$/$\mu_{SAL}$) obtenidos mediante el modelo GLMM Binomial Negativo, promediando sobre los niveles del tratamiento con Fluoxetina, junto con sus IC 95%. Un conciente cuyo IC95% no incluye al 1 indica una diferencia estadísticamente significativa"
 
-# El orden interno de las 8 celdas en la grilla de emmeans es:
-# 1: SUC SAL hembra
-# 2: FLX SAL hembra
-# 3: SUC CNO hembra
-# 4: FLX CNO hembra
-# 5: SUC SAL macho
-# 6: FLX SAL macho
-# 7: SUC CNO macho
-# 8: FLX CNO macho
 
-c1 <- c(-0.5, 0.5, 0, 0, -0.5, 0.5, 0, 0)
-c2 <- c(0, -0.5, 0, 0.5,  0, -0.5, 0, 0.5)
-c3 <- c( 0, 1, 0, 0, 0, -1, 0, 0)
+efsimple_escalarespuesta<- emmeans(modelo2, pairwise ~ SAL_CNO | sexo,type="response")
+confint(efsimple_escalarespuesta)
 
-contrastes <- list("FLX vs SUC" = c1, "CNO vs SAL" = c2, "FLX hembras vs FLX machos" = c3)
-
-# Bonferroni en escala log
-comp_log <- contrast(medias.log, contrastes, adjust = "bonferroni")
-comp_log
-```
-
-```{r}
-#| label: Contrastes en escala de la vr
-#| message: false
-#| warning: false
-#| code-fold: true
-#| code-summary: "Ver código"
-#| fig-cap: "**Tabla 3. Contrastes a priori planificados para la evaluación de las hipótesis biológicas sobre el número esperado de entradas a los brazos abiertos.** Las estimaciones puntuales se presentan en la escala de la variable respuesta mediante el cociente de esperanzas poblacionales, obtenido a partir del modelo Binomial Negativo. Los IC 95% presentan asimetría y, junto con los p-valores, incorporan el ajuste de Bonferroni para el control de la tasa de error global."
-
-# Bonferroni en escala de la variable respuesta
-comp_vr <- contrast(medias.log, contrastes, type = "response", adjust = "bonferroni")
-comp_vr
 ```
 
 A partir de los contrastes \[Tabla 4\] es posible concluir que la Fluoxetina presenta un efecto diferencial entre los sexos, aumentando el número de ingresos a los brazos abiertos entre un 14,2% y un 315% en hembras respecto a los machos, con una confianza del 95% (p = 0.0116).
 
 Dado que un valor de Ratio igual a 1.0 representa la hipótesis nula de equidad entre grupos, no se detectaron diferencias significativas entre FLX y SUC dentro de SAL (razón = 1.11; IC 95% ajustado: 0.61 a 2.01; p ajustado = 1.00) ni entre CNO y SAL dentro de FLX (razón = 1.26; IC 95% ajustado: 0.73 a 2.17; p ajustado = 0.92).
 
-### Gráfico final
+### Gráfico Final
 
 Para evaluar de forma integrada el comportamiento del modelo final, las medias marginales estimadas para el número de entradas a los brazos abiertos y sus correspondientes intervalos de confianza del 95% se ilustran en la **Figura 3**. 
 
@@ -709,75 +711,79 @@ Para evaluar de forma integrada el comportamiento del modelo final, las medias m
 #| label: gráfico final
 #| message: false
 #| warning: false
-#| fig-cap: "**Figura 3.Entradas a brazos abiertos del laberinto en cruz elevado (10 minutos) según tratamiento neonatal y sexo.** Los puntos representan las medias estimadas por el modelo (binomial negativa mixto, con camada como efecto aleatorio) y las barras, su intervalo de confianza del 95 %. Los corchetes indican los contrastes a priori, con p ajustado por Bonferroni (3 contrastes): FLX vs SUC dentro de SAL (promediando ambos sexos), CNO vs SAL dentro de FLX (promediando ambos sexos) y hembras vs machos dentro de FLX SAL. * p < 0.05; ns, no significativo. FLX: fluoxetina; SUC: sacarosa; CNO: clozapina-N-óxido; SAL: salina."
+#| fig-cap: "**Figura 3. Medias estimadas de entradas a brazos abiertos del laberinto en cruz elevado (10 minutos) según tratamiento de CNO y sexo.**Los puntos representan las medias estimadas por el modelo (binomial negativa mixto, con camada como efecto aleatorio) y las barras, su intervalo de confianza del 95 %. El asterisco indica diferencia significativa entre SAL y CNO dentro de los machos (contraste de efectos simples, p < 0.05). CNO: clozapina-N-óxido; SAL: salina."
 
-# Medias estimadas (escala respuesta) con IC 95%
-emm <- as.data.frame(
-  emmeans(modelo2, ~ FLX_SUC * SAL_CNO * sexo, type = "response")
-)
-niveles <- c("SUC SAL", "FLX SAL", "FLX CNO", "SUC CNO")
-emm$grupo <- factor(paste(emm$FLX_SUC, emm$SAL_CNO), levels = niveles)
+emm <- emmeans(modelo2, ~ SAL_CNO | sexo, type = "response")
+emm_df <- as.data.frame(emm)
+emm_df$SAL_CNO <- factor(emm_df$SAL_CNO, levels = c("SAL", "CNO"))
 
-# Estrellas desde los contrastes (orden: c1, c2, c3)
-comp <- as.data.frame(comp_vr)
-est <- as.character(cut(comp$p.value,
-                        breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),
-                        labels = c("***", "**", "*", "ns")))
+colores <- c("hembra" = "#F5793A", "macho" = "#56B4E9")
 
-ymax <- max(emm$asymp.UCL)
-tick <- 0.03 * ymax
-dodge_w <- 0.5
-off <- dodge_w / 4          # distancia del centro a cada punto (hembra/macho)
 
-corchete <- function(x, xend, y, label) {
-  list(
-    annotate("segment", x = x,    xend = xend, y = y,        yend = y),
-    annotate("segment", x = x,    xend = x,    y = y - tick, yend = y),
-    annotate("segment", x = xend, xend = xend, y = y - tick, yend = y),
-    annotate("text", x = (x + xend) / 2, y = y + tick, label = label,
-             vjust = 0, size = if (label == "ns") 4.5 else 7)
+y_max   <- max(emm_df$asymp.UCL[emm_df$sexo == "macho"])
+y_barra <- y_max * 1.08
+y_pata  <- y_barra * 0.97   
+
+ggplot(emm_df, aes(x = SAL_CNO, y = response, colour = sexo)) +
+  geom_linerange(aes(ymin = asymp.LCL, ymax = asymp.UCL),
+                 position = position_dodge(width = 0.4),
+                 linewidth = 1.2) +
+  geom_point(position = position_dodge(width = 0.4),
+             size = 3.5) +
+  
+  annotate("segment", x = 1.1, xend = 2.1, y = y_barra, yend = y_barra,
+           colour = "#56B4E9", linewidth = 0.8) +
+  annotate("segment", x = 1.1, xend = 1.1, y = y_pata, yend = y_barra,
+           colour = "#56B4E9", linewidth = 0.8) +
+  annotate("segment", x = 2.1, xend = 2.1, y = y_pata, yend = y_barra,
+           colour = "#56B4E9", linewidth = 0.8) +
+  annotate("text", x = 1.6, y = y_barra * 1.02, label = "*",
+           colour = "#56B4E9", size = 8) +
+  scale_colour_manual(values = colores,
+                      labels = c("hembra" = "Hembra", "macho" = "Macho")) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.12))) +
+  labs(x = "Tratamiento",
+       y = "Media estimada de entradas a brazos abiertos",
+       colour = "Sexo") +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major = element_line(colour = "grey90"),
+    panel.grid.minor.y = element_line(colour = "grey95"),
+    panel.grid.minor.x = element_blank(),
+    axis.line = element_line(colour = "grey50", linewidth = 0.5),
+    axis.ticks = element_line(colour = "grey50"),
+    axis.ticks.length = unit(0.2, "cm"),
+    axis.text = element_text(colour = "grey40", size = 12),
+    axis.title = element_text(colour = "grey20", size = 15),
+    axis.title.x = element_text(margin = margin(t = 10)),
+    axis.title.y = element_text(margin = margin(r = 10)),
+    legend.position = "right"
   )
-}
 
-ggplot(emm, aes(x = grupo, y = response, color = sexo)) +
-  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL),
-                position = position_dodge(dodge_w), width = 0, linewidth = 0.7) +
-  geom_point(position = position_dodge(dodge_w), size = 3) +
-  # c3: hembras vs machos dentro de FLX SAL (grupo 2)
-  corchete(2 - off, 2 + off, ymax * 1.08, est[3]) +
-  # c1: FLX vs SUC dentro de SAL (grupos 1 y 2)
-  corchete(1, 2, ymax * 1.22, est[1]) +
-  # c2: CNO vs SAL dentro de FLX (grupos 2 y 3)
-  corchete(2, 3, ymax * 1.36, est[2]) +
-  scale_color_manual(values = c(hembra = "#E41A1C", macho = "#377EB8"),
-                     labels = c("Hembra", "Macho")) +
-  scale_x_discrete(labels = c("SUC\nSAL", "FLX\nSAL", "FLX\nCNO", "SUC\nCNO")) +
-  coord_cartesian(ylim = c(0, ymax * 1.55), clip = "off") +
-  labs(x = "Tratamiento neonatal",
-       y = "Entradas a brazos abiertos en 10 minutos predichas",
-       color = "Sexo") +
-  theme_bw(base_size = 14) +
-  theme(panel.grid.minor = element_blank())
 
 ```
 
-Como se ilustra en la Figura 3, las medias marginales estimadas para el número de entradas a los brazos abiertos muestran un comportamiento homogéneo entre la mayoría de las condiciones experimentales, caracterizado por un amplio solapamiento de sus intervalos de confianza del 95%. Dicha amplitud refleja una marcada imprecisión en las estimaciones puntuales, consecuencia de una elevada variabilidad residual entre los individuos al interior de cada grupo experimental. La diferencia más notable en la conducta exploratoria se concentra en el grupo expuesto a fluoxetina sin inhibición prefrontal (FLX SAL), donde las hembras exhiben una media estimada visiblemente superior y un intervalo de confianza diferenciado del de los machos (p = 0.0116), patrón que no se replica en los animales controles (SUC SAL) ni en los tratados con CNO.
+Como se ilustra en la Figura 3, las medias estimadas de entradas a brazos abiertos de los machos fueron mayores en el grupo CNO (7,92; IC 95%: \[5,91 ; 10,63\]) que en el grupo SAL (4,70; IC 95%: \[3,42 ; 6,46\]), diferencia que resultó significativa (CNO/SAL = 1,686; IC 95%: \[1,094 ; 2,60\]). En las hembras, en cambio, las medias estimadas fueron de 5,41 (IC 95%: \[4,02 ; 7,28\]) en el grupo CNO y de 7,37 (IC 95%: \[5,40 ; 10,06\]) en el grupo SAL, sin que se detectaran diferencias significativas entre tratamientos.
 
 ## Discusión
 
-El propósito de este estudio fue realizar inferencias a nivel poblacional sobre el rol modulador de la corteza prefro**Farji-Brener, A. G. (2003).** Uso correcto, parcial e incorrecto de los términos hipótesis y predicciones en ecología. Ecología Austral, 13(2), 223–227.
+El propósito de este estudio fue realizar inferencias a nivel poblacional sobre el rol modulador de la corteza prefrontal (CPF) en la conducta de tipo ansiosa inducida por la exposición neonatal a fluoxetina, evaluando la presencia de respuestas dimórficas según el sexo biológico. La aproximación inferencial mediante un Modelo Lineal Generalizado Mixto (GLMM) con distribución Binomial Negativa permitió analizar interacciones complejas y evaluar las hipótesis biológicas dentro del marco hipotético-deductivo de Farji-Brener (2003).
 
-La prueba global de devianza indicó que la interacción triple entre los factores no fue estadísticamente significativa (X\^2=1.30;p=0.2541). Sin embargo, se detectó una interacción significativa entre la inhibición quimiogenética prefrontal (generada por la administración de CNO) y el sexo biológico (X\^2=10.43;p=0.0012). Este resultado demuestra que el efecto de la desactivación de la CPF sobre la exploración difiere sustancialmente entre machos y hembras. Dado que ambas variables interactúan, sus efectos principales no deben interpretarse de forma aislada, ya que respuestas de sentido opuesto según el sexo —un efecto de atenuación en machos frente a una respuesta neutra o inversa en hembras— se compensan mutuamente al promediar.
+La prueba global de devianza de Wald Tipo III indicó que la interacción triple entre los tres factores no alcanzó significancia estadística ($\chi^2$=1,30; p=0,2541). Sin embargo, se detectó una interacción doble altamente significativa entre la inhibición quimiogenética prefrontal (administración de CNO) y el sexo biológico ($\chi^2$=10,43; p=0,0012). Este resultado demuestra que el efecto de la inactivación de la CPF sobre la exploración en el Laberinto Elevado en Cruz (EPM) difiere sustancialmente entre machos y hembras. Dado que ambas variables interactúan de forma significativa, sus efectos principales no deben interpretarse de manera aislada, ya que respuestas de sentido opuesto según el sexo —un efecto atenuador de la ansiedad en machos frente a una falta de evidencia de efecto en hembras— se podrían estar compensando mutuamente al calcular promedios globales. En efecto, los contrastes a posteriori de efectos simples revelaron que, en los machos, la desactivación de la CPF incrementó en un **68,6%** la esperanza poblacional de entradas a los brazos abiertos (Ratio=1,686; IC 95%: \[1,094 ; 2,600\]), demostrando un efecto atenuador del fenotipo ansioso. Por el contrario, en las hembras la inhibición prefrontal no produjo cambios estadísticamente significativos respecto al control (Ratio=0,734; IC 95%: \[0,478 ; 1,130\]).
 
-Por su parte, el tratamiento neonatal con fluoxetina, al no participar de interacciones significativas, permitió evaluar su efecto principal poblacional, el cual no mostró diferencias significativas respecto al vehículo (X\^2=1.74;p=0.187; Ratio=1.11;p=0.6836). Si bien la literatura documenta que el exceso perinatal de serotonina altera el refinamiento de las conexiones entre la CPF y el núcleo dorsal del rafe (Teissier et al., 2017; Soiza-Reilly y Commons, 2011; Rayen et al., 2011), la ausencia de significancia en la prueba principal no implica la inexistencia del fenómeno biológico. Aunque no se podría descartar algún problema de efectividad con la droga o el procedimiento experimental, también podría indicar que una posible limitación de este estudio es el tamaño reducido de réplicas para cada una de las combinaciones de los 3 factores, lo cual disminuye la potencia estadística para detectar diferencias de magnitud pequeña. En consecuencia, las conclusiones que se saquen de este estudio deben tomarse con cuidado, ya que existe una probabilidad elevada de haber incurrido en Error Tipo II asociado a limitaciones en la potencia estadística (Farji-Brener, 2003), es decir que no se rechazan las hipótesis nulas (falso negativo).
+Por su parte, el tratamiento neonatal con fluoxetina, al no participar de interacciones significativas, permitió examinar su efecto principal poblacional, el cual no mostró diferencias significativas respecto al vehículo ($\chi^2$=1,74; p=0,187; Ratio=1,11; p=0,6836). Si bien la literatura documenta ampliamente que la elevación perinatal de serotonina altera la maduración de las proyecciones bidireccionales entre la CPF y el núcleo dorsal del rafe (NDR) induciendo mayor vulnerabilidad afectiva en la adultez (Teissier et al., 2017; Soiza-Reilly y Commons, 2011; Rayen et al., 2011), la falta de significancia en la prueba global no implica la ausencia del fenómeno biológico. Esta ausencia de significancia podría responder a una posible limitación en la potencia estadística (Error Tipo II) asociada a la variabilidad entre celdas experimentales y al tamaño muestral por grupo, lo que exige interpretar con cautela las decisiones sobre la hipótesis nula global (Farji-Brener, 2003).
 
-Una posible explicación metodológica para esta falta de potencia estadística radica en la estructura de varianza asociada al factor camada. Al asignar las combinaciones de tratamientos a nivel de camadas enteras, la variabilidad biológica, epigenética y del cuidado materno entre camadas pudo haber actuado como una fuente considerable de ruido residual. De acuerdo con diversos estudios neurotoxicológicos y comportamentales en roedores, la varianza atribuible al efecto de camada puede llegar a representar habitualmente entre un 30% y un 60% de la variabilidad total observada en pruebas conductuales (Houwing et al., 2019; Sobin et al., 2019). Frente a este escenario, la literatura metodológica sugiere que la implementación de diseños en bloques completos dentro de cada camada (litter-matched controls) constituye una alternativa eficaz para reducir el error residual, al permitir extraer la variancia compartida entre camadas y optimizar la capacidad de detectar el efecto de los tratamientos. Sin embargo, dada la limitación biológica en el tamaño de camada característico de la cepa C57BL/6, la conformación de bloques intra-camada completos con representación de todas las combinaciones de tratamientos y sexos resultaría difícil de alcanzar en la práctica. Por lo tanto, en futuros ensayos se sugiere evaluar el empleo de cepas con mayor prolificidad y camadas más numerosas que faciliten la viabilidad técnica de este esquema de bloqueo.
+En cuanto a la evaluación de la exposición neonatal a fluoxetina en ausencia de inhibición prefrontal (grupo FLX SAL), no se detectaron diferencias estadísticamente significativas ni la confirmación de un efecto ansiógeno evidente a nivel poblacional. Esta falta de significancia podría adjudicarse a la ya mencionada limitación en la potencia estadística (Error Tipo II). No obstante, la literatura documenta ampliamente que la elevación perinatal de serotonina altera el neurodesarrollo, condicionando el comportamiento de tipo ansioso en la adultez (Teissier et al., 2017; Soiza-Reilly y Commons, 2011; Rayen et al., 2011; Houwing et al., 2019; Gallo et al., 2025). Por lo tanto, la ausencia de un efecto detectable en este ensayo sugiere una restricción metodológica vinculada a la potencia del diseño más que la inexistencia del proceso neurobiológico subyacente (Farji-Brener, 2003).
 
-A pesar de estas limitaciones, el estudio aportó evidencia concluyente a favor de la Hipótesis 3, demostrando una marcada resiliencia diferencial por sexo en animales expuestos a fluoxetina sin inhibición prefrontal (Ratio=2.18; IC 95%: \[1.28;3.69\]; p=0.0039). A nivel poblacional, las hembras tratadas con fluoxetina registran una esperanza de entradas a brazos abiertos 1,18 veces mayor que los machos bajo la misma condición. Este resultado respalda la noción de que el cerebro femenino posee mecanismos endógenos de protección frente a perturbaciones serotoninérgicas tempranas (Houwing et al., 2019; Rayen et al., 2011). 
+Desde la perspectiva biométrica, la estimación del Coeficiente de Correlación Intraclase (ICC=0,143) ratificó que el **14,3% de la variabilidad total** en las entradas a brazos abiertos es explicada por diferencias biológicas y maternales entre camadas, fundamentando de forma concluyente la inclusión de la camada como un intercepto aleatorio en el GLMM (Sobin et al., 2019). Asimismo, este nivel de variabilidad inter-camada sugiere que la asignación del tratamiento a nivel de camada entera actuó como una fuente sustancial de ruido ambiental. Ante esto, se concluye la conveniencia metodológica de implementar **diseños en bloques completos intra-camada** (litter-matched controls) en futuros ensayos experimentales, lo que permitiría sustraer la variancia compartida del error residual y optimizar la potencia estadística (Farji-Brener, 2003; Sobin et al., 2019).
 
-En conclusión, la respuesta a la modulación quimiogenética de la CPF frente a la elevación neonatal de serotonina se encuentra intrínsecamente condicionada por el sexo biológico. Aunque la dispersión entre camadas limitó la potencia para detectar el efecto principal de la fluoxetina a nivel global, la confirmación de la mayor resiliencia en hembras y la interacción de la inhibición prefrontal con el sexo aportan hallazgos neurobiológicos clave, destacando la necesidad de adoptar diseños experimentales bloqueados por camada en futuras investigaciones.
+En conclusión, la respuesta a la modulación quimiogenética de la CPF frente a la elevación neonatal de serotonina se encuentra condicionada intrínsecamente por el sexo biológico. Aunque la dispersión inter-camada pudo haber limitado la sensibilidad para detectar el efecto principal de la fluoxetina a nivel global, la confirmación de la mayor resiliencia en hembras (H3) y el efecto atenuador de la inactivación prefrontal en machos aportan hallazgos neurobiológicos clave, remarcando la necesidad ineludible de adoptar esquemas experimentales bloqueados por camada y de considerar el dimorfismo sexual en los estudios de neurodesarrollo.
 
 ## Bibliografía
+
+- **Cruz, A. P. M.,  Frei, F. & Graeff F. G. (1994).** Ethopharmacological analysis of rat behavior on the elevated plus-maze. Pharmacology Biochemistry and Behavior, 49(1), 171-176.
+
+- **Dawson, G. R. & Tricklebank, M. D. (1995).** Use of the elevated plus maze in the search for novel anxiolytic agents. Trends in Pharmacological Sciences, 16(2), 33–36.
 
 - **Farji-Brener, A. G. (2003).** Uso correcto, parcial e incorrecto de los términos hipótesis y predicciones en ecología. Ecología Austral, 13(2), 223–227.
 
@@ -792,3 +798,5 @@ En conclusión, la respuesta a la modulación quimiogenética de la CPF frente a
 - **Soiza-Reilly, M., & Commons, K. G. (2011).** Glutamatergic drive of the dorsal raphe nucleus. Journal of Chemical Neuroanatomy, 41(4), 247–255.
 
 - **Soiza-Reilly, M., & Commons, K. G. (2014).** Unraveling the architecture of the dorsal raphe synaptic neuropil using high-resolution neuroanatomy. Frontiers in Neural Circuits, 8, 105.
+
+- **Teissier, A., Soiza-Reilly, M., & Gaspar, P. (2017).** Refining the role of 5-HT in postnatal development of brain circuits. Frontiers in Cellular Neuroscience, 11, 139.
