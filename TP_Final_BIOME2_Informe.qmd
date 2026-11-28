@@ -51,7 +51,7 @@ Los datos se encuentran en el archivo EPM Tam +Mili - Hoja 1.csv
 #### **Diccionario de variables**
 
 | Variable | Tipo | Descripción |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | `sexo` | Factor | sexo del ratón (hembra; macho) |
 | `camada` | Factor | n° que identifica la camada de origen de cada ratón (20 niveles) |
 | `FLX_SUC` | Factor | tratamiento recibido de fluoxetina (FLX) o de sacarosa como control (SUC) |
@@ -339,23 +339,7 @@ El estadístico de dispersión es superior al valor esperado de 1 bajo el modelo
 Un estadístico de dispersión significativamente mayor a 1 y las desviaciones en el Q-Q plot de DHARMa indican que la varianza observada supera lo esperado bajo el modelo de Poisson. Por lo tanto, se decidió continuar el análisis ajustando con otros modelos que incorporen un parámetro adicional que modele la sobredispersión.
 :::
 
-Además de la ausencia de equidispersión, se evalúa el supuesto de normalidad de los residuos aleatorios de las camadas, que en el modelo se asumen distribuidos normalmente con media 0 y varianza σ². Y se concluye que no hay evidencia suficiente para rechazar que los residuos aleatorios de las camadas siguen una distribución normal.
-
-::: {.callout-note appearance="simple" collapse="true" title="Ver código"}
-```{r}
-#| label: efectos-aleatorios-m1
-
-ef_camadas_m1 <- ranef(modelo1)$cond$camada[["(Intercept)"]]
-
-qqPlot(
-  ef_camadas_m1,
-  main = "QQ Plot de efectos aleatorios de las camadas",
-  ylab = "Efectos aleatorios estimados"
-)
-
-shapiro.test(ef_camadas_m1)       # Shapiro-Wilk test
-```
-:::
+Debido a la sobredispersión del modelo, no se procedió a evaluar el supuesto de normalidad de los residuos aleatorios.
 
 ### **Modelos alternativos para modelar la sobredispersión**
 
