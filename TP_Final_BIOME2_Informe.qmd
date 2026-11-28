@@ -570,7 +570,7 @@ Una vez elegida la distribución Binomial Negativa, se re-escribe el modelo con 
 ::: {.callout-note collapse="true" title="Ver código y summary" appearance="simple"}
 ```{r}
 #| label: summary modelo
-#| fig-cap: "**Tabla 1. Resumen de parámetros y coeficientes del Modelo Lineal Generalizado Mixto (GLMM) Binomial Negativo final para la frecuencia de entradas a brazos abiertos.** Estimaciones de parámetros obtenidas mediante máxima verosimilitud para el modelo Binomial Negativo con función de enlace logarítmico. Los efectos fijos corresponden al diseño factorial completo de tres vías (FLX_SUC * SAL_CNO * sexo). Las categorías de referencia (baselines) fijadas explícitamente en la parametrización de variables indicadoras (dummy coding) son: SUC (vehículo sacarosa) para el tratamiento con Fluoxetina, SAL (solución salina) para la inhibición de la corteza prefrontal y hembra para el sexo. Se reportan las estimaciones puntuales de los coeficientes ($\hat{\beta}$), sus errores estándar (EE), los estadísticos z de Wald y los p-valores asociados. Nivel de significancia: *p < 0.05, **p < 0.01, ***p<0.001."
+#| fig-cap: "**Tabla 1. Resumen de parámetros y coeficientes del Modelo Lineal Generalizado Mixto (GLMM) Binomial Negativo final para la frecuencia de entradas a brazos abiertos.** Estimaciones de parámetros obtenidas mediante máxima verosimilitud para el modelo Binomial Negativo con función de enlace logarítmico. Los efectos fijos corresponden al diseño factorial completo de tres vías (FLX_SUC * SAL_CNO * sexo). Las categorías de referencia (baselines) fijadas explícitamente en la parametrización de variables indicadoras (dummy coding) son: SUC (vehículo sacarosa) para el tratamiento con Fluoxetina, SAL (solución salina) para la inhibición de la corteza prefrontal y hembra para el sexo. Se reportan las estimaciones puntuales de los coeficientes ($\\hat{\\beta}$), sus errores estándar (EE), los estadísticos z de Wald y los p-valores asociados. Nivel de significancia: *p < 0.05, **p < 0.01, ***p<0.001."
 
 options(contrasts = c("contr.sum", "contr.poly"))
 modelo2 <- glmmTMB(
@@ -700,7 +700,7 @@ En un comienzo, se habían planteado contrastes *a prior*i para poner a prueba l
 #| warning: false
 #| code-fold: true
 #| code-summary: Ver código
-#| fig-cap: "**Tabla 4. Contrastes a porteriori de efectos simples para el tratamiento de inhibición prefrontal desglosados por sexo, en la escala de la variable respuesta.** Estimaciones de las esperanzas poblacionales y cocientes de medias esperadas (ratio= $\mu_{CNO}$/$\mu_{SAL}$) obtenidos mediante el modelo GLMM Binomial Negativo, promediando sobre los niveles del tratamiento con Fluoxetina, junto con sus IC95%. Un conciente cuyo IC95% no incluye al 1 indica una diferencia estadísticamente significativa."
+#| fig-cap: "**Tabla 4. Contrastes a porteriori de efectos simples para el tratamiento de inhibición prefrontal desglosados por sexo, en la escala de la variable respuesta.** Estimaciones de las esperanzas poblacionales y cocientes de medias esperadas (ratio= $\\mu_{CNO}$/$\\mu_{SAL}$) obtenidos mediante el modelo GLMM Binomial Negativo, promediando sobre los niveles del tratamiento con Fluoxetina, junto con sus IC95%. Un conciente cuyo IC95% no incluye al 1 indica una diferencia estadísticamente significativa."
 
 
 efsimple_escalarespuesta<- emmeans(modelo2, pairwise ~ SAL_CNO | sexo,type="response")
