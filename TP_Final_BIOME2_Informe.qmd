@@ -77,6 +77,7 @@ library(car)
 library(DHARMa)
 library(emmeans)
 library(performance)
+library(tidyr)
 
 # Carga de la base de datos original
 datos_raw <- read.csv("EPM Tam +Mili - Hoja 1.csv", header = TRUE, sep = ",", dec = ",", stringsAsFactors = TRUE)
