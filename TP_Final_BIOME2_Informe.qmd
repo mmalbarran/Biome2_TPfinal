@@ -180,7 +180,7 @@ Se exploran gráficamente los datos del número de entradas a brazos abiertos me
 #| message: false
 #| code-fold: true
 #| code-summary: "Ver código"
-#| fig-cap: "**Figura 1. Distribución del número de entradas a brazos abiertos según el sexo y los tratamientos recibidos.** FLX: fluoxetina; SUC: sacarosa (control); CNO: inhibidor de la CPF; SAL: salina (control). Cada caja resume la distribución de los datos del grupo correspondiente, indicando la mediana y el rango intercuartílico (IQR; percentiles 25 y 75), mientras que los puntos individuales representan los valores atípicos."
+#| fig-cap: "**1. Distribución del número de entradas a brazos abiertos según el sexo y los tratamientos recibidos.** FLX: fluoxetina; SUC: sacarosa (control); CNO: inhibidor de la CPF; SAL: salina (control). Cada caja resume la distribución de los datos del grupo correspondiente, indicando la mediana y el rango intercuartílico (IQR; percentiles 25 y 75), mientras que los puntos individuales representan los valores atípicos."
 
 p3 <- ggplot(Datos, aes(x = interaction(FLX_SUC, SAL_CNO, sep = " + ", lex.order = TRUE),
                         y = Brazos_abiertos_entradas,
@@ -206,7 +206,7 @@ En el gráfico de boxplots \[Figura 1\] se puede observar que, tanto en hembras 
 #| message: false
 #| code-fold: true
 #| code-summary: "Ver código"
-#| fig-cap: "**Figura 2. Gráfico de perfiles del número promedio de entradas a brazos abiertos (en 10 minutos) según el sexo y los tratamientos recibidos.** Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales. El color indica la administración de CNO (azul: salina; naranja: CNO)."
+#| fig-cap: "**2. Gráfico de perfiles del número promedio de entradas a brazos abiertos (en 10 minutos) según el sexo y los tratamientos recibidos.** Los puntos grandes indican la media de cada grupo y los puntos pequeños, los datos individuales. El color indica la administración de CNO (azul: salina; naranja: CNO)."
 
 p5 <- ggplot(Datos, aes(x = FLX_SUC,
                         y = Brazos_abiertos_entradas,
@@ -723,7 +723,7 @@ Para evaluar de forma integrada el comportamiento del modelo final, las medias m
 #| label: gráfico final
 #| message: false
 #| warning: false
-#| fig-cap: "**Figura 3. Medias estimadas de entradas a brazos abiertos del laberinto en cruz elevado (10 minutos) según tratamiento de CNO y sexo.**Los puntos representan las medias estimadas por el modelo (binomial negativa mixto, con camada como efecto aleatorio) y las barras, su intervalo de confianza del 95 %. El asterisco indica diferencia significativa entre SAL y CNO dentro de los machos (contraste de efectos simples, p < 0.05). CNO: clozapina-N-óxido; SAL: salina."
+#| fig-cap: "**3. Medias estimadas de entradas a brazos abiertos del laberinto en cruz elevado (10 minutos) según tratamiento de CNO y sexo.**Los puntos representan las medias estimadas por el modelo (binomial negativa mixto, con camada como efecto aleatorio) y las barras, su intervalo de confianza del 95 %. El asterisco indica diferencia significativa entre SAL y CNO dentro de los machos (contraste de efectos simples, p < 0.05). CNO: clozapina-N-óxido; SAL: salina."
 
 emm <- emmeans(modelo2, ~ SAL_CNO | sexo, type = "response")
 emm_df <- as.data.frame(emm)
